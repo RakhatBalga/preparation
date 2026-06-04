@@ -25,8 +25,9 @@ def predict_loan_risk(income, loan_amount, credit_score, age):
 
     return result 
 
-print(predict_loan_risk(400000, 700000, 700, 17))   # rejected
-print(predict_loan_risk(400000, 700000, 550, 25))   # high risk
-print(predict_loan_risk(400000, 2000000, 700, 25))  # high risk
-print(predict_loan_risk(400000, 1000000, 700, 25))  # medium risk
-print(predict_loan_risk(400000, 700000, 700, 25))   # low risk
+if __name__ == "__main__":
+    print(predict_loan_risk(400000, 700000, 700, 17))   # rejected
+    print(predict_loan_risk(400000, 700000, 550, 25))   # high risk
+    print(predict_loan_risk(400000, 2000000, 700, 25))  # high risk
+    print(predict_loan_risk(400000, 1000000, 700, 25))  # medium risk
+    print(predict_loan_risk(400000, 700000, 700, 25))   # low risk
