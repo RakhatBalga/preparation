@@ -1,4 +1,4 @@
-from fastapi import FastAPI
+from fastapi import FastAPI, HTTPException
 
 from app.prediction import predict_score
 from app.schemas import StudentInput, Student, PredictionResponse
@@ -38,3 +38,20 @@ def create_student(student: StudentInput):
 
     students.append(new_student)
     return new_student
+
+@app.get("/students/{student_id}", response_model=Student)
+def get_student(student_id: int):
+    for student in students:
+        if student["id"] == student_id:
+            return student
+
+    raise HTTPException(status_code=404, detail="Student not found")
+
+@app.delete("/students/{student_id}", response_model=Student)
+def delete_student(student_id: int):
+    for index, student in enumerate(students):
+        if student["id"] == student_id:
+            deleted_student = students.pop(index)
+            return deleted_student
+
+    raise HTTPException(status_code=404, detail="Student not found")
