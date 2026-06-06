@@ -57,14 +57,14 @@ def delete_student(student_id: int):
     raise HTTPException(status_code=404, detail="Student not found")
 
 @app.put("/students/{student_id}", response_model=Student)
-def update_student(student_id: int):
+def update_student(student_id: int, updated_student: StudentInput):
     for index, student in enumerate(students):
         if student["id"] == student_id:
-            student_data = update_student.model_dump()
+            student_data = updated_student.model_dump()
             student_data["id"] = student_id
 
             students[index] = student_data
 
             return student_data
 
-        raise HTTPException(status_code=404, detail="Student not found")
+    raise HTTPException(status_code=404, detail="Student not found")
