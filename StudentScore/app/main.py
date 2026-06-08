@@ -68,3 +68,6 @@ def update_student(student_id: int, updated_student: StudentInput):
             return student_data
 
     raise HTTPException(status_code=404, detail="Student not found")
+
+
+    djfa;lj commit klajf;alfjdas;lfjk
