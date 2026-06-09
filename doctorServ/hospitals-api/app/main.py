@@ -34,3 +34,11 @@ def create_doctor(doctor: dict):
     doctors.append(doctor)
     return doctor
 
+@app.delete("/doctors/{doctor_id}")
+def delete_doctor(doctor_id: int):
+    for doctor in doctors: 
+        if doctor["id"] == doctor_id:
+            doctors.remove(doctor)
+            return {"message": "Doctor deleted successfully"}
+
+    raise HTTPException(status_code=404, detail="Doctor not found")
