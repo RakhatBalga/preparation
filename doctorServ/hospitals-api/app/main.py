@@ -34,11 +34,16 @@ def create_doctor(doctor: dict):
     doctors.append(doctor)
     return doctor
 
-@app.delete("/doctors/{doctor_id}")
-def delete_doctor(doctor_id: int):
-    for doctor in doctors: 
-        if doctor["id"] == doctor_id:
-            doctors.remove(doctor)
-            return {"message": "Doctor deleted successfully"}
+@app.post("/doctors")
+def create_doctor(doctor: dict):
+    if "name" not in doctor or "specialization" not in doctor: 
+        raise HTTPException(status_code=400, detail="Name and specialization are required")
 
-    raise HTTPException(status_code=404, detail="Doctor not found")
+    if doctors:
+        new_id = max(existing_doctor["id"] for existing_doctor in doctors) + 1
+    else:
+        new_id = 1
+
+    doctor["id"] = new_id
+    doctors.append(doctor)
+    return doctor
