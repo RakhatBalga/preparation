@@ -69,5 +69,17 @@ def update_student(student_id: int, updated_student: StudentInput):
 
     raise HTTPException(status_code=404, detail="Student not found")
 
+@app.get("/students/{student_id}/prediction", response_model=PredictionResponse)
+def predict_existing_student(student_id: int):
+    for student in students:
+        if student["id"] == student_id:
+            student_input = StudentInput(
+                previous_score=student["previous_score"],
+                hours_studied=student["hours_studied"],
+                attendance=student["attendance"],
+            )
 
-    djfa;lj commit klajf;alfjdas;lfjk
+            result = predict_score(student_input)
+            return result
+
+    raise HTTPException(status_code=404, detail="Student not found")
