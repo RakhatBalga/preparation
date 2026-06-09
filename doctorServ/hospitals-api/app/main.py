@@ -27,5 +27,10 @@ def get_doctor(doctor_id: int):
 
 @app.post("/doctors")
 def create_doctor(doctor: dict):
+    if "name" not in doctor or "specialization" not in doctor: 
+        raise HTTPException(status_code=400, detail="Name and specialization are required")
+    new_id = len(doctors) + 1
+    doctor["id"] = new_id
+    doctors.append(doctor)
     return doctor
 
