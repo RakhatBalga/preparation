@@ -1,3 +1,4 @@
+import enum
 from fastapi import FastAPI, HTTPException
 
 app = FastAPI()
@@ -23,3 +24,8 @@ def get_doctor(doctor_id: int):
             return doctor
 
     raise HTTPException(status_code=404, detail="Doctor not found")
+
+@app.post("/doctors")
+def create_doctor(doctor: dict):
+    return doctor
+
