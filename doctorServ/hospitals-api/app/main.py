@@ -47,3 +47,13 @@ def create_doctor(doctor: dict):
     doctor["id"] = new_id
     doctors.append(doctor)
     return doctor
+
+@app.put("/doctors/{doctor_id}")
+def update_doctor(doctor_id: int, updated_doctor: dict):
+    for doctor in doctors: 
+        if doctor["id"] == doctor_id: 
+            doctor["name"] = updated_doctor["name"]
+            doctor["specialization"] = updated_doctor["specialization"]
+            return doctor 
+
+    raise HTTPException(status_code=404, detail="Doctor not found")
