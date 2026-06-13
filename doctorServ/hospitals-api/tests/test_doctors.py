@@ -80,7 +80,7 @@ def test_create_doctor():
     payload = {"name": "Dr. Test User", "specialization": "Neurology"}
     response = client.post("/doctors", json=payload)
 
-    assert response.status_code == 200
+    assert response.status_code == 201
     assert response.json() == {
         "id": 4,
         "name": "Dr. Test User",
@@ -89,6 +89,13 @@ def test_create_doctor():
 
     list_response = client.get("/doctors")
     assert len(list_response.json()) == 4
+
+
+def test_create_doctor_with_invalid_data():
+    payload = {"name": "", "specialization": ""}
+    response = client.post("/doctors", json=payload)
+
+    assert response.status_code == 422
 
 
 def test_update_doctor():

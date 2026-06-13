@@ -1,6 +1,7 @@
 from fastapi import APIRouter, HTTPException
 
 from app.db.fake_db import doctors
+from app.schemas.doctor import DoctorCreate, DoctorRead, DoctorUpdate
 from app.services.doctor_service import (
     create_doctor,
     delete_doctor,
@@ -12,7 +13,7 @@ from app.services.doctor_service import (
 router = APIRouter(prefix="/doctors", tags=["doctors"])
 
 
-@router.get("")
+@router.get("", response_model=list[DoctorRead])
 def get_doctors():
     return doctors
 
@@ -22,17 +23,17 @@ def count_doctors():
     return {"count": len(doctors)}
 
 
-@router.get("/search")
+@router.get("/search", response_model=list[DoctorRead])
 def search_doctors(specialization: str):
     return find_doctors_by_specialization(specialization)
 
 
-@router.post("")
-def add_doctor(doctor_data: dict):
-    return create_doctor(doctor_data)
+@router.post("", response_model=DoctorRead, status_code=201)
+def add_doctor(doctor_data: DoctorCreate):
+    return create_doctor(doctor_data.model_dump())
 
 
-@router.get("/{doctor_id}")
+@router.get("/{doctor_id}", response_model=DoctorRead)
 def get_doctor(doctor_id: int):
     doctor = find_doctor_by_id(doctor_id)
 
@@ -42,9 +43,9 @@ def get_doctor(doctor_id: int):
     return doctor
 
 
-@router.put("/{doctor_id}")
-def edit_doctor(doctor_id: int, doctor_data: dict):
-    doctor = update_doctor(doctor_id, doctor_data)
+@router.put("/{doctor_id}", response_model=DoctorRead)
+def edit_doctor(doctor_id: int, doctor_data: DoctorUpdate):
+    doctor = update_doctor(doctor_id, doctor_data.model_dump())
 
     if doctor is None:
         raise HTTPException(status_code=404, detail="Doctor not found")
