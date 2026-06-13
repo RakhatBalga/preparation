@@ -5,6 +5,7 @@ from app.schemas.doctor import (
     DoctorCountResponse,
     DoctorCreate,
     DoctorDeleteResponse,
+    DoctorPatch,
     DoctorRead,
     DoctorUpdate,
 )
@@ -13,6 +14,7 @@ from app.services.doctor_service import (
     delete_doctor,
     find_doctor_by_id,
     find_doctors_by_specialization,
+    patch_doctor,
     update_doctor,
 )
 
@@ -52,6 +54,16 @@ def get_doctor(doctor_id: int):
 @router.put("/{doctor_id}", response_model=DoctorRead)
 def edit_doctor(doctor_id: int, doctor_data: DoctorUpdate):
     doctor = update_doctor(doctor_id, doctor_data.model_dump())
+
+    if doctor is None:
+        raise HTTPException(status_code=404, detail="Doctor not found")
+
+    return doctor
+
+
+@router.patch("/{doctor_id}", response_model=DoctorRead)
+def partially_update_doctor(doctor_id: int, doctor_data: DoctorPatch):
+    doctor = patch_doctor(doctor_id, doctor_data.model_dump(exclude_unset=True))
 
     if doctor is None:
         raise HTTPException(status_code=404, detail="Doctor not found")

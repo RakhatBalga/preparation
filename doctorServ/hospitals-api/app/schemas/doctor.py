@@ -11,6 +11,11 @@ class DoctorUpdate(BaseModel):
     specialization: str = Field(min_length=2, max_length=100)
 
 
+class DoctorPatch(BaseModel):
+    name: str | None = Field(default=None, min_length=2, max_length=100)
+    specialization: str | None = Field(default=None, min_length=2, max_length=100)
+
+
 class DoctorRead(BaseModel):
     id: int
     name: str

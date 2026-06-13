@@ -39,6 +39,17 @@ def update_doctor(doctor_id: int, doctor_data: dict):
 
     return doctor
 
+def patch_doctor(doctor_id: int, doctor_data: dict):
+    doctor = find_doctor_by_id(doctor_id)
+
+    if doctor is None:
+        return None
+
+    for key, value in doctor_data.items():
+        doctor[key] = value
+
+    return doctor
+
 def delete_doctor(doctor_id: int):
     doctor = find_doctor_by_id(doctor_id)
 
