@@ -2,6 +2,7 @@ from fastapi import APIRouter, HTTPException
 
 from app.db.fake_db import doctors
 from app.schemas.doctor import (
+    DoctorCountResponse,
     DoctorCreate,
     DoctorDeleteResponse,
     DoctorRead,
@@ -23,7 +24,7 @@ def get_doctors():
     return doctors
 
 
-@router.get("/count")
+@router.get("/count", response_model=DoctorCountResponse)
 def count_doctors():
     return {"count": len(doctors)}
 

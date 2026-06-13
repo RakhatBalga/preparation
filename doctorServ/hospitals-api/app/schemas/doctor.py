@@ -20,3 +20,7 @@ class DoctorRead(BaseModel):
 class DoctorDeleteResponse(BaseModel):
     message: str
     doctor: DoctorRead
+
+
+class DoctorCountResponse(BaseModel):
+    count: int
