@@ -15,3 +15,8 @@ class DoctorRead(BaseModel):
     id: int
     name: str
     specialization: str
+
+
+class DoctorDeleteResponse(BaseModel):
+    message: str
+    doctor: DoctorRead

@@ -1,7 +1,12 @@
 from fastapi import APIRouter, HTTPException
 
 from app.db.fake_db import doctors
-from app.schemas.doctor import DoctorCreate, DoctorRead, DoctorUpdate
+from app.schemas.doctor import (
+    DoctorCreate,
+    DoctorDeleteResponse,
+    DoctorRead,
+    DoctorUpdate,
+)
 from app.services.doctor_service import (
     create_doctor,
     delete_doctor,
@@ -53,7 +58,7 @@ def edit_doctor(doctor_id: int, doctor_data: DoctorUpdate):
     return doctor
 
 
-@router.delete("/{doctor_id}")
+@router.delete("/{doctor_id}", response_model=DoctorDeleteResponse)
 def remove_doctor(doctor_id: int):
     doctor = delete_doctor(doctor_id)
 

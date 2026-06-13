@@ -130,6 +130,9 @@ def test_delete_doctor():
     count_response = client.get("/doctors/count")
     assert count_response.json() == {"count": 2}
 
+    missing_response = client.get("/doctors/2")
+    assert missing_response.status_code == 404
+
 
 def test_delete_doctor_not_found():
     response = client.delete("/doctors/999")
