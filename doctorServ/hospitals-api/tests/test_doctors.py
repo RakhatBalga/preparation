@@ -117,7 +117,6 @@ def test_update_doctor_not_found():
     assert response.status_code == 404
     assert response.json() == {"detail": "Doctor not found"}
 
-
 def test_delete_doctor():
     response = client.delete("/doctors/2")
 

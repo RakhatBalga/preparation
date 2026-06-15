@@ -79,3 +79,6 @@ def remove_doctor(doctor_id: int):
         raise HTTPException(status_code=404, detail="Doctor not found")
 
     return {"message": "Doctor deleted", "doctor": doctor}
+
+
+#lsfj;dfj;al
