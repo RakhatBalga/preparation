@@ -37,3 +37,21 @@
 #     print(f"Everythin is ready in {time.time() - start:.1f} sec")
 
 # asyncio.run(main())
+
+
+# def async def
+
+from fastapi import FastAPI
+import asyncio, time
+
+app = FastAPI()
+
+@app.get("/async-wait")
+async def async_endpoint():
+    await asyncio.sleep(2)
+    return {"message":  "done", "type": "async"}
+
+@app.get("/sync-wait")
+def sync_endpoint():
+    time.sleep(2)
+    return {"message": "done", "type": "sync"}
