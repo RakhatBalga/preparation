@@ -1,12 +1,39 @@
-import asyncio 
+#Event loop 
 
-async def make_coffee(name: str, seconds: int):
-    print(f"Making coffee for {name}...")
-    await asyncio.sleep(seconds)
+# import asyncio
+# import time
 
-async def main():
-    await make_coffee("Alina", 3)
-    await make_coffee("Marat", 2)
-    await make_coffee("Zara", 1)
+# async def fetch(site: str, seconds: int):
+#     print(f"fetch were send to {site}")
+#     await asyncio.sleep(seconds)
 
-asyncio.run(main())
+# async def main():
+#     start = time.time()
+#     await asyncio.gather(
+#         fetch("google", 3),
+#         fetch("github", 2),
+#         fetch("youtube", 1)
+#     )
+#     print(f"Everything is done in {time.time() - start:.1f} sec")
+
+# asyncio.run(main())
+
+# import asyncio 
+# import time 
+
+# async def kitchen(dish: str, seconds: int):
+#     print(f"Cooking {dish}...")
+#     await asyncio.sleep(seconds)
+#     print(f"{dish} is ready!")
+
+# async def main():
+#     start = time.time()
+#     await asyncio.gather(
+#         kitchen("salad", 3),
+#         kitchen("stake", 3),
+#         kitchen("soup", 3)
+#     )
+
+#     print(f"Everythin is ready in {time.time() - start:.1f} sec")
+
+# asyncio.run(main())
