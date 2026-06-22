@@ -3,7 +3,7 @@ def long_words(words):
     longs = []
 
     for word in words: 
-        if len(word) >= 3:
+        if len(word) > 4:
             longs.append(word)
     return longs
 
