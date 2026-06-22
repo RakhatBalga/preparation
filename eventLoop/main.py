@@ -79,25 +79,40 @@
 # await task1 
 # await task2
 
-import asyncio 
-import time
+# import asyncio 
+# import time
 
-async def cook(dish: str, seconds: int):
-    print(f"Cooking {dish}...")
-    await asyncio.sleep(seconds)
-    print(f"{dish} is ready!")
+# async def cook(dish: str, seconds: int):
+#     print(f"Cooking {dish}...")
+#     await asyncio.sleep(seconds)
+#     print(f"{dish} is ready!")
 
+# async def main():
+#     start = time.time()
+
+#     task1 = asyncio.create_task(cook("pasta", 3))
+#     task2 = asyncio.create_task(cook("pizza", 2))
+
+#     print("Tasks are running")
+
+#     await task1
+#     await task2
+
+#     print(f"Everything done in {time.time() - start:.1f} sec")
+
+# asyncio.run(main())
+
+import asyncio
+
+async def greet(name: str):
+    print(f"Hello {name}!")
+
+# Try 1 — without await
+result = greet("Rakhat")
+print(result)
+
+# Try 2 — with await
 async def main():
-    start = time.time()
-
-    task1 = asyncio.create_task(cook("pasta", 3))
-    task2 = asyncio.create_task(cook("pizza", 2))
-
-    print("Tasks are running")
-
-    await task1
-    await task2
-
-    print(f"Everything done in {time.time() - start:.1f} sec")
+    await greet("Rakhat")
 
 asyncio.run(main())
