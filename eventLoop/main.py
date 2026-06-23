@@ -119,11 +119,40 @@
 
 #pydantic v2
 
-from pydantic import BaseModel, Field
-from typing import Optional
+# from pydantic import BaseModel, Field
+# from typing import Optional
 
-class Product(BaseModel):
-    name: str = Field (min_length=2, max_length=100)
-    price: float = Field (gt=0, le=10000000)
-    quantity: int = Field (ge=0, le=100000, default=1)
-    description: Optional[str] = None
+# class Product(BaseModel):
+#     name: str = Field (min_length=2, max_length=100)
+#     price: float = Field (gt=0, le=10000000)
+#     quantity: int = Field (ge=0, le=100000, default=1)
+#     description: Optional[str] = None
+
+# from pydantic import BaseModel, Field
+# from typing import Optional
+
+# class Product(BaseModel):
+#     name: str = Field(min_length=2, max_length=1000)
+#     description: Optional[str] = None
+
+
+# from pydantic import BaseModel, Field, field_validator
+# from typing import Optional
+
+# class Product(BaseModel):
+#     name: str = Field(min_length=2, max_length=100)
+#     description: Optional[str] = None
+
+#     @field_validator("name")
+#     @classmethod
+#     def validate_name(cls, value):
+#         if any(c.isdigit() for c in value):
+#             raise ValueError("name cannot contain bad")
+#         return value 
+
+#     @field_validator("description")
+#     @classmethod
+#     def clean_description(cls, value):
+#         if value is not None:
+#             return value.strip()
+#         return value
