@@ -102,17 +102,28 @@
 
 # asyncio.run(main())
 
-import asyncio
+# import asyncio
 
-async def greet(name: str):
-    print(f"Hello {name}!")
+# async def greet(name: str):
+#     print(f"Hello {name}!")
 
-# Try 1 — without await
-result = greet("Rakhat")
-print(result)
+# # Try 1 — without await
+# result = greet("Rakhat")
+# print(result)
 
-# Try 2 — with await
-async def main():
-    await greet("Rakhat")
+# # Try 2 — with await
+# async def main():
+#     await greet("Rakhat")
 
-asyncio.run(main())
+# asyncio.run(main())
+
+#pydantic v2
+
+from pydantic import BaseModel, Field
+from typing import Optional
+
+class Product(BaseModel):
+    name: str = Field (min_length=2, max_length=100)
+    price: float = Field (gt=0, le=10000000)
+    quantity: int = Field (ge=0, le=100000, default=1)
+    description: Optional[str] = None
