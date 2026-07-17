@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Вопросы и ответы</title>
+    <link rel="stylesheet" href="./styles.css">
+  </head>
+  <body>
+    <div class="app-shell">
+      <header class="topbar">
+        <div>
+          <p class="eyebrow">Локальный тренажер</p>
+          <h1>Вопросы и ответы</h1>
+        </div>
+        <div class="top-actions" aria-label="Основные действия">
+          <button class="button button-secondary" id="exportButton" type="button">Экспорт</button>
+          <button class="button button-secondary" id="makeAllDueButton" type="button">Повторить все</button>
+        </div>
+      </header>
+
+      <section class="stats-grid" aria-label="Статистика">
+        <div class="stat">
+          <span class="stat-label">Всего</span>
+          <strong id="totalCount">0</strong>
+        </div>
+        <div class="stat">
+          <span class="stat-label">На сегодня</span>
+          <strong id="dueCount">0</strong>
+        </div>
+        <div class="stat">
+          <span class="stat-label">Закреплено</span>
+          <strong id="masteredCount">0</strong>
+        </div>
+        <div class="stat">
+          <span class="stat-label">Точность</span>
+          <strong id="accuracyValue">0%</strong>
+        </div>
+      </section>
+
+      <main class="workspace">
+        <section class="panel study-panel" aria-labelledby="studyTitle">
+          <div class="panel-header">
+            <div>
+              <h2 id="studyTitle">Повторение</h2>
+              <p id="sessionHint">Добавь вопросы или импортируй готовый список.</p>
+            </div>
+            <label class="select-label" for="topicFilter">
+              <span>Тема</span>
+              <select id="topicFilter">
+                <option value="all">Все темы</option>
+              </select>
+            </label>
+          </div>
+
+          <div class="review-area" id="reviewArea">
+            <p class="empty-title">Пока нет карточек</p>
+            <p class="empty-text">Когда вопросы появятся, здесь будет основной режим тренировки.</p>
+          </div>
+        </section>
+
+        <aside class="panel library-panel" aria-labelledby="libraryTitle">
+          <div class="panel-header">
+            <div>
+              <h2 id="libraryTitle">Банк вопросов</h2>
+              <p id="libraryHint">Список хранится только на этом устройстве.</p>
+            </div>
+          </div>
+
+          <form class="card-form" id="cardForm">
+            <label>
+              <span>Тема</span>
+              <input id="topicInput" name="topic" autocomplete="off" placeholder="Например: JavaScript">
+            </label>
+            <label>
+              <span>Вопрос</span>
+              <textarea id="questionInput" name="question" rows="3" required placeholder="Введите вопрос"></textarea>
+            </label>
+            <label>
+              <span>Ответ</span>
+              <textarea id="answerInput" name="answer" rows="4" required placeholder="Введите ответ"></textarea>
+            </label>
+            <div class="form-actions">
+              <button class="button button-primary" id="saveCardButton" type="submit">Добавить</button>
+              <button class="button button-secondary hidden" id="cancelEditButton" type="button">Отмена</button>
+            </div>
+          </form>
+
+          <div class="import-block">
+            <div class="section-title">
+              <h3>Импорт</h3>
+              <button class="text-button" id="loadSampleButton" type="button">Пример</button>
+            </div>
+            <textarea id="importInput" rows="5" placeholder='[{"question":"...","answer":"..."}]'></textarea>
+            <button class="button button-secondary full-width" id="importButton" type="button">Импортировать</button>
+            <p class="status-line" id="importStatus" role="status" aria-live="polite"></p>
+          </div>
+
+          <div class="library-tools">
+            <input id="searchInput" type="search" placeholder="Поиск по вопросам">
+          </div>
+          <div class="card-list" id="cardList"></div>
+        </aside>
+      </main>
+    </div>
+
+    <script src="./app.js"></script>
+  </body>
+</html>
+
