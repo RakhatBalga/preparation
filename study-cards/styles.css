@@ -533,6 +533,12 @@ select:focus {
   line-height: 1;
 }
 
+.flashcard-pronunciation {
+  color: var(--muted);
+  font-size: 1.1rem;
+  font-style: italic;
+}
+
 .flashcard-back {
   align-items: flex-start;
   transform: rotateY(180deg);
