@@ -14,104 +14,150 @@
           <h1>Вопросы и ответы</h1>
         </div>
         <div class="top-actions" aria-label="Основные действия">
+          <button class="button button-secondary view-button" data-view="questions" type="button">Вопросы</button>
+          <button class="button button-secondary view-button" data-view="vocabulary" type="button">English words</button>
           <button class="button button-secondary" id="exportButton" type="button">Экспорт</button>
           <button class="button button-secondary" id="makeAllDueButton" type="button">Повторить все</button>
         </div>
       </header>
 
-      <section class="stats-grid" aria-label="Статистика">
-        <div class="stat">
-          <span class="stat-label">Всего</span>
-          <strong id="totalCount">0</strong>
-        </div>
-        <div class="stat">
-          <span class="stat-label">На сегодня</span>
-          <strong id="dueCount">0</strong>
-        </div>
-        <div class="stat">
-          <span class="stat-label">Закреплено</span>
-          <strong id="masteredCount">0</strong>
-        </div>
-        <div class="stat">
-          <span class="stat-label">Ошибки</span>
-          <strong id="mistakesCount">0</strong>
-        </div>
-        <div class="stat">
-          <span class="stat-label">Точность</span>
-          <strong id="accuracyValue">0%</strong>
-        </div>
-      </section>
-
-      <main class="workspace">
-        <section class="panel study-panel" aria-labelledby="studyTitle">
-          <div class="panel-header">
-            <div>
-              <h2 id="studyTitle">Повторение</h2>
-              <p id="sessionHint">Добавь вопросы или импортируй готовый список.</p>
-            </div>
-            <label class="select-label" for="topicFilter">
-              <span>Тема</span>
-              <select id="topicFilter">
-                <option value="all">Все темы</option>
-              </select>
-            </label>
+      <div id="questionsView">
+        <section class="stats-grid" aria-label="Статистика">
+          <div class="stat">
+            <span class="stat-label">Всего</span>
+            <strong id="totalCount">0</strong>
           </div>
-
-          <div class="mode-tabs" aria-label="Режим просмотра">
-            <button class="mode-button" data-mode="practice" type="button">Тренировка</button>
-            <button class="mode-button" data-mode="answers" type="button">Все ответы</button>
-            <button class="mode-button" data-mode="mistakes" type="button">Ошибки</button>
+          <div class="stat">
+            <span class="stat-label">На сегодня</span>
+            <strong id="dueCount">0</strong>
           </div>
-
-          <div class="review-area" id="reviewArea">
-            <p class="empty-title">Пока нет карточек</p>
-            <p class="empty-text">Когда вопросы появятся, здесь будет основной режим тренировки.</p>
+          <div class="stat">
+            <span class="stat-label">Закреплено</span>
+            <strong id="masteredCount">0</strong>
+          </div>
+          <div class="stat">
+            <span class="stat-label">Ошибки</span>
+            <strong id="mistakesCount">0</strong>
+          </div>
+          <div class="stat">
+            <span class="stat-label">Точность</span>
+            <strong id="accuracyValue">0%</strong>
           </div>
         </section>
 
-        <aside class="panel library-panel" aria-labelledby="libraryTitle">
-          <div class="panel-header">
-            <div>
-              <h2 id="libraryTitle">Банк вопросов</h2>
-              <p id="libraryHint">Список хранится только на этом устройстве.</p>
+        <main class="workspace">
+          <section class="panel study-panel" aria-labelledby="studyTitle">
+            <div class="panel-header">
+              <div>
+                <h2 id="studyTitle">Повторение</h2>
+                <p id="sessionHint">Добавь вопросы или импортируй готовый список.</p>
+              </div>
+              <label class="select-label" for="topicFilter">
+                <span>Тема</span>
+                <select id="topicFilter">
+                  <option value="all">Все темы</option>
+                </select>
+              </label>
             </div>
-          </div>
 
-          <form class="card-form" id="cardForm">
-            <label>
-              <span>Тема</span>
-              <input id="topicInput" name="topic" autocomplete="off" placeholder="Например: JavaScript">
-            </label>
-            <label>
-              <span>Вопрос</span>
-              <textarea id="questionInput" name="question" rows="3" required placeholder="Введите вопрос"></textarea>
-            </label>
-            <label>
-              <span>Ответ</span>
-              <textarea id="answerInput" name="answer" rows="4" required placeholder="Введите ответ"></textarea>
-            </label>
-            <div class="form-actions">
-              <button class="button button-primary" id="saveCardButton" type="submit">Добавить</button>
-              <button class="button button-secondary hidden" id="cancelEditButton" type="button">Отмена</button>
+            <div class="mode-tabs" aria-label="Режим просмотра">
+              <button class="mode-button" data-mode="practice" type="button">Тренировка</button>
+              <button class="mode-button" data-mode="answers" type="button">Все ответы</button>
+              <button class="mode-button" data-mode="mistakes" type="button">Ошибки</button>
             </div>
-          </form>
 
-          <div class="import-block">
-            <div class="section-title">
-              <h3>Импорт</h3>
-              <button class="text-button" id="loadSampleButton" type="button">Пример</button>
+            <div class="review-area" id="reviewArea">
+              <p class="empty-title">Пока нет карточек</p>
+              <p class="empty-text">Когда вопросы появятся, здесь будет основной режим тренировки.</p>
             </div>
-            <textarea id="importInput" rows="5" placeholder='[{"question":"...","answer":"..."}]'></textarea>
-            <button class="button button-secondary full-width" id="importButton" type="button">Импортировать</button>
-            <p class="status-line" id="importStatus" role="status" aria-live="polite"></p>
-          </div>
+          </section>
 
-          <div class="library-tools">
-            <input id="searchInput" type="search" placeholder="Поиск по вопросам">
+          <aside class="panel library-panel" aria-labelledby="libraryTitle">
+            <div class="panel-header">
+              <div>
+                <h2 id="libraryTitle">Банк вопросов</h2>
+                <p id="libraryHint">Список хранится только на этом устройстве.</p>
+              </div>
+            </div>
+
+            <form class="card-form" id="cardForm">
+              <label>
+                <span>Тема</span>
+                <input id="topicInput" name="topic" autocomplete="off" placeholder="Например: JavaScript">
+              </label>
+              <label>
+                <span>Вопрос</span>
+                <textarea id="questionInput" name="question" rows="3" required placeholder="Введите вопрос"></textarea>
+              </label>
+              <label>
+                <span>Ответ</span>
+                <textarea id="answerInput" name="answer" rows="4" required placeholder="Введите ответ"></textarea>
+              </label>
+              <div class="form-actions">
+                <button class="button button-primary" id="saveCardButton" type="submit">Добавить</button>
+                <button class="button button-secondary hidden" id="cancelEditButton" type="button">Отмена</button>
+              </div>
+            </form>
+
+            <div class="import-block">
+              <div class="section-title">
+                <h3>Импорт</h3>
+                <button class="text-button" id="loadSampleButton" type="button">Пример</button>
+              </div>
+              <textarea id="importInput" rows="5" placeholder='[{"question":"...","answer":"..."}]'></textarea>
+              <button class="button button-secondary full-width" id="importButton" type="button">Импортировать</button>
+              <p class="status-line" id="importStatus" role="status" aria-live="polite"></p>
+            </div>
+
+            <div class="library-tools">
+              <input id="searchInput" type="search" placeholder="Поиск по вопросам">
+            </div>
+            <div class="card-list" id="cardList"></div>
+          </aside>
+        </main>
+      </div>
+
+      <section class="panel vocabulary-panel hidden" id="vocabularyView" aria-labelledby="vocabTitle">
+        <div class="panel-header">
+          <div>
+            <h2 id="vocabTitle">English vocabulary</h2>
+            <p id="vocabHint">Space flips the card. Arrow keys move through words.</p>
           </div>
-          <div class="card-list" id="cardList"></div>
-        </aside>
-      </main>
+          <div class="vocab-progress">
+            <span id="vocabPosition">1 / 3</span>
+            <strong id="vocabAccuracy">0%</strong>
+          </div>
+        </div>
+
+        <button class="flashcard" id="vocabCard" type="button" aria-label="Flip vocabulary card">
+          <span class="flashcard-inner" id="vocabCardInner">
+            <span class="flashcard-face flashcard-front">
+              <span class="flashcard-kicker">English word</span>
+              <strong id="vocabWord">resilient</strong>
+            </span>
+            <span class="flashcard-face flashcard-back">
+              <span class="flashcard-kicker" id="vocabPartOfSpeech">adjective</span>
+              <strong id="vocabDefinition">Able to recover quickly after difficulty.</strong>
+              <span id="vocabExample">She stayed resilient during the long interview process.</span>
+            </span>
+          </span>
+        </button>
+
+        <div class="vocab-actions">
+          <div class="nav-actions">
+            <button class="button button-secondary" id="vocabPrevious" type="button">Previous</button>
+            <button class="button button-secondary" id="vocabNext" type="button">Next</button>
+          </div>
+          <div class="rating-actions">
+            <button class="button button-secondary" id="vocabNeedReview" type="button">Need Review</button>
+            <button class="button button-primary" id="vocabGotIt" type="button">Got it</button>
+          </div>
+        </div>
+
+        <div class="vocab-status" id="vocabStatus" role="status" aria-live="polite">
+          Review status will appear here.
+        </div>
+      </section>
     </div>
 
     <script src="./seed-cards.js"></script>

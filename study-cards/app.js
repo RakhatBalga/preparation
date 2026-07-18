@@ -3,11 +3,37 @@ const DEFAULT_TOPIC = "Без темы";
 const DAY = 24 * 60 * 60 * 1000;
 const SEED_VERSION = window.SEED_VERSION || "manual-v1";
 const SEED_CARDS = Array.isArray(window.SEED_CARDS) ? window.SEED_CARDS : [];
+const VOCABULARY_FLASHCARDS = [
+  {
+    id: "vocab-001",
+    englishWord: "resilient",
+    definition: "Able to recover quickly after difficulty.",
+    partOfSpeech: "adjective",
+    exampleSentence: "She stayed resilient during the long interview process."
+  },
+  {
+    id: "vocab-002",
+    englishWord: "concise",
+    definition: "Giving a lot of information clearly in a few words.",
+    partOfSpeech: "adjective",
+    exampleSentence: "Keep your answer concise when the interviewer asks about your last project."
+  },
+  {
+    id: "vocab-003",
+    englishWord: "iterate",
+    definition: "To repeat a process and improve it step by step.",
+    partOfSpeech: "verb",
+    exampleSentence: "We iterate on the feature after each round of feedback."
+  }
+];
 
 const state = loadState();
 
 const elements = {
   totalCount: document.querySelector("#totalCount"),
+  questionsView: document.querySelector("#questionsView"),
+  vocabularyView: document.querySelector("#vocabularyView"),
+  viewButtons: document.querySelectorAll(".view-button"),
   dueCount: document.querySelector("#dueCount"),
   masteredCount: document.querySelector("#masteredCount"),
   mistakesCount: document.querySelector("#mistakesCount"),
@@ -29,13 +55,34 @@ const elements = {
   searchInput: document.querySelector("#searchInput"),
   cardList: document.querySelector("#cardList"),
   exportButton: document.querySelector("#exportButton"),
-  makeAllDueButton: document.querySelector("#makeAllDueButton")
+  makeAllDueButton: document.querySelector("#makeAllDueButton"),
+  vocabPosition: document.querySelector("#vocabPosition"),
+  vocabAccuracy: document.querySelector("#vocabAccuracy"),
+  vocabCard: document.querySelector("#vocabCard"),
+  vocabCardInner: document.querySelector("#vocabCardInner"),
+  vocabWord: document.querySelector("#vocabWord"),
+  vocabPartOfSpeech: document.querySelector("#vocabPartOfSpeech"),
+  vocabDefinition: document.querySelector("#vocabDefinition"),
+  vocabExample: document.querySelector("#vocabExample"),
+  vocabPrevious: document.querySelector("#vocabPrevious"),
+  vocabNext: document.querySelector("#vocabNext"),
+  vocabNeedReview: document.querySelector("#vocabNeedReview"),
+  vocabGotIt: document.querySelector("#vocabGotIt"),
+  vocabStatus: document.querySelector("#vocabStatus")
 };
 
 let editingId = null;
 
 render();
 saveState();
+
+elements.viewButtons.forEach((button) => {
+  button.addEventListener("click", () => {
+    state.activeView = button.dataset.view;
+    saveState();
+    render();
+  });
+});
 
 elements.cardForm.addEventListener("submit", (event) => {
   event.preventDefault();
@@ -281,12 +328,63 @@ elements.makeAllDueButton.addEventListener("click", () => {
   render();
 });
 
+elements.vocabCard.addEventListener("click", () => {
+  toggleVocabularyCard();
+});
+
+elements.vocabPrevious.addEventListener("click", () => {
+  navigateVocabulary(-1);
+});
+
+elements.vocabNext.addEventListener("click", () => {
+  navigateVocabulary(1);
+});
+
+elements.vocabGotIt.addEventListener("click", () => {
+  rateVocabularyCard("got");
+});
+
+elements.vocabNeedReview.addEventListener("click", () => {
+  rateVocabularyCard("review");
+});
+
+document.addEventListener("keydown", (event) => {
+  if (state.activeView !== "vocabulary" || isTypingTarget(event.target)) {
+    return;
+  }
+
+  if (event.code === "Space") {
+    event.preventDefault();
+    toggleVocabularyCard();
+  }
+
+  if (event.key === "ArrowLeft") {
+    navigateVocabulary(-1);
+  }
+
+  if (event.key === "ArrowRight") {
+    navigateVocabulary(1);
+  }
+});
+
 function render() {
+  renderActiveView();
   renderStats();
   renderTopics();
   renderModeButtons();
   renderReview();
   renderLibrary();
+  renderVocabulary();
+}
+
+function renderActiveView() {
+  const activeView = state.activeView === "vocabulary" ? "vocabulary" : "questions";
+  state.activeView = activeView;
+  elements.questionsView.classList.toggle("hidden", activeView !== "questions");
+  elements.vocabularyView.classList.toggle("hidden", activeView !== "vocabulary");
+  elements.viewButtons.forEach((button) => {
+    button.classList.toggle("is-active", button.dataset.view === activeView);
+  });
 }
 
 function renderStats() {
@@ -525,6 +623,23 @@ function renderLibrary() {
     .join("");
 }
 
+function renderVocabulary() {
+  const card = getCurrentVocabularyCard();
+  const position = `${state.vocabIndex + 1} / ${VOCABULARY_FLASHCARDS.length}`;
+  const progress = getVocabularyProgress();
+
+  elements.vocabPosition.textContent = position;
+  elements.vocabAccuracy.textContent = `${progress.accuracy}%`;
+  elements.vocabWord.textContent = card.englishWord;
+  elements.vocabPartOfSpeech.textContent = card.partOfSpeech;
+  elements.vocabDefinition.textContent = card.definition;
+  elements.vocabExample.textContent = card.exampleSentence;
+  elements.vocabCardInner.classList.toggle("is-flipped", state.vocabFlipped);
+  elements.vocabPrevious.disabled = state.vocabIndex === 0;
+  elements.vocabNext.disabled = state.vocabIndex === VOCABULARY_FLASHCARDS.length - 1;
+  elements.vocabStatus.textContent = getVocabularyStatusText(card);
+}
+
 function answerCurrentCard(optionKey) {
   const card = getCurrentCard();
   if (!card || state.answerVisible || state.mode !== "practice") {
@@ -655,6 +770,67 @@ function resetAnswerView() {
   state.answerVisible = false;
   state.selectedOption = null;
   state.answeredCardId = null;
+}
+
+function toggleVocabularyCard() {
+  state.vocabFlipped = !state.vocabFlipped;
+  saveState();
+  renderVocabulary();
+}
+
+function navigateVocabulary(delta) {
+  state.vocabIndex = clampIndex(state.vocabIndex + delta, VOCABULARY_FLASHCARDS.length);
+  state.vocabFlipped = false;
+  saveState();
+  renderVocabulary();
+}
+
+function rateVocabularyCard(result) {
+  const card = getCurrentVocabularyCard();
+  const progress = state.vocabProgress[card.id] || { got: 0, review: 0, lastResult: null };
+
+  if (result === "got") {
+    progress.got += 1;
+    progress.lastResult = "Got it";
+  } else {
+    progress.review += 1;
+    progress.lastResult = "Need Review";
+  }
+
+  progress.lastReviewedAt = new Date().toISOString();
+  state.vocabProgress[card.id] = progress;
+  saveState();
+  renderVocabulary();
+}
+
+function getCurrentVocabularyCard() {
+  state.vocabIndex = clampIndex(state.vocabIndex, VOCABULARY_FLASHCARDS.length);
+  return VOCABULARY_FLASHCARDS[state.vocabIndex];
+}
+
+function getVocabularyProgress() {
+  const totals = Object.values(state.vocabProgress).reduce(
+    (accumulator, item) => ({
+      got: accumulator.got + Number(item.got || 0),
+      review: accumulator.review + Number(item.review || 0)
+    }),
+    { got: 0, review: 0 }
+  );
+  const attempts = totals.got + totals.review;
+  return {
+    ...totals,
+    accuracy: attempts ? Math.round((totals.got / attempts) * 100) : 0
+  };
+}
+
+function getVocabularyStatusText(card) {
+  const progress = state.vocabProgress[card.id];
+
+  if (!progress || !progress.lastResult) {
+    return "No review yet for this word.";
+  }
+
+  return `${progress.lastResult} · got ${progress.got || 0} · review ${progress.review || 0}`;
 }
 
 function getCurrentCard() {
@@ -824,10 +1000,14 @@ function loadState() {
     return applySeedData({
       ...defaultState(),
       ...parsed,
+      activeView: parsed.activeView === "vocabulary" ? "vocabulary" : "questions",
       mode: isValidMode(parsed.mode) ? parsed.mode : "practice",
       currentIndex: Number.isFinite(parsed.currentIndex) ? parsed.currentIndex : 0,
       selectedOption: parsed.selectedOption || null,
       answeredCardId: parsed.answeredCardId || null,
+      vocabIndex: Number.isFinite(parsed.vocabIndex) ? parsed.vocabIndex : 0,
+      vocabFlipped: Boolean(parsed.vocabFlipped),
+      vocabProgress: parsed.vocabProgress || {},
       cards: parsed.cards.map(createCard)
     });
   } catch {
@@ -839,13 +1019,17 @@ function defaultState(cards = []) {
   return {
     cards,
     seedVersion: SEED_VERSION,
+    activeView: "questions",
     topic: "all",
     mode: "practice",
     currentIndex: 0,
     currentId: null,
     answerVisible: false,
     selectedOption: null,
-    answeredCardId: null
+    answeredCardId: null,
+    vocabIndex: 0,
+    vocabFlipped: false,
+    vocabProgress: {}
   };
 }
 
@@ -951,6 +1135,11 @@ function clampIndex(index, length) {
     return 0;
   }
   return Math.min(Math.max(Number(index) || 0, 0), length - 1);
+}
+
+function isTypingTarget(target) {
+  const tagName = target && target.tagName ? target.tagName.toLowerCase() : "";
+  return tagName === "input" || tagName === "textarea" || tagName === "select";
 }
 
 function escapeHtml(value) {

@@ -139,6 +139,19 @@ h3 {
   background: #fbfaf7;
 }
 
+.button.is-active,
+.view-button.is-active {
+  border-color: var(--accent);
+  background: var(--accent-soft);
+  color: var(--accent-strong);
+}
+
+.button:disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+  transform: none;
+}
+
 .button-danger {
   color: var(--danger);
 }
@@ -196,7 +209,8 @@ h3 {
 }
 
 .study-panel,
-.library-panel {
+.library-panel,
+.vocabulary-panel {
   padding: 20px;
 }
 
@@ -453,6 +467,111 @@ select:focus {
   color: var(--warning);
 }
 
+.vocabulary-panel {
+  max-width: 820px;
+  margin: 0 auto;
+}
+
+.vocab-progress {
+  display: grid;
+  gap: 4px;
+  min-width: 110px;
+  text-align: right;
+}
+
+.vocab-progress span {
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+
+.vocab-progress strong {
+  color: var(--accent-strong);
+  font-size: 1.4rem;
+}
+
+.flashcard {
+  width: 100%;
+  min-height: 360px;
+  border: 0;
+  background: transparent;
+  padding: 0;
+  perspective: 1200px;
+}
+
+.flashcard-inner {
+  position: relative;
+  display: block;
+  width: 100%;
+  min-height: 360px;
+  transform-style: preserve-3d;
+  transition: transform 520ms ease;
+}
+
+.flashcard-inner.is-flipped {
+  transform: rotateY(180deg);
+}
+
+.flashcard-face {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 18px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: #fff;
+  box-shadow: var(--shadow);
+  padding: clamp(24px, 5vw, 48px);
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+
+.flashcard-front strong {
+  color: var(--accent-strong);
+  font-size: clamp(2.8rem, 10vw, 6rem);
+  line-height: 1;
+}
+
+.flashcard-back {
+  align-items: flex-start;
+  transform: rotateY(180deg);
+  text-align: left;
+}
+
+.flashcard-back strong {
+  max-width: 650px;
+  font-size: clamp(1.4rem, 4vw, 2.5rem);
+  line-height: 1.15;
+}
+
+.flashcard-back span:last-child {
+  color: var(--muted);
+  font-size: 1.05rem;
+}
+
+.flashcard-kicker {
+  color: var(--muted);
+  font-size: 0.95rem;
+  text-transform: uppercase;
+}
+
+.vocab-actions {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  margin-top: 18px;
+}
+
+.vocab-status {
+  margin-top: 14px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--surface-muted);
+  color: var(--muted);
+  padding: 12px;
+}
+
 @media (max-width: 900px) {
   .topbar,
   .panel-header {
@@ -476,6 +595,15 @@ select:focus {
   .review-area {
     min-height: 340px;
   }
+
+  .vocab-progress {
+    width: 100%;
+    text-align: left;
+  }
+
+  .vocab-actions {
+    flex-direction: column;
+  }
 }
 
 @media (max-width: 560px) {
@@ -489,7 +617,8 @@ select:focus {
   }
 
   .study-panel,
-  .library-panel {
+  .library-panel,
+  .vocabulary-panel {
     padding: 16px;
   }
 
@@ -505,5 +634,10 @@ select:focus {
 
   .button {
     width: 100%;
+  }
+
+  .flashcard,
+  .flashcard-inner {
+    min-height: 320px;
   }
 }
