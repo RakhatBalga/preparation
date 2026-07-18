@@ -545,6 +545,54 @@ select:focus {
   opacity: 0.85;
 }
 
+.flashcard-tags {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 4px;
+}
+
+.tag-pill {
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: var(--surface-muted);
+  color: var(--muted);
+  font-size: 0.8rem;
+  font-style: normal;
+  padding: 4px 12px;
+}
+
+.vocab-filter {
+  margin-bottom: 18px;
+}
+
+.checkbox-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 16px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 12px;
+}
+
+.checkbox-group legend {
+  padding: 0 4px;
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+
+.checkbox-option {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  width: auto;
+}
+
+.checkbox-option input {
+  width: auto;
+}
+
 .flashcard-back {
   align-items: flex-start;
   transform: rotateY(180deg);

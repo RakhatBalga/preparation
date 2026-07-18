@@ -3,6 +3,13 @@ const DEFAULT_TOPIC = "Без темы";
 const DAY = 24 * 60 * 60 * 1000;
 const SEED_VERSION = window.SEED_VERSION || "manual-v1";
 const SEED_CARDS = Array.isArray(window.SEED_CARDS) ? window.SEED_CARDS : [];
+const ESSAY_TYPE_LABELS = {
+  opinion: "Opinion",
+  discussion: "Discussion",
+  "problem-solution": "Problem-Solution",
+  "advantages-disadvantages": "Advantages/Disadvantages",
+  "two-part-question": "Two-Part Question"
+};
 const VOCABULARY_FLASHCARDS = [
   {
     id: "vocab-001",
@@ -11,7 +18,8 @@ const VOCABULARY_FLASHCARDS = [
     pronunciationKk: "ризилиент",
     definition: "Able to recover quickly after difficulty.",
     partOfSpeech: "adjective",
-    exampleSentence: "She stayed resilient during the long interview process."
+    exampleSentence: "She stayed resilient during the long interview process.",
+    essayTypes: ["opinion", "discussion"]
   },
   {
     id: "vocab-002",
@@ -20,7 +28,8 @@ const VOCABULARY_FLASHCARDS = [
     pronunciationKk: "консайс",
     definition: "Giving a lot of information clearly in a few words.",
     partOfSpeech: "adjective",
-    exampleSentence: "Keep your answer concise when the interviewer asks about your last project."
+    exampleSentence: "Keep your answer concise when the interviewer asks about your last project.",
+    essayTypes: ["opinion"]
   },
   {
     id: "vocab-003",
@@ -29,7 +38,8 @@ const VOCABULARY_FLASHCARDS = [
     pronunciationKk: "итэрэйт",
     definition: "To repeat a process and improve it step by step.",
     partOfSpeech: "verb",
-    exampleSentence: "We iterate on the feature after each round of feedback."
+    exampleSentence: "We iterate on the feature after each round of feedback.",
+    essayTypes: ["problem-solution", "discussion"]
   },
   {
     id: "vocab-004",
@@ -38,7 +48,8 @@ const VOCABULARY_FLASHCARDS = [
     pronunciationKk: "ов пэрэмаунт импортанс",
     definition: "Исключительно важный, первостепенной важности.",
     partOfSpeech: "phrase",
-    exampleSentence: "Road safety is of paramount importance to governments worldwide."
+    exampleSentence: "Road safety is of paramount importance to governments worldwide.",
+    essayTypes: ["opinion", "advantages-disadvantages"]
   },
   {
     id: "vocab-005",
@@ -47,7 +58,8 @@ const VOCABULARY_FLASHCARDS = [
     pronunciationKk: "привэйлиң вью",
     definition: "Преобладающее мнение, общепринятая точка зрения.",
     partOfSpeech: "noun phrase",
-    exampleSentence: "The prevailing view holds that technology improves education, though not everyone agrees."
+    exampleSentence: "The prevailing view holds that technology improves education, though not everyone agrees.",
+    essayTypes: ["discussion", "opinion"]
   },
   {
     id: "vocab-006",
@@ -56,7 +68,8 @@ const VOCABULARY_FLASHCARDS = [
     pronunciationKk: "он зэ граундз зэт",
     definition: "На том основании, что / по причине того, что.",
     partOfSpeech: "conjunction phrase",
-    exampleSentence: "She rejected the proposal on the grounds that it was too expensive."
+    exampleSentence: "She rejected the proposal on the grounds that it was too expensive.",
+    essayTypes: ["opinion"]
   },
   {
     id: "vocab-007",
@@ -65,7 +78,8 @@ const VOCABULARY_FLASHCARDS = [
     pronunciationKk: "оуиң ту",
     definition: "Благодаря, вследствие, из-за.",
     partOfSpeech: "preposition",
-    exampleSentence: "Owing to limited funding, the project was delayed by a year."
+    exampleSentence: "Owing to limited funding, the project was delayed by a year.",
+    essayTypes: ["problem-solution", "discussion"]
   },
   {
     id: "vocab-008",
@@ -74,7 +88,8 @@ const VOCABULARY_FLASHCARDS = [
     pronunciationKk: "игзэмплифайд бай",
     definition: "Иллюстрируется, примером чего служит.",
     partOfSpeech: "verb phrase",
-    exampleSentence: "The trend is exemplified by the rapid growth of remote work since 2020."
+    exampleSentence: "The trend is exemplified by the rapid growth of remote work since 2020.",
+    essayTypes: ["opinion", "discussion"]
   },
   {
     id: "vocab-009",
@@ -83,7 +98,8 @@ const VOCABULARY_FLASHCARDS = [
     pronunciationKk: "э прэсиң ишу",
     definition: "Острая/неотложная проблема.",
     partOfSpeech: "noun phrase",
-    exampleSentence: "Climate change remains a pressing issue for policymakers."
+    exampleSentence: "Climate change remains a pressing issue for policymakers.",
+    essayTypes: ["problem-solution", "two-part-question"]
   },
   {
     id: "vocab-010",
@@ -92,7 +108,8 @@ const VOCABULARY_FLASHCARDS = [
     pronunciationKk: "плэй э пивотал роул ин",
     definition: "Играть ключевую/решающую роль в.",
     partOfSpeech: "verb phrase",
-    exampleSentence: "Education plays a pivotal role in reducing poverty."
+    exampleSentence: "Education plays a pivotal role in reducing poverty.",
+    essayTypes: ["opinion", "advantages-disadvantages"]
   },
   {
     id: "vocab-011",
@@ -101,7 +118,8 @@ const VOCABULARY_FLASHCARDS = [
     pronunciationKk: "гив райз ту",
     definition: "Приводить к, порождать, вызывать.",
     partOfSpeech: "verb phrase",
-    exampleSentence: "Rapid urbanization has given rise to serious traffic congestion."
+    exampleSentence: "Rapid urbanization has given rise to serious traffic congestion.",
+    essayTypes: ["problem-solution", "advantages-disadvantages"]
   },
   {
     id: "vocab-012",
@@ -110,7 +128,8 @@ const VOCABULARY_FLASHCARDS = [
     pronunciationKk: "хэв э дэтримэнтал импэкт он",
     definition: "Оказывать пагубное/негативное влияние на.",
     partOfSpeech: "verb phrase",
-    exampleSentence: "Excessive screen time can have a detrimental impact on children's sleep."
+    exampleSentence: "Excessive screen time can have a detrimental impact on children's sleep.",
+    essayTypes: ["advantages-disadvantages", "problem-solution"]
   },
   {
     id: "vocab-013",
@@ -119,7 +138,8 @@ const VOCABULARY_FLASHCARDS = [
     pronunciationKk: "страйк э бэлэнс битвин",
     definition: "Найти баланс/равновесие между.",
     partOfSpeech: "verb phrase",
-    exampleSentence: "Governments must strike a balance between economic growth and environmental protection."
+    exampleSentence: "Governments must strike a balance between economic growth and environmental protection.",
+    essayTypes: ["discussion", "two-part-question"]
   },
   {
     id: "vocab-014",
@@ -128,7 +148,8 @@ const VOCABULARY_FLASHCARDS = [
     pronunciationKk: "плэйс э стрэйн он",
     definition: "Создавать нагрузку на, обременять.",
     partOfSpeech: "verb phrase",
-    exampleSentence: "A growing population places a strain on public healthcare systems."
+    exampleSentence: "A growing population places a strain on public healthcare systems.",
+    essayTypes: ["problem-solution", "advantages-disadvantages"]
   },
   {
     id: "vocab-015",
@@ -137,7 +158,8 @@ const VOCABULARY_FLASHCARDS = [
     pronunciationKk: "митигэйт зи ифэктс ов",
     definition: "Смягчать/снижать последствия.",
     partOfSpeech: "verb phrase",
-    exampleSentence: "Renewable energy can help mitigate the effects of climate change."
+    exampleSentence: "Renewable energy can help mitigate the effects of climate change.",
+    essayTypes: ["problem-solution"]
   },
   {
     id: "vocab-016",
@@ -146,7 +168,8 @@ const VOCABULARY_FLASHCARDS = [
     pronunciationKk: "фостэр э сэнс ов",
     definition: "Способствовать формированию, воспитывать (чувство/атмосферу).",
     partOfSpeech: "verb phrase",
-    exampleSentence: "Team projects foster a sense of collaboration among students."
+    exampleSentence: "Team projects foster a sense of collaboration among students.",
+    essayTypes: ["advantages-disadvantages", "opinion"]
   },
   {
     id: "vocab-017",
@@ -155,7 +178,8 @@ const VOCABULARY_FLASHCARDS = [
     pronunciationKk: "кенджэсчэн",
     definition: "Overcrowding or blockage caused by too much traffic or too many things in one place.",
     partOfSpeech: "noun",
-    exampleSentence: "Traffic congestion in the city center gets worse every summer."
+    exampleSentence: "Traffic congestion in the city center gets worse every summer.",
+    essayTypes: ["problem-solution", "two-part-question"]
   }
 ];
 
@@ -198,6 +222,8 @@ const elements = {
   vocabPartOfSpeech: document.querySelector("#vocabPartOfSpeech"),
   vocabDefinition: document.querySelector("#vocabDefinition"),
   vocabExample: document.querySelector("#vocabExample"),
+  vocabTags: document.querySelector("#vocabTags"),
+  essayTypeFilter: document.querySelector("#essayTypeFilter"),
   vocabPrevious: document.querySelector("#vocabPrevious"),
   vocabNext: document.querySelector("#vocabNext"),
   vocabNeedReview: document.querySelector("#vocabNeedReview"),
@@ -209,7 +235,8 @@ const elements = {
   newVocabPronunciationKk: document.querySelector("#newVocabPronunciationKk"),
   newVocabDefinition: document.querySelector("#newVocabDefinition"),
   newVocabPartOfSpeech: document.querySelector("#newVocabPartOfSpeech"),
-  newVocabExample: document.querySelector("#newVocabExample")
+  newVocabExample: document.querySelector("#newVocabExample"),
+  newVocabEssayTypes: document.querySelectorAll('input[name="essayType"]')
 };
 
 let editingId = null;
@@ -274,6 +301,14 @@ elements.topicFilter.addEventListener("change", () => {
   resetAnswerView();
   saveState();
   render();
+});
+
+elements.essayTypeFilter.addEventListener("change", () => {
+  state.essayType = elements.essayTypeFilter.value;
+  state.vocabIndex = 0;
+  state.vocabFlipped = false;
+  saveState();
+  renderVocabulary();
 });
 
 elements.modeButtons.forEach((button) => {
@@ -498,6 +533,9 @@ elements.vocabForm.addEventListener("submit", (event) => {
   const definition = elements.newVocabDefinition.value.trim();
   const partOfSpeech = elements.newVocabPartOfSpeech.value.trim() || "word";
   const exampleSentence = elements.newVocabExample.value.trim();
+  const essayTypes = Array.from(elements.newVocabEssayTypes)
+    .filter((checkbox) => checkbox.checked)
+    .map((checkbox) => checkbox.value);
 
   if (!englishWord || !definition) {
     return;
@@ -510,10 +548,13 @@ elements.vocabForm.addEventListener("submit", (event) => {
     pronunciationKk,
     definition,
     partOfSpeech,
-    exampleSentence: exampleSentence || `I want to remember the word "${englishWord}".`
+    exampleSentence: exampleSentence || `I want to remember the word "${englishWord}".`,
+    essayTypes
   };
 
   state.customVocabulary.push(card);
+  state.essayType = "all";
+  elements.essayTypeFilter.value = "all";
   state.vocabIndex = getVocabularyCards().length - 1;
   state.vocabFlipped = false;
   elements.vocabForm.reset();
@@ -797,19 +838,39 @@ function renderLibrary() {
 }
 
 function renderVocabulary() {
+  elements.essayTypeFilter.value = state.essayType || "all";
+
   const cards = getVocabularyCards();
-  const card = getCurrentVocabularyCard();
-  const position = `${state.vocabIndex + 1} / ${cards.length}`;
   const progress = getVocabularyProgress();
 
-  elements.vocabPosition.textContent = position;
+  elements.vocabPosition.textContent = `${cards.length ? state.vocabIndex + 1 : 0} / ${cards.length}`;
   elements.vocabAccuracy.textContent = `${progress.accuracy}%`;
+
+  if (!cards.length) {
+    elements.vocabWord.textContent = "No words for this essay type yet";
+    elements.vocabPronunciation.textContent = "";
+    elements.vocabPronunciationKk.textContent = "";
+    elements.vocabPartOfSpeech.textContent = "";
+    elements.vocabDefinition.textContent = "";
+    elements.vocabExample.textContent = "";
+    elements.vocabTags.innerHTML = "";
+    elements.vocabPrevious.disabled = true;
+    elements.vocabNext.disabled = true;
+    elements.vocabStatus.textContent = "Try a different essay type filter.";
+    return;
+  }
+
+  const card = getCurrentVocabularyCard();
+
   elements.vocabWord.textContent = card.englishWord;
   elements.vocabPronunciation.textContent = card.pronunciation || "";
   elements.vocabPronunciationKk.textContent = card.pronunciationKk || "";
   elements.vocabPartOfSpeech.textContent = card.partOfSpeech;
   elements.vocabDefinition.textContent = card.definition;
   elements.vocabExample.textContent = card.exampleSentence;
+  elements.vocabTags.innerHTML = (card.essayTypes || [])
+    .map((type) => `<span class="tag-pill">${escapeHtml(ESSAY_TYPE_LABELS[type] || type)}</span>`)
+    .join("");
   elements.vocabCardInner.classList.toggle("is-flipped", state.vocabFlipped);
   elements.vocabPrevious.disabled = state.vocabIndex === 0;
   elements.vocabNext.disabled = state.vocabIndex === cards.length - 1;
@@ -986,7 +1047,13 @@ function getCurrentVocabularyCard() {
 }
 
 function getVocabularyCards() {
-  return [...VOCABULARY_FLASHCARDS, ...state.customVocabulary];
+  const cards = [...VOCABULARY_FLASHCARDS, ...state.customVocabulary];
+
+  if (!state.essayType || state.essayType === "all") {
+    return cards;
+  }
+
+  return cards.filter((card) => (card.essayTypes || []).includes(state.essayType));
 }
 
 function getVocabularyProgress() {
@@ -1189,6 +1256,7 @@ function loadState() {
       vocabIndex: Number.isFinite(parsed.vocabIndex) ? parsed.vocabIndex : 0,
       vocabFlipped: Boolean(parsed.vocabFlipped),
       vocabProgress: parsed.vocabProgress || {},
+      essayType: parsed.essayType === "all" || parsed.essayType in ESSAY_TYPE_LABELS ? parsed.essayType : "all",
       customVocabulary: Array.isArray(parsed.customVocabulary)
         ? parsed.customVocabulary.map(normalizeVocabularyCard).filter(Boolean)
         : [],
@@ -1214,7 +1282,8 @@ function defaultState(cards = []) {
     vocabIndex: 0,
     vocabFlipped: false,
     vocabProgress: {},
-    customVocabulary: []
+    customVocabulary: [],
+    essayType: "all"
   };
 }
 
@@ -1337,7 +1406,10 @@ function normalizeVocabularyCard(card) {
     englishWord: String(card.englishWord).trim(),
     definition: String(card.definition).trim(),
     partOfSpeech: String(card.partOfSpeech || "word").trim(),
-    exampleSentence: String(card.exampleSentence || "").trim()
+    exampleSentence: String(card.exampleSentence || "").trim(),
+    pronunciation: String(card.pronunciation || "").trim(),
+    pronunciationKk: String(card.pronunciationKk || "").trim(),
+    essayTypes: Array.isArray(card.essayTypes) ? card.essayTypes.filter((type) => type in ESSAY_TYPE_LABELS) : []
   };
 }
 

@@ -129,6 +129,18 @@
           </div>
         </div>
 
+        <label class="select-label vocab-filter" for="essayTypeFilter">
+          <span>Тип эссе</span>
+          <select id="essayTypeFilter">
+            <option value="all">Все типы</option>
+            <option value="opinion">Opinion</option>
+            <option value="discussion">Discussion</option>
+            <option value="problem-solution">Problem-Solution</option>
+            <option value="advantages-disadvantages">Advantages/Disadvantages</option>
+            <option value="two-part-question">Two-Part Question</option>
+          </select>
+        </label>
+
         <button class="flashcard" id="vocabCard" type="button" aria-label="Flip vocabulary card">
           <span class="flashcard-inner" id="vocabCardInner">
             <span class="flashcard-face flashcard-front">
@@ -136,6 +148,7 @@
               <strong id="vocabWord">resilient</strong>
               <span class="flashcard-pronunciation" id="vocabPronunciation">/rɪˈzɪliənt/</span>
               <span class="flashcard-pronunciation flashcard-pronunciation-kk" id="vocabPronunciationKk">ризилиент</span>
+              <span class="flashcard-tags" id="vocabTags"></span>
             </span>
             <span class="flashcard-face flashcard-back">
               <span class="flashcard-kicker" id="vocabPartOfSpeech">adjective</span>
@@ -188,6 +201,29 @@
             <span>Example sentence</span>
             <textarea id="newVocabExample" rows="2" placeholder="A pragmatic engineer chooses the simplest reliable solution."></textarea>
           </label>
+          <fieldset class="checkbox-group">
+            <legend>Essay type</legend>
+            <label class="checkbox-option">
+              <input type="checkbox" name="essayType" value="opinion">
+              <span>Opinion</span>
+            </label>
+            <label class="checkbox-option">
+              <input type="checkbox" name="essayType" value="discussion">
+              <span>Discussion</span>
+            </label>
+            <label class="checkbox-option">
+              <input type="checkbox" name="essayType" value="problem-solution">
+              <span>Problem-Solution</span>
+            </label>
+            <label class="checkbox-option">
+              <input type="checkbox" name="essayType" value="advantages-disadvantages">
+              <span>Advantages/Disadvantages</span>
+            </label>
+            <label class="checkbox-option">
+              <input type="checkbox" name="essayType" value="two-part-question">
+              <span>Two-Part Question</span>
+            </label>
+          </fieldset>
           <button class="button button-primary full-width" type="submit">Add word</button>
         </form>
       </section>
