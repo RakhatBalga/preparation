@@ -3,6 +3,7 @@ import { useEffect, useMemo, useState } from "react";
 export interface Flashcard {
   id: string;
   englishWord: string;
+  pronunciation: string;
   definition: string;
   partOfSpeech: string;
   exampleSentence: string;
@@ -127,6 +128,9 @@ export function EnglishVocabularyFlashcards({
             <strong className="text-5xl font-semibold text-slate-950 sm:text-7xl">
               {currentCard.englishWord}
             </strong>
+            <span className="mt-3 text-lg italic text-slate-400">
+              {currentCard.pronunciation}
+            </span>
           </span>
 
           <span className="absolute inset-0 flex flex-col justify-center rounded-2xl border border-emerald-200 bg-emerald-50 p-8 text-left shadow-xl [backface-visibility:hidden] [transform:rotateY(180deg)]">
@@ -188,6 +192,7 @@ const sampleFlashcards: Flashcard[] = [
   {
     id: "word-1",
     englishWord: "resilient",
+    pronunciation: "/rɪˈzɪliənt/",
     definition: "Able to recover quickly after difficulty.",
     partOfSpeech: "adjective",
     exampleSentence: "She stayed resilient during the long interview process."
@@ -195,6 +200,7 @@ const sampleFlashcards: Flashcard[] = [
   {
     id: "word-2",
     englishWord: "concise",
+    pronunciation: "/kənˈsaɪs/",
     definition: "Giving a lot of information clearly in a few words.",
     partOfSpeech: "adjective",
     exampleSentence: "Keep your answer concise when the interviewer asks about your last project."
@@ -202,6 +208,7 @@ const sampleFlashcards: Flashcard[] = [
   {
     id: "word-3",
     englishWord: "iterate",
+    pronunciation: "/ˈɪtəreɪt/",
     definition: "To repeat a process and improve it step by step.",
     partOfSpeech: "verb",
     exampleSentence: "We iterate on the feature after each round of feedback."
