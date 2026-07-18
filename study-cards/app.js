@@ -147,6 +147,15 @@ const VOCABULARY_FLASHCARDS = [
     definition: "Способствовать формированию, воспитывать (чувство/атмосферу).",
     partOfSpeech: "verb phrase",
     exampleSentence: "Team projects foster a sense of collaboration among students."
+  },
+  {
+    id: "vocab-017",
+    englishWord: "congestion",
+    pronunciation: "/kənˈdʒestʃən/",
+    pronunciationKk: "кенджэсчэн",
+    definition: "Overcrowding or blockage caused by too much traffic or too many things in one place.",
+    partOfSpeech: "noun",
+    exampleSentence: "Traffic congestion in the city center gets worse every summer."
   }
 ];
 
