@@ -8,6 +8,7 @@ const VOCABULARY_FLASHCARDS = [
     id: "vocab-001",
     englishWord: "resilient",
     pronunciation: "/rɪˈzɪliənt/",
+    pronunciationKk: "ризилиент",
     definition: "Able to recover quickly after difficulty.",
     partOfSpeech: "adjective",
     exampleSentence: "She stayed resilient during the long interview process."
@@ -16,6 +17,7 @@ const VOCABULARY_FLASHCARDS = [
     id: "vocab-002",
     englishWord: "concise",
     pronunciation: "/kənˈsaɪs/",
+    pronunciationKk: "консайс",
     definition: "Giving a lot of information clearly in a few words.",
     partOfSpeech: "adjective",
     exampleSentence: "Keep your answer concise when the interviewer asks about your last project."
@@ -24,6 +26,7 @@ const VOCABULARY_FLASHCARDS = [
     id: "vocab-003",
     englishWord: "iterate",
     pronunciation: "/ˈɪtəreɪt/",
+    pronunciationKk: "итэрэйт",
     definition: "To repeat a process and improve it step by step.",
     partOfSpeech: "verb",
     exampleSentence: "We iterate on the feature after each round of feedback."
@@ -32,6 +35,7 @@ const VOCABULARY_FLASHCARDS = [
     id: "vocab-004",
     englishWord: "of paramount importance",
     pronunciation: "/əv ˈpærəmaʊnt ɪmˈpɔːrtəns/",
+    pronunciationKk: "ов пэрэмаунт импортанс",
     definition: "Исключительно важный, первостепенной важности.",
     partOfSpeech: "phrase",
     exampleSentence: "Road safety is of paramount importance to governments worldwide."
@@ -40,6 +44,7 @@ const VOCABULARY_FLASHCARDS = [
     id: "vocab-005",
     englishWord: "prevailing view",
     pronunciation: "/prɪˈveɪlɪŋ vjuː/",
+    pronunciationKk: "привэйлиң вью",
     definition: "Преобладающее мнение, общепринятая точка зрения.",
     partOfSpeech: "noun phrase",
     exampleSentence: "The prevailing view holds that technology improves education, though not everyone agrees."
@@ -48,6 +53,7 @@ const VOCABULARY_FLASHCARDS = [
     id: "vocab-006",
     englishWord: "on the grounds that",
     pronunciation: "/ɒn ðə ˈɡraʊndz ðæt/",
+    pronunciationKk: "он зэ граундз зэт",
     definition: "На том основании, что / по причине того, что.",
     partOfSpeech: "conjunction phrase",
     exampleSentence: "She rejected the proposal on the grounds that it was too expensive."
@@ -56,6 +62,7 @@ const VOCABULARY_FLASHCARDS = [
     id: "vocab-007",
     englishWord: "owing to",
     pronunciation: "/ˈoʊɪŋ tuː/",
+    pronunciationKk: "оуиң ту",
     definition: "Благодаря, вследствие, из-за.",
     partOfSpeech: "preposition",
     exampleSentence: "Owing to limited funding, the project was delayed by a year."
@@ -64,6 +71,7 @@ const VOCABULARY_FLASHCARDS = [
     id: "vocab-008",
     englishWord: "exemplified by",
     pronunciation: "/ɪɡˈzemplɪfaɪd baɪ/",
+    pronunciationKk: "игзэмплифайд бай",
     definition: "Иллюстрируется, примером чего служит.",
     partOfSpeech: "verb phrase",
     exampleSentence: "The trend is exemplified by the rapid growth of remote work since 2020."
@@ -72,6 +80,7 @@ const VOCABULARY_FLASHCARDS = [
     id: "vocab-009",
     englishWord: "a pressing issue",
     pronunciation: "/ə ˈpresɪŋ ˈɪʃuː/",
+    pronunciationKk: "э прэсиң ишу",
     definition: "Острая/неотложная проблема.",
     partOfSpeech: "noun phrase",
     exampleSentence: "Climate change remains a pressing issue for policymakers."
@@ -80,6 +89,7 @@ const VOCABULARY_FLASHCARDS = [
     id: "vocab-010",
     englishWord: "play a pivotal role in",
     pronunciation: "/pleɪ ə ˈpɪvətəl roʊl ɪn/",
+    pronunciationKk: "плэй э пивотал роул ин",
     definition: "Играть ключевую/решающую роль в.",
     partOfSpeech: "verb phrase",
     exampleSentence: "Education plays a pivotal role in reducing poverty."
@@ -88,6 +98,7 @@ const VOCABULARY_FLASHCARDS = [
     id: "vocab-011",
     englishWord: "give rise to",
     pronunciation: "/ɡɪv raɪz tuː/",
+    pronunciationKk: "гив райз ту",
     definition: "Приводить к, порождать, вызывать.",
     partOfSpeech: "verb phrase",
     exampleSentence: "Rapid urbanization has given rise to serious traffic congestion."
@@ -96,6 +107,7 @@ const VOCABULARY_FLASHCARDS = [
     id: "vocab-012",
     englishWord: "have a detrimental impact on",
     pronunciation: "/hæv ə ˌdetrɪˈmentəl ˈɪmpækt ɒn/",
+    pronunciationKk: "хэв э дэтримэнтал импэкт он",
     definition: "Оказывать пагубное/негативное влияние на.",
     partOfSpeech: "verb phrase",
     exampleSentence: "Excessive screen time can have a detrimental impact on children's sleep."
@@ -104,6 +116,7 @@ const VOCABULARY_FLASHCARDS = [
     id: "vocab-013",
     englishWord: "strike a balance between",
     pronunciation: "/straɪk ə ˈbæləns bɪˈtwiːn/",
+    pronunciationKk: "страйк э бэлэнс битвин",
     definition: "Найти баланс/равновесие между.",
     partOfSpeech: "verb phrase",
     exampleSentence: "Governments must strike a balance between economic growth and environmental protection."
@@ -112,6 +125,7 @@ const VOCABULARY_FLASHCARDS = [
     id: "vocab-014",
     englishWord: "place a strain on",
     pronunciation: "/pleɪs ə streɪn ɒn/",
+    pronunciationKk: "плэйс э стрэйн он",
     definition: "Создавать нагрузку на, обременять.",
     partOfSpeech: "verb phrase",
     exampleSentence: "A growing population places a strain on public healthcare systems."
@@ -120,6 +134,7 @@ const VOCABULARY_FLASHCARDS = [
     id: "vocab-015",
     englishWord: "mitigate the effects of",
     pronunciation: "/ˈmɪtɪɡeɪt ði ɪˈfekts əv/",
+    pronunciationKk: "митигэйт зи ифэктс ов",
     definition: "Смягчать/снижать последствия.",
     partOfSpeech: "verb phrase",
     exampleSentence: "Renewable energy can help mitigate the effects of climate change."
@@ -128,6 +143,7 @@ const VOCABULARY_FLASHCARDS = [
     id: "vocab-016",
     englishWord: "foster a sense of",
     pronunciation: "/ˈfɒstər ə sens əv/",
+    pronunciationKk: "фостэр э сэнс ов",
     definition: "Способствовать формированию, воспитывать (чувство/атмосферу).",
     partOfSpeech: "verb phrase",
     exampleSentence: "Team projects foster a sense of collaboration among students."
@@ -169,6 +185,7 @@ const elements = {
   vocabCardInner: document.querySelector("#vocabCardInner"),
   vocabWord: document.querySelector("#vocabWord"),
   vocabPronunciation: document.querySelector("#vocabPronunciation"),
+  vocabPronunciationKk: document.querySelector("#vocabPronunciationKk"),
   vocabPartOfSpeech: document.querySelector("#vocabPartOfSpeech"),
   vocabDefinition: document.querySelector("#vocabDefinition"),
   vocabExample: document.querySelector("#vocabExample"),
@@ -180,6 +197,7 @@ const elements = {
   vocabForm: document.querySelector("#vocabForm"),
   newVocabWord: document.querySelector("#newVocabWord"),
   newVocabPronunciation: document.querySelector("#newVocabPronunciation"),
+  newVocabPronunciationKk: document.querySelector("#newVocabPronunciationKk"),
   newVocabDefinition: document.querySelector("#newVocabDefinition"),
   newVocabPartOfSpeech: document.querySelector("#newVocabPartOfSpeech"),
   newVocabExample: document.querySelector("#newVocabExample")
@@ -467,6 +485,7 @@ elements.vocabForm.addEventListener("submit", (event) => {
 
   const englishWord = elements.newVocabWord.value.trim();
   const pronunciation = elements.newVocabPronunciation.value.trim();
+  const pronunciationKk = elements.newVocabPronunciationKk.value.trim();
   const definition = elements.newVocabDefinition.value.trim();
   const partOfSpeech = elements.newVocabPartOfSpeech.value.trim() || "word";
   const exampleSentence = elements.newVocabExample.value.trim();
@@ -479,6 +498,7 @@ elements.vocabForm.addEventListener("submit", (event) => {
     id: createId(),
     englishWord,
     pronunciation,
+    pronunciationKk,
     definition,
     partOfSpeech,
     exampleSentence: exampleSentence || `I want to remember the word "${englishWord}".`
@@ -777,6 +797,7 @@ function renderVocabulary() {
   elements.vocabAccuracy.textContent = `${progress.accuracy}%`;
   elements.vocabWord.textContent = card.englishWord;
   elements.vocabPronunciation.textContent = card.pronunciation || "";
+  elements.vocabPronunciationKk.textContent = card.pronunciationKk || "";
   elements.vocabPartOfSpeech.textContent = card.partOfSpeech;
   elements.vocabDefinition.textContent = card.definition;
   elements.vocabExample.textContent = card.exampleSentence;
