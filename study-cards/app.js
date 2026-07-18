@@ -27,6 +27,110 @@ const VOCABULARY_FLASHCARDS = [
     definition: "To repeat a process and improve it step by step.",
     partOfSpeech: "verb",
     exampleSentence: "We iterate on the feature after each round of feedback."
+  },
+  {
+    id: "vocab-004",
+    englishWord: "of paramount importance",
+    pronunciation: "",
+    definition: "Исключительно важный, первостепенной важности.",
+    partOfSpeech: "phrase",
+    exampleSentence: "Road safety is of paramount importance to governments worldwide."
+  },
+  {
+    id: "vocab-005",
+    englishWord: "prevailing view",
+    pronunciation: "",
+    definition: "Преобладающее мнение, общепринятая точка зрения.",
+    partOfSpeech: "noun phrase",
+    exampleSentence: "The prevailing view holds that technology improves education, though not everyone agrees."
+  },
+  {
+    id: "vocab-006",
+    englishWord: "on the grounds that",
+    pronunciation: "",
+    definition: "На том основании, что / по причине того, что.",
+    partOfSpeech: "conjunction phrase",
+    exampleSentence: "She rejected the proposal on the grounds that it was too expensive."
+  },
+  {
+    id: "vocab-007",
+    englishWord: "owing to",
+    pronunciation: "",
+    definition: "Благодаря, вследствие, из-за.",
+    partOfSpeech: "preposition",
+    exampleSentence: "Owing to limited funding, the project was delayed by a year."
+  },
+  {
+    id: "vocab-008",
+    englishWord: "exemplified by",
+    pronunciation: "",
+    definition: "Иллюстрируется, примером чего служит.",
+    partOfSpeech: "verb phrase",
+    exampleSentence: "The trend is exemplified by the rapid growth of remote work since 2020."
+  },
+  {
+    id: "vocab-009",
+    englishWord: "a pressing issue",
+    pronunciation: "",
+    definition: "Острая/неотложная проблема.",
+    partOfSpeech: "noun phrase",
+    exampleSentence: "Climate change remains a pressing issue for policymakers."
+  },
+  {
+    id: "vocab-010",
+    englishWord: "play a pivotal role in",
+    pronunciation: "",
+    definition: "Играть ключевую/решающую роль в.",
+    partOfSpeech: "verb phrase",
+    exampleSentence: "Education plays a pivotal role in reducing poverty."
+  },
+  {
+    id: "vocab-011",
+    englishWord: "give rise to",
+    pronunciation: "",
+    definition: "Приводить к, порождать, вызывать.",
+    partOfSpeech: "verb phrase",
+    exampleSentence: "Rapid urbanization has given rise to serious traffic congestion."
+  },
+  {
+    id: "vocab-012",
+    englishWord: "have a detrimental impact on",
+    pronunciation: "",
+    definition: "Оказывать пагубное/негативное влияние на.",
+    partOfSpeech: "verb phrase",
+    exampleSentence: "Excessive screen time can have a detrimental impact on children's sleep."
+  },
+  {
+    id: "vocab-013",
+    englishWord: "strike a balance between",
+    pronunciation: "",
+    definition: "Найти баланс/равновесие между.",
+    partOfSpeech: "verb phrase",
+    exampleSentence: "Governments must strike a balance between economic growth and environmental protection."
+  },
+  {
+    id: "vocab-014",
+    englishWord: "place a strain on",
+    pronunciation: "",
+    definition: "Создавать нагрузку на, обременять.",
+    partOfSpeech: "verb phrase",
+    exampleSentence: "A growing population places a strain on public healthcare systems."
+  },
+  {
+    id: "vocab-015",
+    englishWord: "mitigate the effects of",
+    pronunciation: "",
+    definition: "Смягчать/снижать последствия.",
+    partOfSpeech: "verb phrase",
+    exampleSentence: "Renewable energy can help mitigate the effects of climate change."
+  },
+  {
+    id: "vocab-016",
+    englishWord: "foster a sense of",
+    pronunciation: "",
+    definition: "Способствовать формированию, воспитывать (чувство/атмосферу).",
+    partOfSpeech: "verb phrase",
+    exampleSentence: "Team projects foster a sense of collaboration among students."
   }
 ];
 
