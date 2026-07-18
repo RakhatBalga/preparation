@@ -7,6 +7,7 @@ const VOCABULARY_FLASHCARDS = [
   {
     id: "vocab-001",
     englishWord: "resilient",
+    pronunciation: "/rɪˈzɪliənt/",
     definition: "Able to recover quickly after difficulty.",
     partOfSpeech: "adjective",
     exampleSentence: "She stayed resilient during the long interview process."
@@ -14,6 +15,7 @@ const VOCABULARY_FLASHCARDS = [
   {
     id: "vocab-002",
     englishWord: "concise",
+    pronunciation: "/kənˈsaɪs/",
     definition: "Giving a lot of information clearly in a few words.",
     partOfSpeech: "adjective",
     exampleSentence: "Keep your answer concise when the interviewer asks about your last project."
@@ -21,6 +23,7 @@ const VOCABULARY_FLASHCARDS = [
   {
     id: "vocab-003",
     englishWord: "iterate",
+    pronunciation: "/ˈɪtəreɪt/",
     definition: "To repeat a process and improve it step by step.",
     partOfSpeech: "verb",
     exampleSentence: "We iterate on the feature after each round of feedback."
@@ -61,6 +64,7 @@ const elements = {
   vocabCard: document.querySelector("#vocabCard"),
   vocabCardInner: document.querySelector("#vocabCardInner"),
   vocabWord: document.querySelector("#vocabWord"),
+  vocabPronunciation: document.querySelector("#vocabPronunciation"),
   vocabPartOfSpeech: document.querySelector("#vocabPartOfSpeech"),
   vocabDefinition: document.querySelector("#vocabDefinition"),
   vocabExample: document.querySelector("#vocabExample"),
@@ -71,6 +75,7 @@ const elements = {
   vocabStatus: document.querySelector("#vocabStatus"),
   vocabForm: document.querySelector("#vocabForm"),
   newVocabWord: document.querySelector("#newVocabWord"),
+  newVocabPronunciation: document.querySelector("#newVocabPronunciation"),
   newVocabDefinition: document.querySelector("#newVocabDefinition"),
   newVocabPartOfSpeech: document.querySelector("#newVocabPartOfSpeech"),
   newVocabExample: document.querySelector("#newVocabExample")
@@ -357,6 +362,7 @@ elements.vocabForm.addEventListener("submit", (event) => {
   event.preventDefault();
 
   const englishWord = elements.newVocabWord.value.trim();
+  const pronunciation = elements.newVocabPronunciation.value.trim();
   const definition = elements.newVocabDefinition.value.trim();
   const partOfSpeech = elements.newVocabPartOfSpeech.value.trim() || "word";
   const exampleSentence = elements.newVocabExample.value.trim();
@@ -368,6 +374,7 @@ elements.vocabForm.addEventListener("submit", (event) => {
   const card = {
     id: createId(),
     englishWord,
+    pronunciation,
     definition,
     partOfSpeech,
     exampleSentence: exampleSentence || `I want to remember the word "${englishWord}".`
@@ -665,6 +672,7 @@ function renderVocabulary() {
   elements.vocabPosition.textContent = position;
   elements.vocabAccuracy.textContent = `${progress.accuracy}%`;
   elements.vocabWord.textContent = card.englishWord;
+  elements.vocabPronunciation.textContent = card.pronunciation || "";
   elements.vocabPartOfSpeech.textContent = card.partOfSpeech;
   elements.vocabDefinition.textContent = card.definition;
   elements.vocabExample.textContent = card.exampleSentence;
