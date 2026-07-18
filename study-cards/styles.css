@@ -564,9 +564,18 @@ select:focus {
 
 .vocab-actions {
   display: flex;
-  justify-content: space-between;
+  flex-direction: column;
   gap: 12px;
   margin-top: 18px;
+}
+
+.vocab-actions .nav-actions {
+  justify-content: space-between;
+  width: 100%;
+}
+
+.vocab-actions .rating-actions {
+  justify-content: center;
 }
 
 .vocab-status {
