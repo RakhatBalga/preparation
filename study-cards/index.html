@@ -157,6 +157,29 @@
         <div class="vocab-status" id="vocabStatus" role="status" aria-live="polite">
           Review status will appear here.
         </div>
+
+        <form class="vocab-form" id="vocabForm">
+          <div class="section-title">
+            <h3>Add word</h3>
+          </div>
+          <label>
+            <span>English word</span>
+            <input id="newVocabWord" autocomplete="off" required placeholder="Example: pragmatic">
+          </label>
+          <label>
+            <span>Explanation</span>
+            <textarea id="newVocabDefinition" rows="3" required placeholder="Practical and focused on what works."></textarea>
+          </label>
+          <label>
+            <span>Part of speech</span>
+            <input id="newVocabPartOfSpeech" autocomplete="off" placeholder="adjective">
+          </label>
+          <label>
+            <span>Example sentence</span>
+            <textarea id="newVocabExample" rows="2" placeholder="A pragmatic engineer chooses the simplest reliable solution."></textarea>
+          </label>
+          <button class="button button-primary full-width" type="submit">Add word</button>
+        </form>
       </section>
     </div>
 
