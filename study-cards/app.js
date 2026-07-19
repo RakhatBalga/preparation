@@ -342,6 +342,11 @@ elements.reviewArea.addEventListener("click", (event) => {
     return;
   }
 
+  if (action === "jump") {
+    goToIndex(Number(button.dataset.index));
+    return;
+  }
+
   if (action === "reveal") {
     const card = getCurrentCard();
     state.answeredCardId = card ? card.id : null;
@@ -670,6 +675,7 @@ function renderReview() {
       <span>${escapeHtml(getModeLabel(state.mode))}</span>
       <strong>${position}</strong>
     </div>
+    ${renderQuestionNavigator(cards)}
     <div>
       <p class="question-label">${escapeHtml(card.topic)} · ${escapeHtml(cardStatus)}</p>
       <p class="question-text">${escapeHtml(card.question)}</p>
@@ -677,6 +683,33 @@ function renderReview() {
     ${renderOptions(card, showAnswer)}
     ${showAnswer ? renderAnswer(card) : ""}
     ${renderReviewControls(card, showAnswer)}
+  `;
+}
+
+function renderQuestionNavigator(cards) {
+  if (cards.length <= 1) {
+    return "";
+  }
+
+  const numbers = cards
+    .map((card, index) => {
+      const isCurrentClass = index === state.currentIndex ? "is-current" : "";
+      const statusClass = card.box >= 4
+        ? "is-mastered"
+        : card.lastResult === "wrong"
+          ? "is-mistake"
+          : "";
+      return `
+        <button class="nav-number ${isCurrentClass} ${statusClass}" data-action="jump" data-index="${index}" type="button" aria-label="Вопрос ${index + 1}" aria-current="${index === state.currentIndex ? "true" : "false"}">${index + 1}</button>
+      `;
+    })
+    .join("");
+
+  return `
+    <nav class="question-navigator" aria-label="Быстрый переход к вопросу">
+      <p class="nav-hint">Быстрый переход к вопросу</p>
+      <div class="nav-number-grid">${numbers}</div>
+    </nav>
   `;
 }
 
@@ -989,6 +1022,19 @@ function navigateReview(delta, options = {}) {
     saveState();
   }
 
+  render();
+}
+
+function goToIndex(index) {
+  const cards = getReviewCards();
+  if (!cards.length) {
+    return;
+  }
+
+  resetAnswerView();
+  state.currentIndex = clampIndex(index, cards.length);
+  state.currentId = cards[state.currentIndex] ? cards[state.currentIndex].id : null;
+  saveState();
   render();
 }
 
