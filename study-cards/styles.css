@@ -495,10 +495,6 @@ select:focus {
   margin-bottom: 0;
 }
 
-.library-tools {
-  margin-top: 18px;
-}
-
 .card-list {
   display: grid;
   gap: 10px;

@@ -208,7 +208,6 @@ const elements = {
   importButton: document.querySelector("#importButton"),
   importStatus: document.querySelector("#importStatus"),
   loadSampleButton: document.querySelector("#loadSampleButton"),
-  searchInput: document.querySelector("#searchInput"),
   cardList: document.querySelector("#cardList"),
   exportButton: document.querySelector("#exportButton"),
   makeAllDueButton: document.querySelector("#makeAllDueButton"),
@@ -322,7 +321,6 @@ elements.modeButtons.forEach((button) => {
   });
 });
 
-elements.searchInput.addEventListener("input", renderLibrary);
 
 elements.reviewArea.addEventListener("click", (event) => {
   const button = event.target.closest("button[data-action]");
@@ -835,14 +833,7 @@ function renderPracticeActions(card, showAnswer) {
 }
 
 function renderLibrary() {
-  const query = elements.searchInput.value.trim().toLowerCase();
   const cards = getFilteredCards()
-    .filter((card) => {
-      if (!query) {
-        return true;
-      }
-      return `${card.question} ${card.answer} ${card.topic}`.toLowerCase().includes(query);
-    })
     .sort((a, b) => Number(isDue(b)) - Number(isDue(a)) || a.createdAt.localeCompare(b.createdAt));
 
   if (!cards.length) {
