@@ -180,6 +180,136 @@ const VOCABULARY_FLASHCARDS = [
     partOfSpeech: "noun",
     exampleSentence: "Traffic congestion in the city center gets worse every summer.",
     essayTypes: ["problem-solution", "two-part-question"]
+  },
+  {
+    id: "vocab-018",
+    englishWord: "cognitive development",
+    pronunciation: "",
+    pronunciationKk: "",
+    definition: "Умственное развитие; a more academic replacement for 'brain is developing'.",
+    partOfSpeech: "noun phrase",
+    exampleSentence: "Learning a foreign language at school can support children's cognitive development.",
+    essayTypes: ["opinion", "advantages-disadvantages"]
+  },
+  {
+    id: "vocab-019",
+    englishWord: "formative years",
+    pronunciation: "",
+    pronunciationKk: "",
+    definition: "Годы становления, ранний формирующий период; useful when discussing long-term impact at a young age.",
+    partOfSpeech: "noun phrase",
+    exampleSentence: "Habits developed during the formative years often influence a person's future academic performance.",
+    essayTypes: ["opinion", "discussion"]
+  },
+  {
+    id: "vocab-020",
+    englishWord: "absorb information",
+    pronunciation: "",
+    pronunciationKk: "",
+    definition: "Усваивать информацию; more natural than saying 'learn easier'.",
+    partOfSpeech: "verb phrase",
+    exampleSentence: "Young learners often absorb information more effectively when lessons are interactive.",
+    essayTypes: ["opinion", "advantages-disadvantages"]
+  },
+  {
+    id: "vocab-021",
+    englishWord: "academic workload",
+    pronunciation: "",
+    pronunciationKk: "",
+    definition: "Учебная нагрузка; a precise phrase for the amount of schoolwork students have.",
+    partOfSpeech: "noun phrase",
+    exampleSentence: "An excessive academic workload can reduce students' motivation and mental well-being.",
+    essayTypes: ["problem-solution", "advantages-disadvantages"]
+  },
+  {
+    id: "vocab-022",
+    englishWord: "age-appropriate methods",
+    pronunciation: "",
+    pronunciationKk: "",
+    definition: "Методы, соответствующие возрасту; a general academic way to describe suitable teaching methods.",
+    partOfSpeech: "noun phrase",
+    exampleSentence: "Foreign languages should be taught through age-appropriate methods rather than pressure and memorization.",
+    essayTypes: ["problem-solution", "opinion"]
+  },
+  {
+    id: "vocab-023",
+    englishWord: "linguistic confusion / interference",
+    pronunciation: "",
+    pronunciationKk: "",
+    definition: "Путаница между языками; an academic term for mixing up words or structures from different languages.",
+    partOfSpeech: "noun phrase",
+    exampleSentence: "Some parents worry that early bilingual education may cause linguistic interference.",
+    essayTypes: ["discussion", "advantages-disadvantages"]
+  },
+  {
+    id: "vocab-024",
+    englishWord: "long-term retention",
+    pronunciation: "",
+    pronunciationKk: "",
+    definition: "Долгосрочное запоминание; stronger than simple memorization when discussing lasting benefit.",
+    partOfSpeech: "noun phrase",
+    exampleSentence: "Regular practice is essential for long-term retention of new vocabulary.",
+    essayTypes: ["opinion", "problem-solution"]
+  },
+  {
+    id: "vocab-025",
+    englishWord: "outweigh the drawbacks / outweigh the benefits",
+    pronunciation: "",
+    pronunciationKk: "",
+    definition: "Перевешивать недостатки/преимущества; useful for stating a clear final position.",
+    partOfSpeech: "verb phrase",
+    exampleSentence: "In my view, the benefits of early language learning outweigh the drawbacks.",
+    essayTypes: ["advantages-disadvantages", "opinion"]
+  },
+  {
+    id: "vocab-026",
+    englishWord: "provided that",
+    pronunciation: "",
+    pronunciationKk: "",
+    definition: "При условии, что; a precise conditional connector stronger than 'if'.",
+    partOfSpeech: "conjunction",
+    exampleSentence: "Children can benefit from learning another language provided that the lessons are age-appropriate.",
+    essayTypes: ["opinion", "discussion"]
+  },
+  {
+    id: "vocab-027",
+    englishWord: "a case can be made that",
+    pronunciation: "",
+    pronunciationKk: "",
+    definition: "Можно утверждать, что; good for introducing a nuanced opinion.",
+    partOfSpeech: "introductory phrase",
+    exampleSentence: "A case can be made that early language education improves both communication skills and confidence.",
+    essayTypes: ["discussion", "opinion"]
+  },
+  {
+    id: "vocab-028",
+    englishWord: "not without merit",
+    pronunciation: "",
+    pronunciationKk: "",
+    definition: "Не лишено смысла; useful for acknowledging an opposing view without fully agreeing.",
+    partOfSpeech: "phrase",
+    exampleSentence: "The argument against homework is not without merit, especially when children already face a heavy workload.",
+    essayTypes: ["discussion", "advantages-disadvantages"]
+  },
+  {
+    id: "vocab-029",
+    englishWord: "to a certain extent",
+    pronunciation: "",
+    pronunciationKk: "",
+    definition: "В определённой степени; a natural hedge for nuanced academic positions.",
+    partOfSpeech: "adverbial phrase",
+    exampleSentence: "To a certain extent, technology can replace traditional classroom activities.",
+    essayTypes: ["discussion", "two-part-question"]
+  },
+  {
+    id: "vocab-030",
+    englishWord: "far outweighs any potential drawback",
+    pronunciation: "",
+    pronunciationKk: "",
+    definition: "Значительно перевешивает любые возможные недостатки.",
+    partOfSpeech: "verb phrase",
+    exampleSentence: "The long-term value of bilingual education far outweighs any potential drawback.",
+    essayTypes: ["advantages-disadvantages", "opinion"]
   }
 ];
 
