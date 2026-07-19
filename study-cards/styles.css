@@ -337,12 +337,14 @@ select:focus {
   grid-template-columns: 34px minmax(0, 1fr);
   gap: 10px;
   width: 100%;
+  min-height: 86px;
   border: 1px solid var(--line);
   border-radius: 8px;
   background: #fff;
   color: var(--text);
   padding: 12px;
   text-align: left;
+  align-items: center;
 }
 
 .option-button strong {

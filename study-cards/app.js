@@ -1490,18 +1490,38 @@ function applySeedData(loadedState) {
     return loadedState;
   }
 
+  const seedCards = getSeedCards();
+  const seedById = new Map(seedCards.map((card) => [card.id, card]));
+  const seedByQuestion = new Map(seedCards.map((card) => [card.question, card]));
+  const updatedCards = loadedState.cards.map((card) => {
+    const seedCard = seedById.get(card.id) || seedByQuestion.get(card.question);
+
+    if (!seedCard) {
+      return card;
+    }
+
+    return {
+      ...card,
+      topic: seedCard.topic,
+      question: seedCard.question,
+      options: seedCard.options,
+      correctOption: seedCard.correctOption,
+      answer: seedCard.answer,
+      updatedAt: seedCard.updatedAt
+    };
+  });
   const existing = new Set([
-    ...loadedState.cards.map((card) => card.id),
-    ...loadedState.cards.map((card) => card.question)
+    ...updatedCards.map((card) => card.id),
+    ...updatedCards.map((card) => card.question)
   ]);
-  const missingSeeds = getSeedCards().filter(
+  const missingSeeds = seedCards.filter(
     (card) => !existing.has(card.id) && !existing.has(card.question)
   );
 
   return {
     ...loadedState,
     seedVersion: SEED_VERSION,
-    cards: [...missingSeeds, ...loadedState.cards],
+    cards: [...missingSeeds, ...updatedCards],
     currentIndex: 0
   };
 }
