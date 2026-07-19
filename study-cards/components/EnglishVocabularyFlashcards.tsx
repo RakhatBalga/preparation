@@ -7,6 +7,7 @@ export interface Flashcard {
   definition: string;
   partOfSpeech: string;
   exampleSentence: string;
+  category?: string;
 }
 
 interface EnglishVocabularyFlashcardsProps {
@@ -131,6 +132,11 @@ export function EnglishVocabularyFlashcards({
             <span className="mt-3 text-lg italic text-slate-400">
               {currentCard.pronunciation}
             </span>
+            {currentCard.category ? (
+              <span className="mt-5 rounded-full border border-emerald-200 bg-emerald-50 px-4 py-1 text-sm font-medium text-emerald-700">
+                {currentCard.category}
+              </span>
+            ) : null}
           </span>
 
           <span className="absolute inset-0 flex flex-col justify-center rounded-2xl border border-emerald-200 bg-emerald-50 p-8 text-left shadow-xl [backface-visibility:hidden] [transform:rotateY(180deg)]">
@@ -195,7 +201,8 @@ const sampleFlashcards: Flashcard[] = [
     pronunciation: "/rɪˈzɪliənt/",
     definition: "Able to recover quickly after difficulty.",
     partOfSpeech: "adjective",
-    exampleSentence: "She stayed resilient during the long interview process."
+    exampleSentence: "She stayed resilient during the long interview process.",
+    category: "Work / Career"
   },
   {
     id: "word-2",
@@ -203,7 +210,8 @@ const sampleFlashcards: Flashcard[] = [
     pronunciation: "/kənˈsaɪs/",
     definition: "Giving a lot of information clearly in a few words.",
     partOfSpeech: "adjective",
-    exampleSentence: "Keep your answer concise when the interviewer asks about your last project."
+    exampleSentence: "Keep your answer concise when the interviewer asks about your last project.",
+    category: "General academic"
   },
   {
     id: "word-3",
@@ -211,7 +219,8 @@ const sampleFlashcards: Flashcard[] = [
     pronunciation: "/ˈɪtəreɪt/",
     definition: "To repeat a process and improve it step by step.",
     partOfSpeech: "verb",
-    exampleSentence: "We iterate on the feature after each round of feedback."
+    exampleSentence: "We iterate on the feature after each round of feedback.",
+    category: "Technology"
   }
 ];
 

@@ -10,6 +10,14 @@ const ESSAY_TYPE_LABELS = {
   "advantages-disadvantages": "Advantages/Disadvantages",
   "two-part-question": "Two-Part Question"
 };
+const VOCABULARY_CATEGORY_LABELS = {
+  "general-academic": "General academic",
+  education: "Education / Development",
+  technology: "Technology",
+  environment: "Environment",
+  society: "Society",
+  work: "Work / Career"
+};
 const VOCABULARY_FLASHCARDS = [
   {
     id: "vocab-001",
@@ -19,7 +27,8 @@ const VOCABULARY_FLASHCARDS = [
     definition: "Able to recover quickly after difficulty.",
     partOfSpeech: "adjective",
     exampleSentence: "She stayed resilient during the long interview process.",
-    essayTypes: ["opinion", "discussion"]
+    essayTypes: ["opinion", "discussion"],
+    category: "work"
   },
   {
     id: "vocab-002",
@@ -29,7 +38,8 @@ const VOCABULARY_FLASHCARDS = [
     definition: "Giving a lot of information clearly in a few words.",
     partOfSpeech: "adjective",
     exampleSentence: "Keep your answer concise when the interviewer asks about your last project.",
-    essayTypes: ["opinion"]
+    essayTypes: ["opinion"],
+    category: "general-academic"
   },
   {
     id: "vocab-003",
@@ -39,7 +49,8 @@ const VOCABULARY_FLASHCARDS = [
     definition: "To repeat a process and improve it step by step.",
     partOfSpeech: "verb",
     exampleSentence: "We iterate on the feature after each round of feedback.",
-    essayTypes: ["problem-solution", "discussion"]
+    essayTypes: ["problem-solution", "discussion"],
+    category: "technology"
   },
   {
     id: "vocab-004",
@@ -49,7 +60,8 @@ const VOCABULARY_FLASHCARDS = [
     definition: "Исключительно важный, первостепенной важности.",
     partOfSpeech: "phrase",
     exampleSentence: "Road safety is of paramount importance to governments worldwide.",
-    essayTypes: ["opinion", "advantages-disadvantages"]
+    essayTypes: ["opinion", "advantages-disadvantages"],
+    category: "general-academic"
   },
   {
     id: "vocab-005",
@@ -59,7 +71,8 @@ const VOCABULARY_FLASHCARDS = [
     definition: "Преобладающее мнение, общепринятая точка зрения.",
     partOfSpeech: "noun phrase",
     exampleSentence: "The prevailing view holds that technology improves education, though not everyone agrees.",
-    essayTypes: ["discussion", "opinion"]
+    essayTypes: ["discussion", "opinion"],
+    category: "general-academic"
   },
   {
     id: "vocab-006",
@@ -69,7 +82,8 @@ const VOCABULARY_FLASHCARDS = [
     definition: "На том основании, что / по причине того, что.",
     partOfSpeech: "conjunction phrase",
     exampleSentence: "She rejected the proposal on the grounds that it was too expensive.",
-    essayTypes: ["opinion"]
+    essayTypes: ["opinion"],
+    category: "general-academic"
   },
   {
     id: "vocab-007",
@@ -79,7 +93,8 @@ const VOCABULARY_FLASHCARDS = [
     definition: "Благодаря, вследствие, из-за.",
     partOfSpeech: "preposition",
     exampleSentence: "Owing to limited funding, the project was delayed by a year.",
-    essayTypes: ["problem-solution", "discussion"]
+    essayTypes: ["problem-solution", "discussion"],
+    category: "general-academic"
   },
   {
     id: "vocab-008",
@@ -89,7 +104,8 @@ const VOCABULARY_FLASHCARDS = [
     definition: "Иллюстрируется, примером чего служит.",
     partOfSpeech: "verb phrase",
     exampleSentence: "The trend is exemplified by the rapid growth of remote work since 2020.",
-    essayTypes: ["opinion", "discussion"]
+    essayTypes: ["opinion", "discussion"],
+    category: "general-academic"
   },
   {
     id: "vocab-009",
@@ -99,7 +115,8 @@ const VOCABULARY_FLASHCARDS = [
     definition: "Острая/неотложная проблема.",
     partOfSpeech: "noun phrase",
     exampleSentence: "Climate change remains a pressing issue for policymakers.",
-    essayTypes: ["problem-solution", "two-part-question"]
+    essayTypes: ["problem-solution", "two-part-question"],
+    category: "society"
   },
   {
     id: "vocab-010",
@@ -109,7 +126,8 @@ const VOCABULARY_FLASHCARDS = [
     definition: "Играть ключевую/решающую роль в.",
     partOfSpeech: "verb phrase",
     exampleSentence: "Education plays a pivotal role in reducing poverty.",
-    essayTypes: ["opinion", "advantages-disadvantages"]
+    essayTypes: ["opinion", "advantages-disadvantages"],
+    category: "education"
   },
   {
     id: "vocab-011",
@@ -119,7 +137,8 @@ const VOCABULARY_FLASHCARDS = [
     definition: "Приводить к, порождать, вызывать.",
     partOfSpeech: "verb phrase",
     exampleSentence: "Rapid urbanization has given rise to serious traffic congestion.",
-    essayTypes: ["problem-solution", "advantages-disadvantages"]
+    essayTypes: ["problem-solution", "advantages-disadvantages"],
+    category: "society"
   },
   {
     id: "vocab-012",
@@ -129,7 +148,8 @@ const VOCABULARY_FLASHCARDS = [
     definition: "Оказывать пагубное/негативное влияние на.",
     partOfSpeech: "verb phrase",
     exampleSentence: "Excessive screen time can have a detrimental impact on children's sleep.",
-    essayTypes: ["advantages-disadvantages", "problem-solution"]
+    essayTypes: ["advantages-disadvantages", "problem-solution"],
+    category: "society"
   },
   {
     id: "vocab-013",
@@ -139,7 +159,8 @@ const VOCABULARY_FLASHCARDS = [
     definition: "Найти баланс/равновесие между.",
     partOfSpeech: "verb phrase",
     exampleSentence: "Governments must strike a balance between economic growth and environmental protection.",
-    essayTypes: ["discussion", "two-part-question"]
+    essayTypes: ["discussion", "two-part-question"],
+    category: "general-academic"
   },
   {
     id: "vocab-014",
@@ -149,7 +170,8 @@ const VOCABULARY_FLASHCARDS = [
     definition: "Создавать нагрузку на, обременять.",
     partOfSpeech: "verb phrase",
     exampleSentence: "A growing population places a strain on public healthcare systems.",
-    essayTypes: ["problem-solution", "advantages-disadvantages"]
+    essayTypes: ["problem-solution", "advantages-disadvantages"],
+    category: "society"
   },
   {
     id: "vocab-015",
@@ -159,7 +181,8 @@ const VOCABULARY_FLASHCARDS = [
     definition: "Смягчать/снижать последствия.",
     partOfSpeech: "verb phrase",
     exampleSentence: "Renewable energy can help mitigate the effects of climate change.",
-    essayTypes: ["problem-solution"]
+    essayTypes: ["problem-solution"],
+    category: "environment"
   },
   {
     id: "vocab-016",
@@ -169,7 +192,8 @@ const VOCABULARY_FLASHCARDS = [
     definition: "Способствовать формированию, воспитывать (чувство/атмосферу).",
     partOfSpeech: "verb phrase",
     exampleSentence: "Team projects foster a sense of collaboration among students.",
-    essayTypes: ["advantages-disadvantages", "opinion"]
+    essayTypes: ["advantages-disadvantages", "opinion"],
+    category: "education"
   },
   {
     id: "vocab-017",
@@ -179,7 +203,8 @@ const VOCABULARY_FLASHCARDS = [
     definition: "Overcrowding or blockage caused by too much traffic or too many things in one place.",
     partOfSpeech: "noun",
     exampleSentence: "Traffic congestion in the city center gets worse every summer.",
-    essayTypes: ["problem-solution", "two-part-question"]
+    essayTypes: ["problem-solution", "two-part-question"],
+    category: "society"
   },
   {
     id: "vocab-018",
@@ -189,7 +214,8 @@ const VOCABULARY_FLASHCARDS = [
     definition: "Умственное развитие; a more academic replacement for 'brain is developing'.",
     partOfSpeech: "noun phrase",
     exampleSentence: "Learning a foreign language at school can support children's cognitive development.",
-    essayTypes: ["opinion", "advantages-disadvantages"]
+    essayTypes: ["opinion", "advantages-disadvantages"],
+    category: "education"
   },
   {
     id: "vocab-019",
@@ -199,7 +225,8 @@ const VOCABULARY_FLASHCARDS = [
     definition: "Годы становления, ранний формирующий период; useful when discussing long-term impact at a young age.",
     partOfSpeech: "noun phrase",
     exampleSentence: "Habits developed during the formative years often influence a person's future academic performance.",
-    essayTypes: ["opinion", "discussion"]
+    essayTypes: ["opinion", "discussion"],
+    category: "education"
   },
   {
     id: "vocab-020",
@@ -209,7 +236,8 @@ const VOCABULARY_FLASHCARDS = [
     definition: "Усваивать информацию; more natural than saying 'learn easier'.",
     partOfSpeech: "verb phrase",
     exampleSentence: "Young learners often absorb information more effectively when lessons are interactive.",
-    essayTypes: ["opinion", "advantages-disadvantages"]
+    essayTypes: ["opinion", "advantages-disadvantages"],
+    category: "education"
   },
   {
     id: "vocab-021",
@@ -219,7 +247,8 @@ const VOCABULARY_FLASHCARDS = [
     definition: "Учебная нагрузка; a precise phrase for the amount of schoolwork students have.",
     partOfSpeech: "noun phrase",
     exampleSentence: "An excessive academic workload can reduce students' motivation and mental well-being.",
-    essayTypes: ["problem-solution", "advantages-disadvantages"]
+    essayTypes: ["problem-solution", "advantages-disadvantages"],
+    category: "education"
   },
   {
     id: "vocab-022",
@@ -229,7 +258,8 @@ const VOCABULARY_FLASHCARDS = [
     definition: "Методы, соответствующие возрасту; a general academic way to describe suitable teaching methods.",
     partOfSpeech: "noun phrase",
     exampleSentence: "Foreign languages should be taught through age-appropriate methods rather than pressure and memorization.",
-    essayTypes: ["problem-solution", "opinion"]
+    essayTypes: ["problem-solution", "opinion"],
+    category: "education"
   },
   {
     id: "vocab-023",
@@ -239,7 +269,8 @@ const VOCABULARY_FLASHCARDS = [
     definition: "Путаница между языками; an academic term for mixing up words or structures from different languages.",
     partOfSpeech: "noun phrase",
     exampleSentence: "Some parents worry that early bilingual education may cause linguistic interference.",
-    essayTypes: ["discussion", "advantages-disadvantages"]
+    essayTypes: ["discussion", "advantages-disadvantages"],
+    category: "education"
   },
   {
     id: "vocab-024",
@@ -249,7 +280,8 @@ const VOCABULARY_FLASHCARDS = [
     definition: "Долгосрочное запоминание; stronger than simple memorization when discussing lasting benefit.",
     partOfSpeech: "noun phrase",
     exampleSentence: "Regular practice is essential for long-term retention of new vocabulary.",
-    essayTypes: ["opinion", "problem-solution"]
+    essayTypes: ["opinion", "problem-solution"],
+    category: "education"
   },
   {
     id: "vocab-025",
@@ -259,7 +291,8 @@ const VOCABULARY_FLASHCARDS = [
     definition: "Перевешивать недостатки/преимущества; useful for stating a clear final position.",
     partOfSpeech: "verb phrase",
     exampleSentence: "In my view, the benefits of early language learning outweigh the drawbacks.",
-    essayTypes: ["advantages-disadvantages", "opinion"]
+    essayTypes: ["advantages-disadvantages", "opinion"],
+    category: "general-academic"
   },
   {
     id: "vocab-026",
@@ -269,7 +302,8 @@ const VOCABULARY_FLASHCARDS = [
     definition: "При условии, что; a precise conditional connector stronger than 'if'.",
     partOfSpeech: "conjunction",
     exampleSentence: "Children can benefit from learning another language provided that the lessons are age-appropriate.",
-    essayTypes: ["opinion", "discussion"]
+    essayTypes: ["opinion", "discussion"],
+    category: "general-academic"
   },
   {
     id: "vocab-027",
@@ -279,7 +313,8 @@ const VOCABULARY_FLASHCARDS = [
     definition: "Можно утверждать, что; good for introducing a nuanced opinion.",
     partOfSpeech: "introductory phrase",
     exampleSentence: "A case can be made that early language education improves both communication skills and confidence.",
-    essayTypes: ["discussion", "opinion"]
+    essayTypes: ["discussion", "opinion"],
+    category: "general-academic"
   },
   {
     id: "vocab-028",
@@ -289,7 +324,8 @@ const VOCABULARY_FLASHCARDS = [
     definition: "Не лишено смысла; useful for acknowledging an opposing view without fully agreeing.",
     partOfSpeech: "phrase",
     exampleSentence: "The argument against homework is not without merit, especially when children already face a heavy workload.",
-    essayTypes: ["discussion", "advantages-disadvantages"]
+    essayTypes: ["discussion", "advantages-disadvantages"],
+    category: "general-academic"
   },
   {
     id: "vocab-029",
@@ -299,7 +335,8 @@ const VOCABULARY_FLASHCARDS = [
     definition: "В определённой степени; a natural hedge for nuanced academic positions.",
     partOfSpeech: "adverbial phrase",
     exampleSentence: "To a certain extent, technology can replace traditional classroom activities.",
-    essayTypes: ["discussion", "two-part-question"]
+    essayTypes: ["discussion", "two-part-question"],
+    category: "general-academic"
   },
   {
     id: "vocab-030",
@@ -309,7 +346,8 @@ const VOCABULARY_FLASHCARDS = [
     definition: "Значительно перевешивает любые возможные недостатки.",
     partOfSpeech: "verb phrase",
     exampleSentence: "The long-term value of bilingual education far outweighs any potential drawback.",
-    essayTypes: ["advantages-disadvantages", "opinion"]
+    essayTypes: ["advantages-disadvantages", "opinion"],
+    category: "general-academic"
   }
 ];
 
@@ -352,6 +390,7 @@ const elements = {
   vocabDefinition: document.querySelector("#vocabDefinition"),
   vocabExample: document.querySelector("#vocabExample"),
   vocabTags: document.querySelector("#vocabTags"),
+  vocabCategoryFilter: document.querySelector("#vocabCategoryFilter"),
   essayTypeFilter: document.querySelector("#essayTypeFilter"),
   vocabPrevious: document.querySelector("#vocabPrevious"),
   vocabNext: document.querySelector("#vocabNext"),
@@ -364,6 +403,7 @@ const elements = {
   newVocabPronunciationKk: document.querySelector("#newVocabPronunciationKk"),
   newVocabDefinition: document.querySelector("#newVocabDefinition"),
   newVocabPartOfSpeech: document.querySelector("#newVocabPartOfSpeech"),
+  newVocabCategory: document.querySelector("#newVocabCategory"),
   newVocabExample: document.querySelector("#newVocabExample"),
   newVocabEssayTypes: document.querySelectorAll('input[name="essayType"]')
 };
@@ -434,6 +474,14 @@ elements.topicFilter.addEventListener("change", () => {
 
 elements.essayTypeFilter.addEventListener("change", () => {
   state.essayType = elements.essayTypeFilter.value;
+  state.vocabIndex = 0;
+  state.vocabFlipped = false;
+  saveState();
+  renderVocabulary();
+});
+
+elements.vocabCategoryFilter.addEventListener("change", () => {
+  state.vocabCategory = elements.vocabCategoryFilter.value;
   state.vocabIndex = 0;
   state.vocabFlipped = false;
   saveState();
@@ -660,6 +708,7 @@ elements.vocabForm.addEventListener("submit", (event) => {
   const pronunciationKk = elements.newVocabPronunciationKk.value.trim();
   const definition = elements.newVocabDefinition.value.trim();
   const partOfSpeech = elements.newVocabPartOfSpeech.value.trim() || "word";
+  const category = elements.newVocabCategory.value;
   const exampleSentence = elements.newVocabExample.value.trim();
   const essayTypes = Array.from(elements.newVocabEssayTypes)
     .filter((checkbox) => checkbox.checked)
@@ -676,12 +725,15 @@ elements.vocabForm.addEventListener("submit", (event) => {
     pronunciationKk,
     definition,
     partOfSpeech,
+    category,
     exampleSentence: exampleSentence || `I want to remember the word "${englishWord}".`,
     essayTypes
   };
 
   state.customVocabulary.push(card);
+  state.vocabCategory = "all";
   state.essayType = "all";
+  elements.vocabCategoryFilter.value = "all";
   elements.essayTypeFilter.value = "all";
   state.vocabIndex = getVocabularyCards().length - 1;
   state.vocabFlipped = false;
@@ -959,6 +1011,7 @@ function renderLibrary() {
 }
 
 function renderVocabulary() {
+  elements.vocabCategoryFilter.value = state.vocabCategory || "all";
   elements.essayTypeFilter.value = state.essayType || "all";
 
   const cards = getVocabularyCards();
@@ -968,7 +1021,7 @@ function renderVocabulary() {
   elements.vocabAccuracy.textContent = `${progress.accuracy}%`;
 
   if (!cards.length) {
-    elements.vocabWord.textContent = "No words for this essay type yet";
+    elements.vocabWord.textContent = "No words for this filter yet";
     elements.vocabPronunciation.textContent = "";
     elements.vocabPronunciationKk.textContent = "";
     elements.vocabPartOfSpeech.textContent = "";
@@ -977,7 +1030,7 @@ function renderVocabulary() {
     elements.vocabTags.innerHTML = "";
     elements.vocabPrevious.disabled = true;
     elements.vocabNext.disabled = true;
-    elements.vocabStatus.textContent = "Try a different essay type filter.";
+    elements.vocabStatus.textContent = "Try a different category or essay type filter.";
     return;
   }
 
@@ -989,8 +1042,13 @@ function renderVocabulary() {
   elements.vocabPartOfSpeech.textContent = card.partOfSpeech;
   elements.vocabDefinition.textContent = card.definition;
   elements.vocabExample.textContent = card.exampleSentence;
-  elements.vocabTags.innerHTML = (card.essayTypes || [])
-    .map((type) => `<span class="tag-pill">${escapeHtml(ESSAY_TYPE_LABELS[type] || type)}</span>`)
+  elements.vocabTags.innerHTML = [
+    card.category
+      ? `<span class="tag-pill tag-pill-strong">${escapeHtml(VOCABULARY_CATEGORY_LABELS[card.category] || card.category)}</span>`
+      : "",
+    ...(card.essayTypes || []).map((type) => `<span class="tag-pill">${escapeHtml(ESSAY_TYPE_LABELS[type] || type)}</span>`)
+  ]
+    .filter(Boolean)
     .join("");
   elements.vocabCardInner.classList.toggle("is-flipped", state.vocabFlipped);
   elements.vocabPrevious.disabled = state.vocabIndex === 0;
@@ -1169,12 +1227,16 @@ function getCurrentVocabularyCard() {
 
 function getVocabularyCards() {
   const cards = [...VOCABULARY_FLASHCARDS, ...state.customVocabulary];
+  const categoryFilteredCards =
+    !state.vocabCategory || state.vocabCategory === "all"
+      ? cards
+      : cards.filter((card) => card.category === state.vocabCategory);
 
   if (!state.essayType || state.essayType === "all") {
-    return cards;
+    return categoryFilteredCards;
   }
 
-  return cards.filter((card) => (card.essayTypes || []).includes(state.essayType));
+  return categoryFilteredCards.filter((card) => (card.essayTypes || []).includes(state.essayType));
 }
 
 function getVocabularyProgress() {
@@ -1378,6 +1440,10 @@ function loadState() {
       vocabFlipped: Boolean(parsed.vocabFlipped),
       vocabProgress: parsed.vocabProgress || {},
       essayType: parsed.essayType === "all" || parsed.essayType in ESSAY_TYPE_LABELS ? parsed.essayType : "all",
+      vocabCategory:
+        parsed.vocabCategory === "all" || parsed.vocabCategory in VOCABULARY_CATEGORY_LABELS
+          ? parsed.vocabCategory
+          : "all",
       customVocabulary: Array.isArray(parsed.customVocabulary)
         ? parsed.customVocabulary.map(normalizeVocabularyCard).filter(Boolean)
         : [],
@@ -1404,7 +1470,8 @@ function defaultState(cards = []) {
     vocabFlipped: false,
     vocabProgress: {},
     customVocabulary: [],
-    essayType: "all"
+    essayType: "all",
+    vocabCategory: "all"
   };
 }
 
@@ -1530,7 +1597,8 @@ function normalizeVocabularyCard(card) {
     exampleSentence: String(card.exampleSentence || "").trim(),
     pronunciation: String(card.pronunciation || "").trim(),
     pronunciationKk: String(card.pronunciationKk || "").trim(),
-    essayTypes: Array.isArray(card.essayTypes) ? card.essayTypes.filter((type) => type in ESSAY_TYPE_LABELS) : []
+    essayTypes: Array.isArray(card.essayTypes) ? card.essayTypes.filter((type) => type in ESSAY_TYPE_LABELS) : [],
+    category: card.category in VOCABULARY_CATEGORY_LABELS ? card.category : "general-academic"
   };
 }
 
