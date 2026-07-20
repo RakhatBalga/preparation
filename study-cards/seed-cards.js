@@ -1,4 +1,4 @@
-window.SEED_VERSION = "backend-interview-v4-no-length-pattern";
+window.SEED_VERSION = "backend-interview-v5-leetcode-patterns";
 window.SEED_CARDS = [
   {
     "id": "q001",
@@ -2499,5 +2499,261 @@ window.SEED_CARDS = [
     ],
     "correctOption": "D",
     "answer": "D) Данные в распределённой системе становятся согласованными не сразу, а через время"
+  },
+  {
+      "id": "lc001",
+      "topic": "LEETCODE · Arrays / Strings",
+      "question": "Two Sum",
+      "options": [],
+      "correctOption": "",
+      "answer": "Храним target - nums[i] в hash map, находим пару за O(n)."
+  },
+  {
+      "id": "lc002",
+      "topic": "LEETCODE · Arrays / Strings",
+      "question": "Best Time to Buy and Sell Stock",
+      "options": [],
+      "correctOption": "",
+      "answer": "Идем слева направо, храним минимальную цену и максимальную прибыль."
+  },
+  {
+      "id": "lc003",
+      "topic": "LEETCODE · Arrays / Strings",
+      "question": "Product of Array Except Self",
+      "options": [],
+      "correctOption": "",
+      "answer": "Считаем prefix product слева и suffix product справа, без деления."
+  },
+  {
+      "id": "lc004",
+      "topic": "LEETCODE · Arrays / Strings",
+      "question": "Valid Anagram",
+      "options": [],
+      "correctOption": "",
+      "answer": "Считаем частоты символов в двух строках или сортируем строки."
+  },
+  {
+      "id": "lc005",
+      "topic": "LEETCODE · Hash Map",
+      "question": "Contains Duplicate",
+      "options": [],
+      "correctOption": "",
+      "answer": "Добавляем элементы в set; если элемент уже есть, возвращаем true."
+  },
+  {
+      "id": "lc006",
+      "topic": "LEETCODE · Hash Map",
+      "question": "Group Anagrams",
+      "options": [],
+      "correctOption": "",
+      "answer": "Ключом делаем отсортированную строку или массив частот букв."
+  },
+  {
+      "id": "lc007",
+      "topic": "LEETCODE · Hash Map",
+      "question": "Top K Frequent Elements",
+      "options": [],
+      "correctOption": "",
+      "answer": "Считаем частоты через map, потом используем heap или bucket sort."
+  },
+  {
+      "id": "lc008",
+      "topic": "LEETCODE · Hash Map",
+      "question": "Longest Consecutive Sequence",
+      "options": [],
+      "correctOption": "",
+      "answer": "Кладем числа в set, стартуем только с чисел, у которых нет num - 1."
+  },
+  {
+      "id": "lc009",
+      "topic": "LEETCODE · Two Pointers",
+      "question": "Valid Palindrome",
+      "options": [],
+      "correctOption": "",
+      "answer": "Два указателя с концов, пропускаем не-буквенно-цифровые символы."
+  },
+  {
+      "id": "lc010",
+      "topic": "LEETCODE · Two Pointers",
+      "question": "Two Sum II - Input Array Is Sorted",
+      "options": [],
+      "correctOption": "",
+      "answer": "Левый и правый указатели; если сумма мала, двигаем левый, если велика — правый."
+  },
+  {
+      "id": "lc011",
+      "topic": "LEETCODE · Two Pointers",
+      "question": "3Sum",
+      "options": [],
+      "correctOption": "",
+      "answer": "Сортируем массив, фиксируем первое число, дальше решаем через two pointers."
+  },
+  {
+      "id": "lc012",
+      "topic": "LEETCODE · Two Pointers",
+      "question": "Container With Most Water",
+      "options": [],
+      "correctOption": "",
+      "answer": "Два указателя с краев, двигаем тот, где высота меньше."
+  },
+  {
+      "id": "lc013",
+      "topic": "LEETCODE · Sliding Window",
+      "question": "Best Time to Buy and Sell Stock",
+      "options": [],
+      "correctOption": "",
+      "answer": "Можно видеть как окно покупки-продажи: покупка слева, продажа справа."
+  },
+  {
+      "id": "lc014",
+      "topic": "LEETCODE · Sliding Window",
+      "question": "Longest Substring Without Repeating Characters",
+      "options": [],
+      "correctOption": "",
+      "answer": "Двигаем правый указатель, при повторе двигаем левый до валидного окна."
+  },
+  {
+      "id": "lc015",
+      "topic": "LEETCODE · Sliding Window",
+      "question": "Minimum Window Substring",
+      "options": [],
+      "correctOption": "",
+      "answer": "Расширяем окно, пока не покрыли нужные символы, потом сжимаем слева."
+  },
+  {
+      "id": "lc016",
+      "topic": "LEETCODE · Sliding Window",
+      "question": "Permutation in String",
+      "options": [],
+      "correctOption": "",
+      "answer": "Окно длины s1.length, сравниваем частоты символов."
+  },
+  {
+      "id": "lc017",
+      "topic": "LEETCODE · Stack",
+      "question": "Valid Parentheses",
+      "options": [],
+      "correctOption": "",
+      "answer": "Открывающие скобки кладем в stack, закрывающие сравниваем с верхом."
+  },
+  {
+      "id": "lc018",
+      "topic": "LEETCODE · Stack",
+      "question": "Min Stack",
+      "options": [],
+      "correctOption": "",
+      "answer": "Держим два стека: обычный и стек минимумов."
+  },
+  {
+      "id": "lc019",
+      "topic": "LEETCODE · Stack",
+      "question": "Daily Temperatures",
+      "options": [],
+      "correctOption": "",
+      "answer": "Используем monotonic stack индексов температур, ждем первый более теплый день."
+  },
+  {
+      "id": "lc020",
+      "topic": "LEETCODE · Stack",
+      "question": "Evaluate Reverse Polish Notation",
+      "options": [],
+      "correctOption": "",
+      "answer": "Числа кладем в stack, оператор применяем к двум верхним числам."
+  },
+  {
+      "id": "lc021",
+      "topic": "LEETCODE · Binary Search",
+      "question": "Binary Search",
+      "options": [],
+      "correctOption": "",
+      "answer": "Классика: left, right, mid, сужаем диапазон."
+  },
+  {
+      "id": "lc022",
+      "topic": "LEETCODE · Binary Search",
+      "question": "Search Insert Position",
+      "options": [],
+      "correctOption": "",
+      "answer": "Binary search первой позиции, где nums[i] >= target."
+  },
+  {
+      "id": "lc023",
+      "topic": "LEETCODE · Binary Search",
+      "question": "Search in Rotated Sorted Array",
+      "options": [],
+      "correctOption": "",
+      "answer": "На каждом шаге определяем, какая половина отсортирована."
+  },
+  {
+      "id": "lc024",
+      "topic": "LEETCODE · Binary Search",
+      "question": "Find Minimum in Rotated Sorted Array",
+      "options": [],
+      "correctOption": "",
+      "answer": "Сравниваем nums[mid] с nums[right], минимум находится в “сломленной” части."
+  },
+  {
+      "id": "lc025",
+      "topic": "LEETCODE · Trees + DFS/BFS",
+      "question": "Maximum Depth of Binary Tree",
+      "options": [],
+      "correctOption": "",
+      "answer": "DFS: 1 + max(depth(left), depth(right))."
+  },
+  {
+      "id": "lc026",
+      "topic": "LEETCODE · Trees + DFS/BFS",
+      "question": "Invert Binary Tree",
+      "options": [],
+      "correctOption": "",
+      "answer": "Рекурсивно меняем местами левое и правое поддерево."
+  },
+  {
+      "id": "lc027",
+      "topic": "LEETCODE · Trees + DFS/BFS",
+      "question": "Binary Tree Level Order Traversal",
+      "options": [],
+      "correctOption": "",
+      "answer": "BFS через queue, обрабатываем дерево по уровням."
+  },
+  {
+      "id": "lc028",
+      "topic": "LEETCODE · Trees + DFS/BFS",
+      "question": "Validate Binary Search Tree",
+      "options": [],
+      "correctOption": "",
+      "answer": "DFS с границами min/max для каждого узла."
+  },
+  {
+      "id": "lc029",
+      "topic": "LEETCODE · Dynamic Programming",
+      "question": "Climbing Stairs",
+      "options": [],
+      "correctOption": "",
+      "answer": "dp[i] = dp[i - 1] + dp[i - 2]."
+  },
+  {
+      "id": "lc030",
+      "topic": "LEETCODE · Dynamic Programming",
+      "question": "House Robber",
+      "options": [],
+      "correctOption": "",
+      "answer": "На каждом доме выбираем: ограбить текущий или пропустить. dp[i] = max(dp[i - 1], dp[i - 2] + nums[i])."
+  },
+  {
+      "id": "lc031",
+      "topic": "LEETCODE · Dynamic Programming",
+      "question": "Coin Change",
+      "options": [],
+      "correctOption": "",
+      "answer": "dp[x] = минимум монет для суммы x; перебираем монеты."
+  },
+  {
+      "id": "lc032",
+      "topic": "LEETCODE · Dynamic Programming",
+      "question": "Longest Increasing Subsequence",
+      "options": [],
+      "correctOption": "",
+      "answer": "Либо O(n^2) DP, либо O(n log n) через массив хвостов подпоследовательностей."
   }
 ];
