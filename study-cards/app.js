@@ -585,6 +585,21 @@ const VOCABULARY_FLASHCARDS = [
     ],
     "category": "work",
     "translationRu": "ездить на работу или учебу; ежедневная дорога"
+  },
+  {
+    "id": "vocab-039",
+    "englishWord": "precise",
+    "pronunciation": "/prɪˈsaɪs/",
+    "pronunciationKk": "присайс",
+    "definition": "Exact, accurate, and clearly expressed.",
+    "partOfSpeech": "adjective",
+    "exampleSentence": "Using precise vocabulary can make an IELTS essay more convincing.",
+    "essayTypes": [
+      "opinion",
+      "discussion"
+    ],
+    "category": "general-academic",
+    "translationRu": "точный, четкий, конкретный"
   }
 ];
 
