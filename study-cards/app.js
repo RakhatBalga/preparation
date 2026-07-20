@@ -555,6 +555,21 @@ const VOCABULARY_FLASHCARDS = [
     ],
     "category": "general-academic",
     "translationRu": "ограничения, рамки, сдерживающие условия"
+  },
+  {
+    "id": "vocab-037",
+    "englishWord": "beyond",
+    "pronunciation": "/bɪˈjɑːnd/",
+    "pronunciationKk": "биёнд",
+    "definition": "Further than a point, limit, or situation; outside the range of something.",
+    "partOfSpeech": "preposition / adverb",
+    "exampleSentence": "The benefits of education go beyond simply finding a better job.",
+    "essayTypes": [
+      "opinion",
+      "discussion"
+    ],
+    "category": "general-academic",
+    "translationRu": "за пределами, вне, дальше чем"
   }
 ];
 
