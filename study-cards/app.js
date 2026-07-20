@@ -23,389 +23,523 @@ const VOCABULARY_CATEGORY_LABELS = {
 };
 const VOCABULARY_FLASHCARDS = [
   {
-    id: "vocab-001",
-    englishWord: "resilient",
-    pronunciation: "/rɪˈzɪliənt/",
-    pronunciationKk: "ризилиент",
-    definition: "Able to recover quickly after difficulty.",
-    partOfSpeech: "adjective",
-    exampleSentence: "She stayed resilient during the long interview process.",
-    essayTypes: ["opinion", "discussion"],
-    category: "work"
+    "id": "vocab-001",
+    "englishWord": "resilient",
+    "pronunciation": "/rɪˈzɪliənt/",
+    "pronunciationKk": "ризилиент",
+    "definition": "Able to recover quickly after difficulty.",
+    "partOfSpeech": "adjective",
+    "exampleSentence": "She stayed resilient during the long interview process.",
+    "essayTypes": [
+      "opinion",
+      "discussion"
+    ],
+    "category": "work",
+    "translationRu": "устойчивый, способный быстро восстановиться после трудностей"
   },
   {
-    id: "vocab-002",
-    englishWord: "concise",
-    pronunciation: "/kənˈsaɪs/",
-    pronunciationKk: "консайс",
-    definition: "Giving a lot of information clearly in a few words.",
-    partOfSpeech: "adjective",
-    exampleSentence: "Keep your answer concise when the interviewer asks about your last project.",
-    essayTypes: ["opinion"],
-    category: "general-academic"
+    "id": "vocab-002",
+    "englishWord": "concise",
+    "pronunciation": "/kənˈsaɪs/",
+    "pronunciationKk": "консайс",
+    "definition": "Giving a lot of information clearly in a few words.",
+    "partOfSpeech": "adjective",
+    "exampleSentence": "Keep your answer concise when the interviewer asks about your last project.",
+    "essayTypes": [
+      "opinion"
+    ],
+    "category": "general-academic",
+    "translationRu": "краткий и ясный"
   },
   {
-    id: "vocab-003",
-    englishWord: "iterate",
-    pronunciation: "/ˈɪtəreɪt/",
-    pronunciationKk: "итэрэйт",
-    definition: "To repeat a process and improve it step by step.",
-    partOfSpeech: "verb",
-    exampleSentence: "We iterate on the feature after each round of feedback.",
-    essayTypes: ["problem-solution", "discussion"],
-    category: "technology"
+    "id": "vocab-003",
+    "englishWord": "iterate",
+    "pronunciation": "/ˈɪtəreɪt/",
+    "pronunciationKk": "итэрэйт",
+    "definition": "To repeat a process and improve it step by step.",
+    "partOfSpeech": "verb",
+    "exampleSentence": "We iterate on the feature after each round of feedback.",
+    "essayTypes": [
+      "problem-solution",
+      "discussion"
+    ],
+    "category": "technology",
+    "translationRu": "повторять и улучшать шаг за шагом"
   },
   {
-    id: "vocab-004",
-    englishWord: "of paramount importance",
-    pronunciation: "/əv ˈpærəmaʊnt ɪmˈpɔːrtəns/",
-    pronunciationKk: "ов пэрэмаунт импортанс",
-    definition: "Исключительно важный, первостепенной важности.",
-    partOfSpeech: "phrase",
-    exampleSentence: "Road safety is of paramount importance to governments worldwide.",
-    essayTypes: ["opinion", "advantages-disadvantages"],
-    category: "general-academic"
+    "id": "vocab-004",
+    "englishWord": "of paramount importance",
+    "pronunciation": "/əv ˈpærəmaʊnt ɪmˈpɔːrtəns/",
+    "pronunciationKk": "ов пэрэмаунт импортанс",
+    "definition": "Исключительно важный, первостепенной важности.",
+    "partOfSpeech": "phrase",
+    "exampleSentence": "Road safety is of paramount importance to governments worldwide.",
+    "essayTypes": [
+      "opinion",
+      "advantages-disadvantages"
+    ],
+    "category": "general-academic",
+    "translationRu": "первостепенной важности, исключительно важный"
   },
   {
-    id: "vocab-005",
-    englishWord: "prevailing view",
-    pronunciation: "/prɪˈveɪlɪŋ vjuː/",
-    pronunciationKk: "привэйлиң вью",
-    definition: "Преобладающее мнение, общепринятая точка зрения.",
-    partOfSpeech: "noun phrase",
-    exampleSentence: "The prevailing view holds that technology improves education, though not everyone agrees.",
-    essayTypes: ["discussion", "opinion"],
-    category: "general-academic"
+    "id": "vocab-005",
+    "englishWord": "prevailing view",
+    "pronunciation": "/prɪˈveɪlɪŋ vjuː/",
+    "pronunciationKk": "привэйлиң вью",
+    "definition": "Преобладающее мнение, общепринятая точка зрения.",
+    "partOfSpeech": "noun phrase",
+    "exampleSentence": "The prevailing view holds that technology improves education, though not everyone agrees.",
+    "essayTypes": [
+      "discussion",
+      "opinion"
+    ],
+    "category": "general-academic",
+    "translationRu": "преобладающее мнение, общепринятая точка зрения"
   },
   {
-    id: "vocab-006",
-    englishWord: "on the grounds that",
-    pronunciation: "/ɒn ðə ˈɡraʊndz ðæt/",
-    pronunciationKk: "он зэ граундз зэт",
-    definition: "На том основании, что / по причине того, что.",
-    partOfSpeech: "conjunction phrase",
-    exampleSentence: "She rejected the proposal on the grounds that it was too expensive.",
-    essayTypes: ["opinion"],
-    category: "general-academic"
+    "id": "vocab-006",
+    "englishWord": "on the grounds that",
+    "pronunciation": "/ɒn ðə ˈɡraʊndz ðæt/",
+    "pronunciationKk": "он зэ граундз зэт",
+    "definition": "На том основании, что / по причине того, что.",
+    "partOfSpeech": "conjunction phrase",
+    "exampleSentence": "She rejected the proposal on the grounds that it was too expensive.",
+    "essayTypes": [
+      "opinion"
+    ],
+    "category": "general-academic",
+    "translationRu": "на том основании, что; по причине того, что"
   },
   {
-    id: "vocab-007",
-    englishWord: "owing to",
-    pronunciation: "/ˈoʊɪŋ tuː/",
-    pronunciationKk: "оуиң ту",
-    definition: "Благодаря, вследствие, из-за.",
-    partOfSpeech: "preposition",
-    exampleSentence: "Owing to limited funding, the project was delayed by a year.",
-    essayTypes: ["problem-solution", "discussion"],
-    category: "general-academic"
+    "id": "vocab-007",
+    "englishWord": "owing to",
+    "pronunciation": "/ˈoʊɪŋ tuː/",
+    "pronunciationKk": "оуиң ту",
+    "definition": "Благодаря, вследствие, из-за.",
+    "partOfSpeech": "preposition",
+    "exampleSentence": "Owing to limited funding, the project was delayed by a year.",
+    "essayTypes": [
+      "problem-solution",
+      "discussion"
+    ],
+    "category": "general-academic",
+    "translationRu": "из-за, вследствие, благодаря"
   },
   {
-    id: "vocab-008",
-    englishWord: "exemplified by",
-    pronunciation: "/ɪɡˈzemplɪfaɪd baɪ/",
-    pronunciationKk: "игзэмплифайд бай",
-    definition: "Иллюстрируется, примером чего служит.",
-    partOfSpeech: "verb phrase",
-    exampleSentence: "The trend is exemplified by the rapid growth of remote work since 2020.",
-    essayTypes: ["opinion", "discussion"],
-    category: "general-academic"
+    "id": "vocab-008",
+    "englishWord": "exemplified by",
+    "pronunciation": "/ɪɡˈzemplɪfaɪd baɪ/",
+    "pronunciationKk": "игзэмплифайд бай",
+    "definition": "Иллюстрируется, примером чего служит.",
+    "partOfSpeech": "verb phrase",
+    "exampleSentence": "The trend is exemplified by the rapid growth of remote work since 2020.",
+    "essayTypes": [
+      "opinion",
+      "discussion"
+    ],
+    "category": "general-academic",
+    "translationRu": "иллюстрируется чем-либо; примером служит"
   },
   {
-    id: "vocab-009",
-    englishWord: "a pressing issue",
-    pronunciation: "/ə ˈpresɪŋ ˈɪʃuː/",
-    pronunciationKk: "э прэсиң ишу",
-    definition: "Острая/неотложная проблема.",
-    partOfSpeech: "noun phrase",
-    exampleSentence: "Climate change remains a pressing issue for policymakers.",
-    essayTypes: ["problem-solution", "two-part-question"],
-    category: "society"
+    "id": "vocab-009",
+    "englishWord": "a pressing issue",
+    "pronunciation": "/ə ˈpresɪŋ ˈɪʃuː/",
+    "pronunciationKk": "э прэсиң ишу",
+    "definition": "Острая/неотложная проблема.",
+    "partOfSpeech": "noun phrase",
+    "exampleSentence": "Climate change remains a pressing issue for policymakers.",
+    "essayTypes": [
+      "problem-solution",
+      "two-part-question"
+    ],
+    "category": "society",
+    "translationRu": "острая, неотложная проблема"
   },
   {
-    id: "vocab-010",
-    englishWord: "play a pivotal role in",
-    pronunciation: "/pleɪ ə ˈpɪvətəl roʊl ɪn/",
-    pronunciationKk: "плэй э пивотал роул ин",
-    definition: "Играть ключевую/решающую роль в.",
-    partOfSpeech: "verb phrase",
-    exampleSentence: "Education plays a pivotal role in reducing poverty.",
-    essayTypes: ["opinion", "advantages-disadvantages"],
-    category: "education"
+    "id": "vocab-010",
+    "englishWord": "play a pivotal role in",
+    "pronunciation": "/pleɪ ə ˈpɪvətəl roʊl ɪn/",
+    "pronunciationKk": "плэй э пивотал роул ин",
+    "definition": "Играть ключевую/решающую роль в.",
+    "partOfSpeech": "verb phrase",
+    "exampleSentence": "Education plays a pivotal role in reducing poverty.",
+    "essayTypes": [
+      "opinion",
+      "advantages-disadvantages"
+    ],
+    "category": "education",
+    "translationRu": "играть ключевую роль в чем-либо"
   },
   {
-    id: "vocab-011",
-    englishWord: "give rise to",
-    pronunciation: "/ɡɪv raɪz tuː/",
-    pronunciationKk: "гив райз ту",
-    definition: "Приводить к, порождать, вызывать.",
-    partOfSpeech: "verb phrase",
-    exampleSentence: "Rapid urbanization has given rise to serious traffic congestion.",
-    essayTypes: ["problem-solution", "advantages-disadvantages"],
-    category: "society"
+    "id": "vocab-011",
+    "englishWord": "give rise to",
+    "pronunciation": "/ɡɪv raɪz tuː/",
+    "pronunciationKk": "гив райз ту",
+    "definition": "Приводить к, порождать, вызывать.",
+    "partOfSpeech": "verb phrase",
+    "exampleSentence": "Rapid urbanization has given rise to serious traffic congestion.",
+    "essayTypes": [
+      "problem-solution",
+      "advantages-disadvantages"
+    ],
+    "category": "society",
+    "translationRu": "приводить к, порождать, вызывать"
   },
   {
-    id: "vocab-012",
-    englishWord: "have a detrimental impact on",
-    pronunciation: "/hæv ə ˌdetrɪˈmentəl ˈɪmpækt ɒn/",
-    pronunciationKk: "хэв э дэтримэнтал импэкт он",
-    definition: "Оказывать пагубное/негативное влияние на.",
-    partOfSpeech: "verb phrase",
-    exampleSentence: "Excessive screen time can have a detrimental impact on children's sleep.",
-    essayTypes: ["advantages-disadvantages", "problem-solution"],
-    category: "society"
+    "id": "vocab-012",
+    "englishWord": "have a detrimental impact on",
+    "pronunciation": "/hæv ə ˌdetrɪˈmentəl ˈɪmpækt ɒn/",
+    "pronunciationKk": "хэв э дэтримэнтал импэкт он",
+    "definition": "Оказывать пагубное/негативное влияние на.",
+    "partOfSpeech": "verb phrase",
+    "exampleSentence": "Excessive screen time can have a detrimental impact on children's sleep.",
+    "essayTypes": [
+      "advantages-disadvantages",
+      "problem-solution"
+    ],
+    "category": "society",
+    "translationRu": "оказывать негативное, пагубное влияние на"
   },
   {
-    id: "vocab-013",
-    englishWord: "strike a balance between",
-    pronunciation: "/straɪk ə ˈbæləns bɪˈtwiːn/",
-    pronunciationKk: "страйк э бэлэнс битвин",
-    definition: "Найти баланс/равновесие между.",
-    partOfSpeech: "verb phrase",
-    exampleSentence: "Governments must strike a balance between economic growth and environmental protection.",
-    essayTypes: ["discussion", "two-part-question"],
-    category: "general-academic"
+    "id": "vocab-013",
+    "englishWord": "strike a balance between",
+    "pronunciation": "/straɪk ə ˈbæləns bɪˈtwiːn/",
+    "pronunciationKk": "страйк э бэлэнс битвин",
+    "definition": "Найти баланс/равновесие между.",
+    "partOfSpeech": "verb phrase",
+    "exampleSentence": "Governments must strike a balance between economic growth and environmental protection.",
+    "essayTypes": [
+      "discussion",
+      "two-part-question"
+    ],
+    "category": "general-academic",
+    "translationRu": "найти баланс между"
   },
   {
-    id: "vocab-014",
-    englishWord: "place a strain on",
-    pronunciation: "/pleɪs ə streɪn ɒn/",
-    pronunciationKk: "плэйс э стрэйн он",
-    definition: "Создавать нагрузку на, обременять.",
-    partOfSpeech: "verb phrase",
-    exampleSentence: "A growing population places a strain on public healthcare systems.",
-    essayTypes: ["problem-solution", "advantages-disadvantages"],
-    category: "society"
+    "id": "vocab-014",
+    "englishWord": "place a strain on",
+    "pronunciation": "/pleɪs ə streɪn ɒn/",
+    "pronunciationKk": "плэйс э стрэйн он",
+    "definition": "Создавать нагрузку на, обременять.",
+    "partOfSpeech": "verb phrase",
+    "exampleSentence": "A growing population places a strain on public healthcare systems.",
+    "essayTypes": [
+      "problem-solution",
+      "advantages-disadvantages"
+    ],
+    "category": "society",
+    "translationRu": "создавать нагрузку на, обременять"
   },
   {
-    id: "vocab-015",
-    englishWord: "mitigate the effects of",
-    pronunciation: "/ˈmɪtɪɡeɪt ði ɪˈfekts əv/",
-    pronunciationKk: "митигэйт зи ифэктс ов",
-    definition: "Смягчать/снижать последствия.",
-    partOfSpeech: "verb phrase",
-    exampleSentence: "Renewable energy can help mitigate the effects of climate change.",
-    essayTypes: ["problem-solution"],
-    category: "environment"
+    "id": "vocab-015",
+    "englishWord": "mitigate the effects of",
+    "pronunciation": "/ˈmɪtɪɡeɪt ði ɪˈfekts əv/",
+    "pronunciationKk": "митигэйт зи ифэктс ов",
+    "definition": "Смягчать/снижать последствия.",
+    "partOfSpeech": "verb phrase",
+    "exampleSentence": "Renewable energy can help mitigate the effects of climate change.",
+    "essayTypes": [
+      "problem-solution"
+    ],
+    "category": "environment",
+    "translationRu": "смягчать или снижать последствия чего-либо"
   },
   {
-    id: "vocab-016",
-    englishWord: "foster a sense of",
-    pronunciation: "/ˈfɒstər ə sens əv/",
-    pronunciationKk: "фостэр э сэнс ов",
-    definition: "Способствовать формированию, воспитывать (чувство/атмосферу).",
-    partOfSpeech: "verb phrase",
-    exampleSentence: "Team projects foster a sense of collaboration among students.",
-    essayTypes: ["advantages-disadvantages", "opinion"],
-    category: "education"
+    "id": "vocab-016",
+    "englishWord": "foster a sense of",
+    "pronunciation": "/ˈfɒstər ə sens əv/",
+    "pronunciationKk": "фостэр э сэнс ов",
+    "definition": "Способствовать формированию, воспитывать (чувство/атмосферу).",
+    "partOfSpeech": "verb phrase",
+    "exampleSentence": "Team projects foster a sense of collaboration among students.",
+    "essayTypes": [
+      "advantages-disadvantages",
+      "opinion"
+    ],
+    "category": "education",
+    "translationRu": "способствовать формированию чувства чего-либо"
   },
   {
-    id: "vocab-017",
-    englishWord: "congestion",
-    pronunciation: "/kənˈdʒestʃən/",
-    pronunciationKk: "кенджэсчэн",
-    definition: "Overcrowding or blockage caused by too much traffic or too many things in one place.",
-    partOfSpeech: "noun",
-    exampleSentence: "Traffic congestion in the city center gets worse every summer.",
-    essayTypes: ["problem-solution", "two-part-question"],
-    category: "society"
+    "id": "vocab-017",
+    "englishWord": "congestion",
+    "pronunciation": "/kənˈdʒestʃən/",
+    "pronunciationKk": "кенджэсчэн",
+    "definition": "Overcrowding or blockage caused by too much traffic or too many things in one place.",
+    "partOfSpeech": "noun",
+    "exampleSentence": "Traffic congestion in the city center gets worse every summer.",
+    "essayTypes": [
+      "problem-solution",
+      "two-part-question"
+    ],
+    "category": "society",
+    "translationRu": "затор, перегруженность, скопление"
   },
   {
-    id: "vocab-018",
-    englishWord: "cognitive development",
-    pronunciation: "",
-    pronunciationKk: "",
-    definition: "Умственное развитие; a more academic replacement for 'brain is developing'.",
-    partOfSpeech: "noun phrase",
-    exampleSentence: "Learning a foreign language at school can support children's cognitive development.",
-    essayTypes: ["opinion", "advantages-disadvantages"],
-    category: "education"
+    "id": "vocab-018",
+    "englishWord": "cognitive development",
+    "pronunciation": "",
+    "pronunciationKk": "",
+    "definition": "Умственное развитие; a more academic replacement for 'brain is developing'.",
+    "partOfSpeech": "noun phrase",
+    "exampleSentence": "Learning a foreign language at school can support children's cognitive development.",
+    "essayTypes": [
+      "opinion",
+      "advantages-disadvantages"
+    ],
+    "category": "education",
+    "translationRu": "умственное развитие"
   },
   {
-    id: "vocab-019",
-    englishWord: "formative years",
-    pronunciation: "",
-    pronunciationKk: "",
-    definition: "Годы становления, ранний формирующий период; useful when discussing long-term impact at a young age.",
-    partOfSpeech: "noun phrase",
-    exampleSentence: "Habits developed during the formative years often influence a person's future academic performance.",
-    essayTypes: ["opinion", "discussion"],
-    category: "education"
+    "id": "vocab-019",
+    "englishWord": "formative years",
+    "pronunciation": "",
+    "pronunciationKk": "",
+    "definition": "Годы становления, ранний формирующий период; useful when discussing long-term impact at a young age.",
+    "partOfSpeech": "noun phrase",
+    "exampleSentence": "Habits developed during the formative years often influence a person's future academic performance.",
+    "essayTypes": [
+      "opinion",
+      "discussion"
+    ],
+    "category": "education",
+    "translationRu": "годы становления, ранний формирующий период"
   },
   {
-    id: "vocab-020",
-    englishWord: "absorb information",
-    pronunciation: "",
-    pronunciationKk: "",
-    definition: "Усваивать информацию; more natural than saying 'learn easier'.",
-    partOfSpeech: "verb phrase",
-    exampleSentence: "Young learners often absorb information more effectively when lessons are interactive.",
-    essayTypes: ["opinion", "advantages-disadvantages"],
-    category: "education"
+    "id": "vocab-020",
+    "englishWord": "absorb information",
+    "pronunciation": "",
+    "pronunciationKk": "",
+    "definition": "Усваивать информацию; more natural than saying 'learn easier'.",
+    "partOfSpeech": "verb phrase",
+    "exampleSentence": "Young learners often absorb information more effectively when lessons are interactive.",
+    "essayTypes": [
+      "opinion",
+      "advantages-disadvantages"
+    ],
+    "category": "education",
+    "translationRu": "усваивать информацию"
   },
   {
-    id: "vocab-021",
-    englishWord: "academic workload",
-    pronunciation: "",
-    pronunciationKk: "",
-    definition: "Учебная нагрузка; a precise phrase for the amount of schoolwork students have.",
-    partOfSpeech: "noun phrase",
-    exampleSentence: "An excessive academic workload can reduce students' motivation and mental well-being.",
-    essayTypes: ["problem-solution", "advantages-disadvantages"],
-    category: "education"
+    "id": "vocab-021",
+    "englishWord": "academic workload",
+    "pronunciation": "",
+    "pronunciationKk": "",
+    "definition": "Учебная нагрузка; a precise phrase for the amount of schoolwork students have.",
+    "partOfSpeech": "noun phrase",
+    "exampleSentence": "An excessive academic workload can reduce students' motivation and mental well-being.",
+    "essayTypes": [
+      "problem-solution",
+      "advantages-disadvantages"
+    ],
+    "category": "education",
+    "translationRu": "учебная нагрузка"
   },
   {
-    id: "vocab-022",
-    englishWord: "age-appropriate methods",
-    pronunciation: "",
-    pronunciationKk: "",
-    definition: "Методы, соответствующие возрасту; a general academic way to describe suitable teaching methods.",
-    partOfSpeech: "noun phrase",
-    exampleSentence: "Foreign languages should be taught through age-appropriate methods rather than pressure and memorization.",
-    essayTypes: ["problem-solution", "opinion"],
-    category: "education"
+    "id": "vocab-022",
+    "englishWord": "age-appropriate methods",
+    "pronunciation": "",
+    "pronunciationKk": "",
+    "definition": "Методы, соответствующие возрасту; a general academic way to describe suitable teaching methods.",
+    "partOfSpeech": "noun phrase",
+    "exampleSentence": "Foreign languages should be taught through age-appropriate methods rather than pressure and memorization.",
+    "essayTypes": [
+      "problem-solution",
+      "opinion"
+    ],
+    "category": "education",
+    "translationRu": "методы, соответствующие возрасту"
   },
   {
-    id: "vocab-023",
-    englishWord: "linguistic confusion / interference",
-    pronunciation: "",
-    pronunciationKk: "",
-    definition: "Путаница между языками; an academic term for mixing up words or structures from different languages.",
-    partOfSpeech: "noun phrase",
-    exampleSentence: "Some parents worry that early bilingual education may cause linguistic interference.",
-    essayTypes: ["discussion", "advantages-disadvantages"],
-    category: "education"
+    "id": "vocab-023",
+    "englishWord": "linguistic confusion / interference",
+    "pronunciation": "",
+    "pronunciationKk": "",
+    "definition": "Путаница между языками; an academic term for mixing up words or structures from different languages.",
+    "partOfSpeech": "noun phrase",
+    "exampleSentence": "Some parents worry that early bilingual education may cause linguistic interference.",
+    "essayTypes": [
+      "discussion",
+      "advantages-disadvantages"
+    ],
+    "category": "education",
+    "translationRu": "путаница между языками, языковая интерференция"
   },
   {
-    id: "vocab-024",
-    englishWord: "long-term retention",
-    pronunciation: "",
-    pronunciationKk: "",
-    definition: "Долгосрочное запоминание; stronger than simple memorization when discussing lasting benefit.",
-    partOfSpeech: "noun phrase",
-    exampleSentence: "Regular practice is essential for long-term retention of new vocabulary.",
-    essayTypes: ["opinion", "problem-solution"],
-    category: "education"
+    "id": "vocab-024",
+    "englishWord": "long-term retention",
+    "pronunciation": "",
+    "pronunciationKk": "",
+    "definition": "Долгосрочное запоминание; stronger than simple memorization when discussing lasting benefit.",
+    "partOfSpeech": "noun phrase",
+    "exampleSentence": "Regular practice is essential for long-term retention of new vocabulary.",
+    "essayTypes": [
+      "opinion",
+      "problem-solution"
+    ],
+    "category": "education",
+    "translationRu": "долгосрочное запоминание"
   },
   {
-    id: "vocab-025",
-    englishWord: "outweigh the drawbacks / outweigh the benefits",
-    pronunciation: "",
-    pronunciationKk: "",
-    definition: "Перевешивать недостатки/преимущества; useful for stating a clear final position.",
-    partOfSpeech: "verb phrase",
-    exampleSentence: "In my view, the benefits of early language learning outweigh the drawbacks.",
-    essayTypes: ["advantages-disadvantages", "opinion"],
-    category: "general-academic"
+    "id": "vocab-025",
+    "englishWord": "outweigh the drawbacks / outweigh the benefits",
+    "pronunciation": "",
+    "pronunciationKk": "",
+    "definition": "Перевешивать недостатки/преимущества; useful for stating a clear final position.",
+    "partOfSpeech": "verb phrase",
+    "exampleSentence": "In my view, the benefits of early language learning outweigh the drawbacks.",
+    "essayTypes": [
+      "advantages-disadvantages",
+      "opinion"
+    ],
+    "category": "general-academic",
+    "translationRu": "перевешивать недостатки / перевешивать преимущества"
   },
   {
-    id: "vocab-026",
-    englishWord: "provided that",
-    pronunciation: "",
-    pronunciationKk: "",
-    definition: "При условии, что; a precise conditional connector stronger than 'if'.",
-    partOfSpeech: "conjunction",
-    exampleSentence: "Children can benefit from learning another language provided that the lessons are age-appropriate.",
-    essayTypes: ["opinion", "discussion"],
-    category: "general-academic"
+    "id": "vocab-026",
+    "englishWord": "provided that",
+    "pronunciation": "",
+    "pronunciationKk": "",
+    "definition": "При условии, что; a precise conditional connector stronger than 'if'.",
+    "partOfSpeech": "conjunction",
+    "exampleSentence": "Children can benefit from learning another language provided that the lessons are age-appropriate.",
+    "essayTypes": [
+      "opinion",
+      "discussion"
+    ],
+    "category": "general-academic",
+    "translationRu": "при условии, что"
   },
   {
-    id: "vocab-027",
-    englishWord: "a case can be made that",
-    pronunciation: "",
-    pronunciationKk: "",
-    definition: "Можно утверждать, что; good for introducing a nuanced opinion.",
-    partOfSpeech: "introductory phrase",
-    exampleSentence: "A case can be made that early language education improves both communication skills and confidence.",
-    essayTypes: ["discussion", "opinion"],
-    category: "general-academic"
+    "id": "vocab-027",
+    "englishWord": "a case can be made that",
+    "pronunciation": "",
+    "pronunciationKk": "",
+    "definition": "Можно утверждать, что; good for introducing a nuanced opinion.",
+    "partOfSpeech": "introductory phrase",
+    "exampleSentence": "A case can be made that early language education improves both communication skills and confidence.",
+    "essayTypes": [
+      "discussion",
+      "opinion"
+    ],
+    "category": "general-academic",
+    "translationRu": "можно утверждать, что"
   },
   {
-    id: "vocab-028",
-    englishWord: "not without merit",
-    pronunciation: "",
-    pronunciationKk: "",
-    definition: "Не лишено смысла; useful for acknowledging an opposing view without fully agreeing.",
-    partOfSpeech: "phrase",
-    exampleSentence: "The argument against homework is not without merit, especially when children already face a heavy workload.",
-    essayTypes: ["discussion", "advantages-disadvantages"],
-    category: "general-academic"
+    "id": "vocab-028",
+    "englishWord": "not without merit",
+    "pronunciation": "",
+    "pronunciationKk": "",
+    "definition": "Не лишено смысла; useful for acknowledging an opposing view without fully agreeing.",
+    "partOfSpeech": "phrase",
+    "exampleSentence": "The argument against homework is not without merit, especially when children already face a heavy workload.",
+    "essayTypes": [
+      "discussion",
+      "advantages-disadvantages"
+    ],
+    "category": "general-academic",
+    "translationRu": "не лишено смысла"
   },
   {
-    id: "vocab-029",
-    englishWord: "to a certain extent",
-    pronunciation: "",
-    pronunciationKk: "",
-    definition: "В определённой степени; a natural hedge for nuanced academic positions.",
-    partOfSpeech: "adverbial phrase",
-    exampleSentence: "To a certain extent, technology can replace traditional classroom activities.",
-    essayTypes: ["discussion", "two-part-question"],
-    category: "general-academic"
+    "id": "vocab-029",
+    "englishWord": "to a certain extent",
+    "pronunciation": "",
+    "pronunciationKk": "",
+    "definition": "В определённой степени; a natural hedge for nuanced academic positions.",
+    "partOfSpeech": "adverbial phrase",
+    "exampleSentence": "To a certain extent, technology can replace traditional classroom activities.",
+    "essayTypes": [
+      "discussion",
+      "two-part-question"
+    ],
+    "category": "general-academic",
+    "translationRu": "в определенной степени"
   },
   {
-    id: "vocab-030",
-    englishWord: "far outweighs any potential drawback",
-    pronunciation: "",
-    pronunciationKk: "",
-    definition: "Значительно перевешивает любые возможные недостатки.",
-    partOfSpeech: "verb phrase",
-    exampleSentence: "The long-term value of bilingual education far outweighs any potential drawback.",
-    essayTypes: ["advantages-disadvantages", "opinion"],
-    category: "general-academic"
+    "id": "vocab-030",
+    "englishWord": "far outweighs any potential drawback",
+    "pronunciation": "",
+    "pronunciationKk": "",
+    "definition": "Значительно перевешивает любые возможные недостатки.",
+    "partOfSpeech": "verb phrase",
+    "exampleSentence": "The long-term value of bilingual education far outweighs any potential drawback.",
+    "essayTypes": [
+      "advantages-disadvantages",
+      "opinion"
+    ],
+    "category": "general-academic",
+    "translationRu": "значительно перевешивает любой возможный недостаток"
   },
   {
-    id: "vocab-031",
-    englishWord: "warrant",
-    pronunciation: "/ˈwɔːrənt/",
-    pronunciationKk: "уорэнт",
-    definition: "A legal document that gives official permission for an action; as a verb, to justify or make something necessary.",
-    partOfSpeech: "noun / verb",
-    exampleSentence: "The police need a warrant to search private property.",
-    essayTypes: ["discussion", "problem-solution"],
-    category: "legal-official"
+    "id": "vocab-031",
+    "englishWord": "warrant",
+    "pronunciation": "/ˈwɔːrənt/",
+    "pronunciationKk": "уорэнт",
+    "definition": "A legal document that gives official permission for an action; as a verb, to justify or make something necessary.",
+    "partOfSpeech": "noun / verb",
+    "exampleSentence": "The police need a warrant to search private property.",
+    "essayTypes": [
+      "discussion",
+      "problem-solution"
+    ],
+    "category": "legal-official",
+    "translationRu": "ордер, официальное разрешение; оправдывать, служить основанием"
   },
   {
-    id: "vocab-032",
-    englishWord: "browse",
-    pronunciation: "/braʊz/",
-    pronunciationKk: "брауз",
-    definition: "To look through websites, pages, files, or items casually without searching for one exact thing.",
-    partOfSpeech: "verb",
-    exampleSentence: "Many students browse educational websites to find extra learning materials.",
-    essayTypes: ["opinion", "discussion"],
-    category: "web-digital"
+    "id": "vocab-032",
+    "englishWord": "browse",
+    "pronunciation": "/braʊz/",
+    "pronunciationKk": "брауз",
+    "definition": "To look through websites, pages, files, or items casually without searching for one exact thing.",
+    "partOfSpeech": "verb",
+    "exampleSentence": "Many students browse educational websites to find extra learning materials.",
+    "essayTypes": [
+      "opinion",
+      "discussion"
+    ],
+    "category": "web-digital",
+    "translationRu": "просматривать сайты, страницы или материалы"
   },
   {
-    id: "vocab-033",
-    englishWord: "closures",
-    pronunciation: "/ˈkloʊʒərz/",
-    pronunciationKk: "клоужэрз",
-    definition: "Programming functions that remember variables from the scope where they were created.",
-    partOfSpeech: "plural noun",
-    exampleSentence: "Closures are useful when a function needs to keep access to private state.",
-    essayTypes: [],
-    category: "technology"
+    "id": "vocab-033",
+    "englishWord": "closures",
+    "pronunciation": "/ˈkloʊʒərz/",
+    "pronunciationKk": "клоужэрз",
+    "definition": "Programming functions that remember variables from the scope where they were created.",
+    "partOfSpeech": "plural noun",
+    "exampleSentence": "Closures are useful when a function needs to keep access to private state.",
+    "essayTypes": [],
+    "category": "technology",
+    "translationRu": "замыкания в программировании"
   },
   {
-    id: "vocab-034",
-    englishWord: "vacant",
-    pronunciation: "/ˈveɪkənt/",
-    pronunciationKk: "вэйкэнт",
-    definition: "Empty, available, or not currently occupied, especially for jobs, rooms, or seats.",
-    partOfSpeech: "adjective",
-    exampleSentence: "The company has several vacant positions for junior developers.",
-    essayTypes: ["problem-solution", "discussion"],
-    category: "property"
+    "id": "vocab-034",
+    "englishWord": "vacant",
+    "pronunciation": "/ˈveɪkənt/",
+    "pronunciationKk": "вэйкэнт",
+    "definition": "Empty, available, or not currently occupied, especially for jobs, rooms, or seats.",
+    "partOfSpeech": "adjective",
+    "exampleSentence": "The company has several vacant positions for junior developers.",
+    "essayTypes": [
+      "problem-solution",
+      "discussion"
+    ],
+    "category": "property",
+    "translationRu": "свободный, незанятый, вакантный"
   },
   {
-    id: "vocab-035",
-    englishWord: "undeniable",
-    pronunciation: "/ˌʌndɪˈnaɪəbəl/",
-    pronunciationKk: "андинайэбл",
-    definition: "Clearly true or impossible to deny; useful for making a strong academic claim.",
-    partOfSpeech: "adjective",
-    exampleSentence: "It is undeniable that technology has changed the way students access information.",
-    essayTypes: ["opinion", "discussion"],
-    category: "general-academic"
+    "id": "vocab-035",
+    "englishWord": "undeniable",
+    "pronunciation": "/ˌʌndɪˈnaɪəbəl/",
+    "pronunciationKk": "андинайэбл",
+    "definition": "Clearly true or impossible to deny; useful for making a strong academic claim.",
+    "partOfSpeech": "adjective",
+    "exampleSentence": "It is undeniable that technology has changed the way students access information.",
+    "essayTypes": [
+      "opinion",
+      "discussion"
+    ],
+    "category": "general-academic",
+    "translationRu": "неоспоримый, очевидный, такой, который невозможно отрицать"
   }
 ];
 
@@ -446,6 +580,7 @@ const elements = {
   vocabPronunciationKk: document.querySelector("#vocabPronunciationKk"),
   vocabPartOfSpeech: document.querySelector("#vocabPartOfSpeech"),
   vocabDefinition: document.querySelector("#vocabDefinition"),
+  vocabTranslation: document.querySelector("#vocabTranslation"),
   vocabExample: document.querySelector("#vocabExample"),
   vocabTags: document.querySelector("#vocabTags"),
   vocabCategoryFilter: document.querySelector("#vocabCategoryFilter"),
@@ -460,6 +595,7 @@ const elements = {
   newVocabPronunciation: document.querySelector("#newVocabPronunciation"),
   newVocabPronunciationKk: document.querySelector("#newVocabPronunciationKk"),
   newVocabDefinition: document.querySelector("#newVocabDefinition"),
+  newVocabTranslation: document.querySelector("#newVocabTranslation"),
   newVocabPartOfSpeech: document.querySelector("#newVocabPartOfSpeech"),
   newVocabCategory: document.querySelector("#newVocabCategory"),
   newVocabExample: document.querySelector("#newVocabExample"),
@@ -765,6 +901,7 @@ elements.vocabForm.addEventListener("submit", (event) => {
   const pronunciation = elements.newVocabPronunciation.value.trim();
   const pronunciationKk = elements.newVocabPronunciationKk.value.trim();
   const definition = elements.newVocabDefinition.value.trim();
+  const translationRu = elements.newVocabTranslation.value.trim();
   const partOfSpeech = elements.newVocabPartOfSpeech.value.trim() || "word";
   const category = elements.newVocabCategory.value;
   const exampleSentence = elements.newVocabExample.value.trim();
@@ -782,6 +919,7 @@ elements.vocabForm.addEventListener("submit", (event) => {
     pronunciation,
     pronunciationKk,
     definition,
+    translationRu,
     partOfSpeech,
     category,
     exampleSentence: exampleSentence || `I want to remember the word "${englishWord}".`,
@@ -1084,6 +1222,7 @@ function renderVocabulary() {
     elements.vocabPronunciationKk.textContent = "";
     elements.vocabPartOfSpeech.textContent = "";
     elements.vocabDefinition.textContent = "";
+    elements.vocabTranslation.textContent = "";
     elements.vocabExample.textContent = "";
     elements.vocabTags.innerHTML = "";
     elements.vocabPrevious.disabled = true;
@@ -1099,6 +1238,7 @@ function renderVocabulary() {
   elements.vocabPronunciationKk.textContent = card.pronunciationKk || "";
   elements.vocabPartOfSpeech.textContent = card.partOfSpeech;
   elements.vocabDefinition.textContent = card.definition;
+  elements.vocabTranslation.textContent = card.translationRu || "";
   elements.vocabExample.textContent = card.exampleSentence;
   elements.vocabTags.innerHTML = [
     card.category
@@ -1671,6 +1811,7 @@ function normalizeVocabularyCard(card) {
     id: card.id || createId(),
     englishWord: String(card.englishWord).trim(),
     definition: String(card.definition).trim(),
+    translationRu: String(card.translationRu || "").trim(),
     partOfSpeech: String(card.partOfSpeech || "word").trim(),
     exampleSentence: String(card.exampleSentence || "").trim(),
     pronunciation: String(card.pronunciation || "").trim(),

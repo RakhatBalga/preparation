@@ -5,6 +5,7 @@ export interface Flashcard {
   englishWord: string;
   pronunciation: string;
   definition: string;
+  translationRu: string;
   partOfSpeech: string;
   exampleSentence: string;
   category?: string;
@@ -146,6 +147,9 @@ export function EnglishVocabularyFlashcards({
             <strong className="text-2xl font-semibold leading-tight text-slate-950 sm:text-4xl">
               {currentCard.definition}
             </strong>
+            <p className="mt-4 border-l-4 border-emerald-500 pl-4 text-lg font-semibold leading-7 text-emerald-800">
+              {currentCard.translationRu}
+            </p>
             <p className="mt-6 text-base leading-7 text-slate-600">
               {currentCard.exampleSentence}
             </p>
@@ -200,6 +204,7 @@ const sampleFlashcards: Flashcard[] = [
     englishWord: "resilient",
     pronunciation: "/rɪˈzɪliənt/",
     definition: "Able to recover quickly after difficulty.",
+    translationRu: "устойчивый, способный быстро восстановиться после трудностей",
     partOfSpeech: "adjective",
     exampleSentence: "She stayed resilient during the long interview process.",
     category: "Work / Career"
@@ -209,6 +214,7 @@ const sampleFlashcards: Flashcard[] = [
     englishWord: "concise",
     pronunciation: "/kənˈsaɪs/",
     definition: "Giving a lot of information clearly in a few words.",
+    translationRu: "краткий и ясный",
     partOfSpeech: "adjective",
     exampleSentence: "Keep your answer concise when the interviewer asks about your last project.",
     category: "General academic"
@@ -218,6 +224,7 @@ const sampleFlashcards: Flashcard[] = [
     englishWord: "iterate",
     pronunciation: "/ˈɪtəreɪt/",
     definition: "To repeat a process and improve it step by step.",
+    translationRu: "повторять и улучшать шаг за шагом",
     partOfSpeech: "verb",
     exampleSentence: "We iterate on the feature after each round of feedback.",
     category: "Technology"

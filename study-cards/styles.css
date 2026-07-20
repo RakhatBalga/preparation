@@ -612,6 +612,15 @@ select:focus {
   line-height: 1.15;
 }
 
+.flashcard-translation {
+  border-left: 3px solid var(--accent);
+  color: var(--accent-strong);
+  font-size: 1.12rem;
+  font-weight: 700;
+  line-height: 1.4;
+  padding-left: 14px;
+}
+
 .flashcard-back span:last-child {
   color: var(--muted);
   font-size: 1.05rem;
