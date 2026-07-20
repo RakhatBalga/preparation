@@ -540,6 +540,21 @@ const VOCABULARY_FLASHCARDS = [
     ],
     "category": "general-academic",
     "translationRu": "неоспоримый, очевидный, такой, который невозможно отрицать"
+  },
+  {
+    "id": "vocab-036",
+    "englishWord": "constraints",
+    "pronunciation": "/kənˈstreɪnts/",
+    "pronunciationKk": "констрэйнтс",
+    "definition": "Limits, restrictions, or conditions that control what is possible.",
+    "partOfSpeech": "plural noun",
+    "exampleSentence": "Financial constraints can prevent schools from buying modern equipment.",
+    "essayTypes": [
+      "problem-solution",
+      "discussion"
+    ],
+    "category": "general-academic",
+    "translationRu": "ограничения, рамки, сдерживающие условия"
   }
 ];
 
