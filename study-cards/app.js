@@ -600,6 +600,216 @@ const VOCABULARY_FLASHCARDS = [
     ],
     "category": "general-academic",
     "translationRu": "точный, четкий, конкретный"
+  },
+  {
+      "id": "vocab-040",
+      "englishWord": "flexibility",
+      "pronunciation": "/ˌfleksəˈbɪləti/",
+      "pronunciationKk": "флексибилити",
+      "definition": "The ability to choose or change how, when, or where something is done.",
+      "partOfSpeech": "noun",
+      "exampleSentence": "Remote work gives employees greater flexibility in choosing when and where they work.",
+      "essayTypes": [
+          "opinion",
+          "discussion"
+      ],
+      "category": "work",
+      "translationRu": "гибкость, возможность выбирать формат или время работы"
+  },
+  {
+      "id": "vocab-041",
+      "englishWord": "productivity dips",
+      "pronunciation": "",
+      "pronunciationKk": "",
+      "definition": "Periods when a person or group becomes less productive than usual.",
+      "partOfSpeech": "noun phrase",
+      "exampleSentence": "Productivity dips may occur when employees work from home without clear routines.",
+      "essayTypes": [
+          "problem-solution",
+          "discussion"
+      ],
+      "category": "work",
+      "translationRu": "снижение продуктивности, спад производительности"
+  },
+  {
+      "id": "vocab-042",
+      "englishWord": "the need to commute",
+      "pronunciation": "",
+      "pronunciationKk": "",
+      "definition": "The necessity of travelling regularly between home and work or school.",
+      "partOfSpeech": "noun phrase",
+      "exampleSentence": "Remote work removes the need to commute, saving employees both time and money.",
+      "essayTypes": [
+          "problem-solution",
+          "advantages-disadvantages"
+      ],
+      "category": "work",
+      "translationRu": "необходимость ездить на работу или учебу"
+  },
+  {
+      "id": "vocab-043",
+      "englishWord": "get distracted by non-work-related tasks",
+      "pronunciation": "",
+      "pronunciationKk": "",
+      "definition": "To lose attention because of tasks that are not connected to work.",
+      "partOfSpeech": "verb phrase",
+      "exampleSentence": "Some remote employees get distracted by non-work-related tasks at home.",
+      "essayTypes": [
+          "problem-solution",
+          "discussion"
+      ],
+      "category": "work",
+      "translationRu": "отвлекаться на задачи, не связанные с работой"
+  },
+  {
+      "id": "vocab-044",
+      "englishWord": "in-person interaction",
+      "pronunciation": "",
+      "pronunciationKk": "",
+      "definition": "Communication that happens face to face in the same physical place.",
+      "partOfSpeech": "noun phrase",
+      "exampleSentence": "In-person interaction can strengthen trust between colleagues.",
+      "essayTypes": [
+          "discussion",
+          "advantages-disadvantages"
+      ],
+      "category": "work",
+      "translationRu": "личное общение, взаимодействие лицом к лицу"
+  },
+  {
+      "id": "vocab-045",
+      "englishWord": "work-life balance",
+      "pronunciation": "/ˌwɜːrk laɪf ˈbæləns/",
+      "pronunciationKk": "уорк лайф бэлэнс",
+      "definition": "A healthy balance between job responsibilities and personal life.",
+      "partOfSpeech": "noun phrase",
+      "exampleSentence": "Remote work can improve work-life balance, but only if employees set clear boundaries.",
+      "essayTypes": [
+          "opinion",
+          "advantages-disadvantages"
+      ],
+      "category": "work",
+      "translationRu": "баланс между работой и личной жизнью"
+  },
+  {
+      "id": "vocab-046",
+      "englishWord": "micromanagement",
+      "pronunciation": "/ˌmaɪkroʊˈmænɪdʒmənt/",
+      "pronunciationKk": "майкроумэниджмэнт",
+      "definition": "A management style where a manager controls too many small details of employees’ work.",
+      "partOfSpeech": "noun",
+      "exampleSentence": "Some managers resort to micromanagement when they cannot see employees working in person.",
+      "essayTypes": [
+          "discussion",
+          "problem-solution"
+      ],
+      "category": "work",
+      "translationRu": "микроменеджмент, чрезмерный контроль"
+  },
+  {
+      "id": "vocab-047",
+      "englishWord": "collaborative environment",
+      "pronunciation": "",
+      "pronunciationKk": "",
+      "definition": "A setting that encourages people to work together and share ideas.",
+      "partOfSpeech": "noun phrase",
+      "exampleSentence": "Open-plan offices are designed to foster a collaborative environment.",
+      "essayTypes": [
+          "discussion",
+          "advantages-disadvantages"
+      ],
+      "category": "work",
+      "translationRu": "среда для совместной работы"
+  },
+  {
+      "id": "vocab-048",
+      "englishWord": "burnout",
+      "pronunciation": "/ˈbɜːrnaʊt/",
+      "pronunciationKk": "бёрнаут",
+      "definition": "Physical or emotional exhaustion caused by long-term stress, especially at work.",
+      "partOfSpeech": "noun",
+      "exampleSentence": "The blurred line between work and home life can contribute to burnout among remote workers.",
+      "essayTypes": [
+          "problem-solution",
+          "discussion"
+      ],
+      "category": "work",
+      "translationRu": "эмоциональное или профессиональное истощение, выгорание"
+  },
+  {
+      "id": "vocab-049",
+      "englishWord": "autonomy",
+      "pronunciation": "/ɔːˈtɑːnəmi/",
+      "pronunciationKk": "отономи",
+      "definition": "The freedom to make decisions and control one’s own work or actions.",
+      "partOfSpeech": "noun",
+      "exampleSentence": "Remote work grants employees greater autonomy over their daily schedule.",
+      "essayTypes": [
+          "opinion",
+          "discussion"
+      ],
+      "category": "work",
+      "translationRu": "самостоятельность, автономия в работе"
+  },
+  {
+      "id": "vocab-050",
+      "englishWord": "isolation",
+      "pronunciation": "/ˌaɪsəˈleɪʃən/",
+      "pronunciationKk": "айсолэйшэн",
+      "definition": "A state of being separated from other people, socially or professionally.",
+      "partOfSpeech": "noun",
+      "exampleSentence": "Prolonged remote work can lead to a sense of professional isolation.",
+      "essayTypes": [
+          "problem-solution",
+          "discussion"
+      ],
+      "category": "work",
+      "translationRu": "изоляция, социальная или профессиональная оторванность"
+  },
+  {
+      "id": "vocab-051",
+      "englishWord": "digital infrastructure",
+      "pronunciation": "",
+      "pronunciationKk": "",
+      "definition": "The digital systems, networks, and tools needed for online work or services.",
+      "partOfSpeech": "noun phrase",
+      "exampleSentence": "Reliable digital infrastructure is essential for remote work to function effectively.",
+      "essayTypes": [
+          "problem-solution",
+          "discussion"
+      ],
+      "category": "web-digital",
+      "translationRu": "цифровая инфраструктура"
+  },
+  {
+      "id": "vocab-052",
+      "englishWord": "redundant",
+      "pronunciation": "/rɪˈdʌndənt/",
+      "pronunciationKk": "ридандэнт",
+      "definition": "No longer needed or useful; unnecessary because something else has replaced it.",
+      "partOfSpeech": "adjective",
+      "exampleSentence": "As more companies adopt remote policies, large office spaces may become redundant.",
+      "essayTypes": [
+          "advantages-disadvantages",
+          "discussion"
+      ],
+      "category": "work",
+      "translationRu": "избыточный, ненужный, лишний"
+  },
+  {
+      "id": "vocab-053",
+      "englishWord": "accountability",
+      "pronunciation": "/əˌkaʊntəˈbɪləti/",
+      "pronunciationKk": "экаунтэбилити",
+      "definition": "Responsibility for results and the obligation to explain one’s actions.",
+      "partOfSpeech": "noun",
+      "exampleSentence": "Without direct supervision, remote work relies heavily on individual accountability.",
+      "essayTypes": [
+          "discussion",
+          "problem-solution"
+      ],
+      "category": "work",
+      "translationRu": "подотчетность, ответственность за результат"
   }
 ];
 
