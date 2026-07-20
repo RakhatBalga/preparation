@@ -395,6 +395,17 @@ const VOCABULARY_FLASHCARDS = [
     exampleSentence: "The company has several vacant positions for junior developers.",
     essayTypes: ["problem-solution", "discussion"],
     category: "property"
+  },
+  {
+    id: "vocab-035",
+    englishWord: "undeniable",
+    pronunciation: "/ˌʌndɪˈnaɪəbəl/",
+    pronunciationKk: "андинайэбл",
+    definition: "Clearly true or impossible to deny; useful for making a strong academic claim.",
+    partOfSpeech: "adjective",
+    exampleSentence: "It is undeniable that technology has changed the way students access information.",
+    essayTypes: ["opinion", "discussion"],
+    category: "general-academic"
   }
 ];
 
