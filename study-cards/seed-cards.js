@@ -1,4 +1,4 @@
-window.SEED_VERSION = "backend-interview-v7-leetcode-exact-cards";
+window.SEED_VERSION = "backend-interview-v8-leetcode-interview-cards";
 window.SEED_CARDS = [
   {
     "id": "q001",
@@ -2503,257 +2503,257 @@ window.SEED_CARDS = [
   {
     "id": "lc001",
     "topic": "LEETCODE · Arrays / Strings",
-    "question": "Arrays / Strings — Two Sum",
+    "question": "Как на интервью объяснить решение Two Sum через hash map?",
     "options": [],
     "correctOption": "",
-    "answer": "Ответ: храним target - nums[i] в hash map, находим пару за O(n)."
+    "answer": "Идем по массиву один раз. Для каждого nums[i] считаем complement = target - nums[i]. Если complement уже есть в map, нашли пару индексов. Иначе кладем nums[i] -> i. Время O(n), память O(n)."
   },
   {
     "id": "lc002",
     "topic": "LEETCODE · Arrays / Strings",
-    "question": "Arrays / Strings — Best Time to Buy and Sell Stock",
+    "question": "Как объяснить Best Time to Buy and Sell Stock за один проход?",
     "options": [],
     "correctOption": "",
-    "answer": "Ответ: идем слева направо, храним минимальную цену и максимальную прибыль."
+    "answer": "Идем слева направо, храним minPrice — лучшую цену покупки до текущего дня. На каждом дне считаем profit = price - minPrice и обновляем maxProfit. Если цена ниже minPrice, обновляем minPrice. Время O(n), память O(1)."
   },
   {
     "id": "lc003",
     "topic": "LEETCODE · Arrays / Strings",
-    "question": "Arrays / Strings — Product of Array Except Self",
+    "question": "Как решить Product of Array Except Self без деления?",
     "options": [],
     "correctOption": "",
-    "answer": "Ответ: считаем prefix product слева и suffix product справа, без деления."
+    "answer": "Сначала записываем в result произведение всех элементов слева от i. Потом идем справа налево и умножаем result[i] на suffix product справа. Так получаем произведение всех элементов кроме текущего. Время O(n), extra memory O(1), не считая output."
   },
   {
     "id": "lc004",
     "topic": "LEETCODE · Arrays / Strings",
-    "question": "Arrays / Strings — Valid Anagram",
+    "question": "Как проверить Valid Anagram и что сказать про сложность?",
     "options": [],
     "correctOption": "",
-    "answer": "Ответ: считаем частоты символов в двух строках или сортируем строки."
+    "answer": "Если длины разные, сразу false. Иначе считаем частоты символов в первой строке и вычитаем частоты второй. Все счетчики должны стать нулем. Для фиксированного алфавита память O(1), время O(n). Альтернатива — сортировка O(n log n)."
   },
   {
     "id": "lc005",
     "topic": "LEETCODE · Hash Map",
-    "question": "Hash Map — Contains Duplicate",
+    "question": "Когда для Contains Duplicate нужен set?",
     "options": [],
     "correctOption": "",
-    "answer": "Ответ: добавляем элементы в set; если уже есть, возвращаем true."
+    "answer": "Когда нужно быстро проверить, встречался ли элемент раньше. Идем по nums, если число уже в set — есть duplicate. Если нет, добавляем. Average time O(n), память O(n). Edge case: пустой или один элемент возвращает false."
   },
   {
     "id": "lc006",
     "topic": "LEETCODE · Hash Map",
-    "question": "Hash Map — Group Anagrams",
+    "question": "Как группировать анаграммы через hash map?",
     "options": [],
     "correctOption": "",
-    "answer": "Ответ: ключом делаем отсортированную строку или массив частот букв."
+    "answer": "Для каждого слова строим ключ: отсортированную строку или tuple частот 26 букв. Все слова с одинаковым ключом кладем в один список в map. Сортировка проще, частоты быстрее для lowercase English."
   },
   {
     "id": "lc007",
     "topic": "LEETCODE · Hash Map",
-    "question": "Hash Map — Top K Frequent Elements",
+    "question": "Как объяснить Top K Frequent Elements?",
     "options": [],
     "correctOption": "",
-    "answer": "Ответ: считаем частоты через map, потом heap или bucket sort."
+    "answer": "Сначала считаем frequency map: element -> count. Потом выбираем k самых частых: через min-heap размера k O(n log k) или bucket sort по частотам O(n). На интервью важно назвать оба варианта и trade-off."
   },
   {
     "id": "lc008",
     "topic": "LEETCODE · Hash Map",
-    "question": "Hash Map — Longest Consecutive Sequence",
+    "question": "Почему Longest Consecutive Sequence начинается только с чисел без num - 1?",
     "options": [],
     "correctOption": "",
-    "answer": "Ответ: кладем числа в set, стартуем только с чисел, у которых нет num - 1."
+    "answer": "Кладем все числа в set. Число является началом последовательности только если num - 1 нет в set. От таких стартов считаем num + 1, num + 2 и длину. Каждый элемент посещается ограниченное число раз, поэтому O(n)."
   },
   {
     "id": "lc009",
     "topic": "LEETCODE · Two Pointers",
-    "question": "Two Pointers — Valid Palindrome",
+    "question": "Как объяснить Valid Palindrome через two pointers?",
     "options": [],
     "correctOption": "",
-    "answer": "Ответ: два указателя с концов, пропускаем не-буквенно-цифровые символы."
+    "answer": "Ставим left в начало, right в конец. Пока left < right, пропускаем не-буквенно-цифровые символы, сравниваем lowercase символы. Если отличаются — false, иначе двигаем оба указателя. Время O(n), память O(1)."
   },
   {
     "id": "lc010",
     "topic": "LEETCODE · Two Pointers",
-    "question": "Two Pointers — Two Sum II - Input Array Is Sorted",
+    "question": "Почему Two Sum II решается двумя указателями?",
     "options": [],
     "correctOption": "",
-    "answer": "Ответ: левый и правый указатели; если сумма мала, двигаем левый, если велика — правый."
+    "answer": "Массив отсортирован, поэтому сумма управляемая. Если nums[left] + nums[right] меньше target, увеличиваем left. Если больше target, уменьшаем right. Если равна, нашли ответ. Время O(n), память O(1)."
   },
   {
     "id": "lc011",
     "topic": "LEETCODE · Two Pointers",
-    "question": "Two Pointers — 3Sum",
+    "question": "Как на интервью объяснить 3Sum?",
     "options": [],
     "correctOption": "",
-    "answer": "Ответ: сортируем массив, фиксируем первое число, дальше решаем через two pointers."
+    "answer": "Сортируем массив. Фиксируем i, затем решаем 2Sum двумя указателями на отрезке справа. Если сумма меньше 0 — двигаем left, если больше — right. Обязательно пропускаем дубликаты для i, left и right. Время O(n^2)."
   },
   {
     "id": "lc012",
     "topic": "LEETCODE · Two Pointers",
-    "question": "Two Pointers — Container With Most Water",
+    "question": "Какая идея в Container With Most Water?",
     "options": [],
     "correctOption": "",
-    "answer": "Ответ: два указателя с краев, двигаем тот, где высота меньше."
+    "answer": "Площадь = min(height[left], height[right]) * ширина. Начинаем с краев, обновляем максимум и двигаем указатель с меньшей высотой, потому что именно он ограничивает площадь. Время O(n), память O(1)."
   },
   {
     "id": "lc013",
     "topic": "LEETCODE · Sliding Window",
-    "question": "Sliding Window — Best Time to Buy and Sell Stock",
+    "question": "Как увидеть Best Time to Buy and Sell Stock как sliding window?",
     "options": [],
     "correctOption": "",
-    "answer": "Ответ: можно видеть как окно покупки-продажи: покупка слева, продажа справа."
+    "answer": "Левый указатель — день покупки, правый — день продажи. Если price[right] больше price[left], обновляем прибыль. Если price[right] меньше, переносим left на right, потому что нашли более выгодную покупку."
   },
   {
     "id": "lc014",
     "topic": "LEETCODE · Sliding Window",
-    "question": "Sliding Window — Longest Substring Without Repeating Characters",
+    "question": "Как решать Longest Substring Without Repeating Characters?",
     "options": [],
     "correctOption": "",
-    "answer": "Ответ: двигаем правый указатель, при повторе двигаем левый до валидного окна."
+    "answer": "Держим окно без повторов и set/map символов. Двигаем right, добавляя символы. Если появился повтор, двигаем left, пока окно снова не станет валидным. На каждом шаге обновляем max length. Время O(n)."
   },
   {
     "id": "lc015",
     "topic": "LEETCODE · Sliding Window",
-    "question": "Sliding Window — Minimum Window Substring",
+    "question": "Как объяснить Minimum Window Substring?",
     "options": [],
     "correctOption": "",
-    "answer": "Ответ: расширяем окно, пока не покрыли нужные символы, потом сжимаем слева."
+    "answer": "Нужен счетчик required символов из t и окно в s. Расширяем right, пока окно не покрывает все нужные символы. Затем сжимаем left, пока окно остается валидным, обновляя минимальный ответ. Важно хранить have/need."
   },
   {
     "id": "lc016",
     "topic": "LEETCODE · Sliding Window",
-    "question": "Sliding Window — Permutation in String",
+    "question": "Как понять Permutation in String через фиксированное окно?",
     "options": [],
     "correctOption": "",
-    "answer": "Ответ: окно длины s1.length, сравниваем частоты символов."
+    "answer": "Permutation s1 в s2 означает окно длины s1.length с теми же частотами символов. Считаем частоты s1 и текущего окна в s2, затем двигаем окно на один символ, обновляя счетчики. Если частоты совпали — true."
   },
   {
     "id": "lc017",
     "topic": "LEETCODE · Stack",
-    "question": "Stack — Valid Parentheses",
+    "question": "Как объяснить Valid Parentheses через stack?",
     "options": [],
     "correctOption": "",
-    "answer": "Ответ: открывающие скобки кладем в stack, закрывающие сравниваем с верхом."
+    "answer": "Открывающие скобки кладем в stack. Когда видим закрывающую, stack не должен быть пустым, а верхний элемент должен быть соответствующей открывающей скобкой. В конце stack должен быть пустым. Время O(n), память O(n)."
   },
   {
     "id": "lc018",
     "topic": "LEETCODE · Stack",
-    "question": "Stack — Min Stack",
+    "question": "Как спроектировать Min Stack?",
     "options": [],
     "correctOption": "",
-    "answer": "Ответ: держим два стека: обычный и стек минимумов."
+    "answer": "Держим основной stack значений и дополнительный minStack. При push добавляем новый минимум или текущий минимум. При pop удаляем из обоих. Тогда getMin работает за O(1), как push/pop/top."
   },
   {
     "id": "lc019",
     "topic": "LEETCODE · Stack",
-    "question": "Stack — Daily Temperatures",
+    "question": "Почему Daily Temperatures решается monotonic stack?",
     "options": [],
     "correctOption": "",
-    "answer": "Ответ: monotonic stack индексов температур, ждем первый более теплый день."
+    "answer": "Храним индексы дней с температурами, для которых еще не нашли более теплый день. Stack убывающий по температуре. Когда текущая температура выше температуры на вершине, достаем индекс и считаем расстояние. Время O(n)."
   },
   {
     "id": "lc020",
     "topic": "LEETCODE · Stack",
-    "question": "Stack — Evaluate Reverse Polish Notation",
+    "question": "Как вычислять Reverse Polish Notation?",
     "options": [],
     "correctOption": "",
-    "answer": "Ответ: числа кладем в stack, оператор применяем к двум верхним числам."
+    "answer": "Идем по токенам. Числа кладем в stack. Если токен оператор, достаем два последних числа: сначала b, потом a, считаем a op b и кладем результат обратно. Важно не перепутать порядок для деления и вычитания."
   },
   {
     "id": "lc021",
     "topic": "LEETCODE · Binary Search",
-    "question": "Binary Search — Binary Search",
+    "question": "Какие инварианты важно назвать в классическом Binary Search?",
     "options": [],
     "correctOption": "",
-    "answer": "Ответ: классика: left, right, mid, сужаем диапазон."
+    "answer": "Держим диапазон [left, right], где может быть target. Считаем mid без overflow: left + (right - left) // 2. Если nums[mid] меньше target, ищем справа, иначе слева. Завершаем, когда left > right. Время O(log n)."
   },
   {
     "id": "lc022",
     "topic": "LEETCODE · Binary Search",
-    "question": "Binary Search — Search Insert Position",
+    "question": "Как объяснить Search Insert Position как lower_bound?",
     "options": [],
     "correctOption": "",
-    "answer": "Ответ: binary search первой позиции, где nums[i] >= target."
+    "answer": "Нужно найти первую позицию, где nums[i] >= target. Держим left/right, если nums[mid] >= target, сохраняем правую границу слева; иначе двигаем left вправо. После цикла left и есть insert position."
   },
   {
     "id": "lc023",
     "topic": "LEETCODE · Binary Search",
-    "question": "Binary Search — Search in Rotated Sorted Array",
+    "question": "Как искать в Rotated Sorted Array?",
     "options": [],
     "correctOption": "",
-    "answer": "Ответ: на каждом шаге определяем, какая половина отсортирована."
+    "answer": "На каждом шаге одна половина отсортирована. Проверяем, лежит ли target внутри отсортированной половины. Если да, сужаемся туда, иначе идем в другую половину. Так сохраняем O(log n)."
   },
   {
     "id": "lc024",
     "topic": "LEETCODE · Binary Search",
-    "question": "Binary Search — Find Minimum in Rotated Sorted Array",
+    "question": "Как найти минимум в Rotated Sorted Array?",
     "options": [],
     "correctOption": "",
-    "answer": "Ответ: сравниваем nums[mid] с nums[right], минимум в “сломленной” части."
+    "answer": "Сравниваем nums[mid] с nums[right]. Если nums[mid] > nums[right], минимум справа от mid. Иначе минимум в mid или левее, поэтому right = mid. В конце left указывает на минимум."
   },
   {
     "id": "lc025",
     "topic": "LEETCODE · Trees + DFS/BFS",
-    "question": "Trees + DFS/BFS — Maximum Depth of Binary Tree",
+    "question": "Как объяснить Maximum Depth of Binary Tree через DFS?",
     "options": [],
     "correctOption": "",
-    "answer": "Ответ: DFS: 1 + max(depth(left), depth(right))."
+    "answer": "Глубина пустого узла — 0. Для непустого узла глубина равна 1 + max(depth(left), depth(right)). Это postorder DFS. Время O(n), память O(h) из-за recursion stack."
   },
   {
     "id": "lc026",
     "topic": "LEETCODE · Trees + DFS/BFS",
-    "question": "Trees + DFS/BFS — Invert Binary Tree",
+    "question": "Как объяснить Invert Binary Tree?",
     "options": [],
     "correctOption": "",
-    "answer": "Ответ: рекурсивно меняем местами левое и правое поддерево."
+    "answer": "Для каждого узла меняем местами left и right, затем рекурсивно делаем то же для поддеревьев. Можно DFS или BFS. Каждый узел обрабатывается один раз, время O(n)."
   },
   {
     "id": "lc027",
     "topic": "LEETCODE · Trees + DFS/BFS",
-    "question": "Trees + DFS/BFS — Binary Tree Level Order Traversal",
+    "question": "Как делать Binary Tree Level Order Traversal?",
     "options": [],
     "correctOption": "",
-    "answer": "Ответ: BFS через queue, обрабатываем дерево по уровням."
+    "answer": "Используем queue для BFS. На каждом уровне запоминаем текущий размер queue, обрабатываем ровно столько узлов и добавляем их children в queue. Так получаем отдельный список значений для каждого уровня."
   },
   {
     "id": "lc028",
     "topic": "LEETCODE · Trees + DFS/BFS",
-    "question": "Trees + DFS/BFS — Validate Binary Search Tree",
+    "question": "Как валидировать Binary Search Tree?",
     "options": [],
     "correctOption": "",
-    "answer": "Ответ: DFS с границами min/max для каждого узла."
+    "answer": "DFS с границами: для каждого узла значение должно быть строго между low и high. Для левого ребенка high становится node.val, для правого low становится node.val. Это ловит ошибки не только у прямых children."
   },
   {
     "id": "lc029",
     "topic": "LEETCODE · Dynamic Programming",
-    "question": "Dynamic Programming — Climbing Stairs",
+    "question": "Как распознать DP на примере Climbing Stairs?",
     "options": [],
     "correctOption": "",
-    "answer": "Ответ: dp[i] = dp[i-1] + dp[i-2]."
+    "answer": "Есть повторяющиеся подзадачи: чтобы попасть на ступень i, можно прийти с i-1 или i-2. Поэтому dp[i] = dp[i-1] + dp[i-2]. Можно хранить только две переменные, память O(1)."
   },
   {
     "id": "lc030",
     "topic": "LEETCODE · Dynamic Programming",
-    "question": "Dynamic Programming — House Robber",
+    "question": "Как объяснить House Robber?",
     "options": [],
     "correctOption": "",
-    "answer": "Ответ: на каждом доме выбираем: ограбить текущий или пропустить. dp[i] = max(dp[i-1], dp[i-2] + nums[i])."
+    "answer": "На каждом доме есть выбор: пропустить его и оставить dp[i-1], или ограбить его и взять dp[i-2] + nums[i]. Переход: dp[i] = max(dp[i-1], dp[i-2] + nums[i]). Можно оптимизировать до двух переменных."
   },
   {
     "id": "lc031",
     "topic": "LEETCODE · Dynamic Programming",
-    "question": "Dynamic Programming — Coin Change",
+    "question": "Как объяснить Coin Change?",
     "options": [],
     "correctOption": "",
-    "answer": "Ответ: dp[x] = минимум монет для суммы x; перебираем монеты."
+    "answer": "dp[x] — минимальное число монет для суммы x. Инициализируем dp[0] = 0, остальные infinity. Для каждой суммы перебираем coins и обновляем dp[x] = min(dp[x], dp[x - coin] + 1). Если dp[amount] infinity, ответа нет."
   },
   {
     "id": "lc032",
     "topic": "LEETCODE · Dynamic Programming",
-    "question": "Dynamic Programming — Longest Increasing Subsequence",
+    "question": "Как объяснить Longest Increasing Subsequence?",
     "options": [],
     "correctOption": "",
-    "answer": "Ответ: либо O(n^2) DP, либо O(n log n) через массив хвостов подпоследовательностей."
+    "answer": "O(n^2): dp[i] — длина LIS, заканчивающейся в i. Для каждого j < i, если nums[j] < nums[i], обновляем dp[i]. O(n log n): храним tails, где tails[len] — минимальный возможный хвост подпоследовательности длины len."
   }
 ];
