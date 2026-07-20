@@ -570,6 +570,21 @@ const VOCABULARY_FLASHCARDS = [
     ],
     "category": "general-academic",
     "translationRu": "за пределами, вне, дальше чем"
+  },
+  {
+    "id": "vocab-038",
+    "englishWord": "commute",
+    "pronunciation": "/kəˈmjuːt/",
+    "pronunciationKk": "комьют",
+    "definition": "To travel regularly between home and work or school; also the journey itself.",
+    "partOfSpeech": "verb / noun",
+    "exampleSentence": "A long commute can reduce the amount of time people spend with their families.",
+    "essayTypes": [
+      "problem-solution",
+      "discussion"
+    ],
+    "category": "work",
+    "translationRu": "ездить на работу или учебу; ежедневная дорога"
   }
 ];
 
