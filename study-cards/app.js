@@ -11,12 +11,15 @@ const ESSAY_TYPE_LABELS = {
   "two-part-question": "Two-Part Question"
 };
 const VOCABULARY_CATEGORY_LABELS = {
-  "general-academic": "General academic",
+  "general-academic": "Academic arguments",
   education: "Education / Development",
-  technology: "Technology",
+  technology: "Programming / Technology",
+  "web-digital": "Web / Digital actions",
   environment: "Environment",
-  society: "Society",
-  work: "Work / Career"
+  society: "Society / Public issues",
+  work: "Work / Career",
+  "legal-official": "Legal / Official",
+  property: "Work / Property"
 };
 const VOCABULARY_FLASHCARDS = [
   {
@@ -348,6 +351,50 @@ const VOCABULARY_FLASHCARDS = [
     exampleSentence: "The long-term value of bilingual education far outweighs any potential drawback.",
     essayTypes: ["advantages-disadvantages", "opinion"],
     category: "general-academic"
+  },
+  {
+    id: "vocab-031",
+    englishWord: "warrant",
+    pronunciation: "/ˈwɔːrənt/",
+    pronunciationKk: "уорэнт",
+    definition: "A legal document that gives official permission for an action; as a verb, to justify or make something necessary.",
+    partOfSpeech: "noun / verb",
+    exampleSentence: "The police need a warrant to search private property.",
+    essayTypes: ["discussion", "problem-solution"],
+    category: "legal-official"
+  },
+  {
+    id: "vocab-032",
+    englishWord: "browse",
+    pronunciation: "/braʊz/",
+    pronunciationKk: "брауз",
+    definition: "To look through websites, pages, files, or items casually without searching for one exact thing.",
+    partOfSpeech: "verb",
+    exampleSentence: "Many students browse educational websites to find extra learning materials.",
+    essayTypes: ["opinion", "discussion"],
+    category: "web-digital"
+  },
+  {
+    id: "vocab-033",
+    englishWord: "closures",
+    pronunciation: "/ˈkloʊʒərz/",
+    pronunciationKk: "клоужэрз",
+    definition: "Programming functions that remember variables from the scope where they were created.",
+    partOfSpeech: "plural noun",
+    exampleSentence: "Closures are useful when a function needs to keep access to private state.",
+    essayTypes: [],
+    category: "technology"
+  },
+  {
+    id: "vocab-034",
+    englishWord: "vacant",
+    pronunciation: "/ˈveɪkənt/",
+    pronunciationKk: "вэйкэнт",
+    definition: "Empty, available, or not currently occupied, especially for jobs, rooms, or seats.",
+    partOfSpeech: "adjective",
+    exampleSentence: "The company has several vacant positions for junior developers.",
+    essayTypes: ["problem-solution", "discussion"],
+    category: "property"
   }
 ];
 
