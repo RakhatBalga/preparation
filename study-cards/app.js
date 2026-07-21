@@ -1,4 +1,5 @@
 const STORAGE_KEY = "study-cards-state-v1";
+const BACKUP_FORMAT = "preparation-backup-v1";
 const DEFAULT_TOPIC = "Без темы";
 const DAY = 24 * 60 * 60 * 1000;
 const SEED_VERSION = window.SEED_VERSION || "manual-v1";
@@ -845,6 +846,8 @@ const elements = {
   vocabAccuracy: document.querySelector("#vocabAccuracy"),
   vocabCard: document.querySelector("#vocabCard"),
   vocabCardInner: document.querySelector("#vocabCardInner"),
+  vocabCardFront: document.querySelector(".flashcard-front"),
+  vocabCardBack: document.querySelector(".flashcard-back"),
   vocabWord: document.querySelector("#vocabWord"),
   vocabPronunciation: document.querySelector("#vocabPronunciation"),
   vocabPronunciationKk: document.querySelector("#vocabPronunciationKk"),
@@ -1008,6 +1011,15 @@ elements.reviewArea.addEventListener("click", (event) => {
     return;
   }
 
+  if (action === "self-wrong" || action === "self-correct") {
+    if (!state.answerVisible || state.mode !== "practice") {
+      return;
+    }
+    rateCurrentCard(action === "self-correct" ? "good" : "again");
+    navigateReview(1, { alreadySaved: true });
+    return;
+  }
+
   if (["again", "hard", "good"].includes(action)) {
     rateCurrentCard(action);
     navigateReview(1, { alreadySaved: true });
@@ -1072,6 +1084,18 @@ elements.importButton.addEventListener("click", () => {
   }
 
   try {
+    const backup = parseBackup(raw);
+    if (backup) {
+      restoreBackup(backup);
+      elements.importInput.value = "";
+      saveState();
+      render();
+      setImportStatus(
+        `Backup восстановлен: ${backup.cards.length} вопросов, ${backup.customVocabulary.length} своих слов.`
+      );
+      return;
+    }
+
     const cards = parseImport(raw);
     if (!cards.length) {
       setImportStatus("Не нашел ни одного вопроса.", true);
@@ -1112,23 +1136,14 @@ elements.loadSampleButton.addEventListener("click", () => {
 });
 
 elements.exportButton.addEventListener("click", () => {
-  const payload = state.cards.map((card) => ({
-    topic: card.topic,
-    question: card.question,
-    options: card.options,
-    correctOption: card.correctOption,
-    answer: card.answer,
-    progress: {
-      box: card.box,
-      dueAt: card.dueAt,
-      reviews: card.reviews,
-      correct: card.correct,
-      wrong: card.wrong,
-      lastPickedOption: card.lastPickedOption,
-      lastResult: card.lastResult,
-      lastReviewedAt: card.lastReviewedAt
-    }
-  }));
+  const payload = {
+    format: BACKUP_FORMAT,
+    exportedAt: new Date().toISOString(),
+    seedVersion: state.seedVersion,
+    cards: state.cards.map(serializeQuestionCard),
+    customVocabulary: state.customVocabulary,
+    vocabProgress: state.vocabProgress
+  };
 
   const blob = new Blob([JSON.stringify(payload, null, 2)], {
     type: "application/json"
@@ -1337,14 +1352,14 @@ function renderReview() {
       <span>${escapeHtml(getModeLabel(state.mode))}</span>
       <strong>${position}</strong>
     </div>
-    <div class="review-card ${showAnswer ? "is-answer-visible" : ""}" data-action="toggle-answer" role="button" tabindex="0" aria-expanded="${showAnswer ? "true" : "false"}">
+    <div class="review-card ${showAnswer ? "is-answer-visible" : ""}" data-action="toggle-answer" role="button" tabindex="0" aria-label="${escapeHtml(getReviewCardAriaLabel(card, showAnswer))}" aria-expanded="${showAnswer ? "true" : "false"}">
       <div class="review-card-inner">
-        <div class="review-card-face review-card-front">
+        <div class="review-card-face review-card-front" aria-hidden="${showAnswer ? "true" : "false"}">
           <p class="question-label">${escapeHtml(card.topic)} · ${escapeHtml(cardStatus)}</p>
           <p class="question-text">${escapeHtml(card.question)}</p>
           ${renderOptions(card, showAnswer)}
         </div>
-        <div class="review-card-face review-card-back">
+        <div class="review-card-face review-card-back" aria-hidden="${showAnswer ? "false" : "true"}">
           <p class="question-label">${escapeHtml(card.topic)} · ответ</p>
           <p class="question-text question-text-small">${escapeHtml(card.question)}</p>
           ${renderAnswer(card)}
@@ -1434,6 +1449,8 @@ function renderReviewControls(card, showAnswer) {
   const cards = getReviewCards();
   const previousDisabled = state.currentIndex <= 0 ? "disabled" : "";
   const nextDisabled = state.currentIndex >= cards.length - 1 ? "disabled" : "";
+  const canSelfCheck = state.mode === "practice" && !card.options.length;
+  const selfCheckHidden = canSelfCheck && showAnswer ? "" : "hidden";
 
   return `
     <div class="review-footer">
@@ -1442,6 +1459,12 @@ function renderReviewControls(card, showAnswer) {
           <button class="button button-secondary" data-action="prev" type="button" ${previousDisabled}>Назад</button>
           <button class="button button-secondary" data-action="next" type="button" ${nextDisabled}>Вперед</button>
         </div>
+        ${canSelfCheck ? `
+          <div class="rating-actions ${selfCheckHidden}" data-self-check aria-label="Оценить свой ответ">
+            <button class="button button-secondary button-danger" data-action="self-wrong" type="button">Ошибка</button>
+            <button class="button button-primary" data-action="self-correct" type="button">Верно</button>
+          </div>
+        ` : ""}
       </div>
       ${renderQuestionJumper(cards)}
     </div>
@@ -1544,6 +1567,7 @@ function renderVocabulary({ animate = false } = {}) {
     .join("");
   elements.vocabCardInner.classList.toggle("is-flipped", state.vocabFlipped);
   elements.vocabCard.classList.toggle("is-answer-visible", state.vocabFlipped);
+  syncVocabularyAccessibility(card);
   elements.vocabPrevious.disabled = state.vocabIndex === 0;
   elements.vocabNext.disabled = state.vocabIndex === cards.length - 1;
   elements.vocabStatus.textContent = getVocabularyStatusText(card);
@@ -1757,6 +1781,7 @@ function toggleVocabularyCard() {
   saveState();
   elements.vocabCardInner.classList.toggle("is-flipped", state.vocabFlipped);
   elements.vocabCard.classList.toggle("is-answer-visible", state.vocabFlipped);
+  syncVocabularyAccessibility(getCurrentVocabularyCard());
 }
 
 async function navigateVocabulary(delta) {
@@ -1822,8 +1847,31 @@ function syncReviewFlipState() {
   }
 
   const showAnswer = state.mode !== "practice" || state.answerVisible;
+  const card = getCurrentCard();
   reviewCard.classList.toggle("is-answer-visible", showAnswer);
   reviewCard.setAttribute("aria-expanded", String(showAnswer));
+  reviewCard.setAttribute("aria-label", getReviewCardAriaLabel(card, showAnswer));
+  reviewCard.querySelector(".review-card-front")?.setAttribute("aria-hidden", String(showAnswer));
+  reviewCard.querySelector(".review-card-back")?.setAttribute("aria-hidden", String(!showAnswer));
+  elements.reviewArea
+    .querySelector("[data-self-check]")
+    ?.classList.toggle("hidden", !showAnswer);
+}
+
+function syncVocabularyAccessibility(card) {
+  if (!card) {
+    return;
+  }
+
+  elements.vocabCard.setAttribute("aria-expanded", String(state.vocabFlipped));
+  elements.vocabCard.setAttribute(
+    "aria-label",
+    state.vocabFlipped
+      ? `${asAriaSentence(card.englishWord)} Definition: ${asAriaSentence(card.definition)} Click to hide the answer.`
+      : `${asAriaSentence(card.englishWord)} Click to reveal the definition.`
+  );
+  elements.vocabCardFront.setAttribute("aria-hidden", String(state.vocabFlipped));
+  elements.vocabCardBack.setAttribute("aria-hidden", String(!state.vocabFlipped));
 }
 
 function playCardEntrance(cardElement) {
@@ -1979,6 +2027,7 @@ function findCard(id) {
 
 function createCard(input) {
   const now = new Date().toISOString();
+  const nowTimestamp = Date.now();
   const progress = input.progress || {};
   const options = normalizeOptions(input.options);
   const correctOption = String(input.correctOption || input.correct || "").trim().toUpperCase();
@@ -1993,11 +2042,11 @@ function createCard(input) {
     answer: String(input.answer || input.a || correctText || "").trim(),
     createdAt: input.createdAt || now,
     updatedAt: input.updatedAt || now,
-    box: Number(progress.box ?? input.box ?? 0),
-    dueAt: Number(progress.dueAt ?? input.dueAt ?? Date.now()),
-    reviews: Number(progress.reviews ?? input.reviews ?? 0),
-    correct: Number(progress.correct ?? input.correctCount ?? input.correctAnswers ?? 0),
-    wrong: Number(progress.wrong ?? input.wrong ?? 0),
+    box: clampNumber(toNonNegativeInteger(progress.box ?? input.box), 0, 5),
+    dueAt: toFiniteNumber(progress.dueAt ?? input.dueAt, nowTimestamp),
+    reviews: toNonNegativeInteger(progress.reviews ?? input.reviews),
+    correct: toNonNegativeInteger(progress.correct ?? input.correctCount ?? input.correctAnswers),
+    wrong: toNonNegativeInteger(progress.wrong ?? input.wrong),
     lastPickedOption: progress.lastPickedOption || input.lastPickedOption || null,
     lastResult: progress.lastResult || input.lastResult || null,
     lastReviewedAt: progress.lastReviewedAt || input.lastReviewedAt || null
@@ -2048,6 +2097,69 @@ function parseImport(raw) {
       lastReviewedAt: item.lastReviewedAt
     }))
     .filter((item) => item.question && (item.answer || item.correctOption));
+}
+
+function parseBackup(raw) {
+  let parsed;
+  try {
+    parsed = JSON.parse(raw);
+  } catch {
+    return null;
+  }
+
+  if (!parsed || parsed.format !== BACKUP_FORMAT) {
+    return null;
+  }
+
+  if (!Array.isArray(parsed.cards) || !Array.isArray(parsed.customVocabulary)) {
+    throw new Error("Backup поврежден: отсутствуют вопросы или словарь.");
+  }
+
+  return {
+    seedVersion: String(parsed.seedVersion || SEED_VERSION),
+    cards: parsed.cards.map(createCard).filter((card) => card.question && (card.answer || card.correctOption)),
+    customVocabulary: parsed.customVocabulary.map(normalizeVocabularyCard).filter(Boolean),
+    vocabProgress: normalizeVocabularyProgress(parsed.vocabProgress)
+  };
+}
+
+function restoreBackup(backup) {
+  state.cards = backup.cards;
+  state.seedVersion = backup.seedVersion;
+  state.customVocabulary = backup.customVocabulary;
+  state.vocabProgress = backup.vocabProgress;
+  state.topic = "all";
+  state.mode = "practice";
+  state.currentIndex = 0;
+  state.currentId = backup.cards[0]?.id || null;
+  state.vocabCategory = "all";
+  state.essayType = "all";
+  state.vocabIndex = 0;
+  state.vocabFlipped = false;
+  resetAnswerView();
+}
+
+function serializeQuestionCard(card) {
+  return {
+    id: card.id,
+    topic: card.topic,
+    question: card.question,
+    options: card.options,
+    correctOption: card.correctOption,
+    answer: card.answer,
+    createdAt: card.createdAt,
+    updatedAt: card.updatedAt,
+    progress: {
+      box: card.box,
+      dueAt: card.dueAt,
+      reviews: card.reviews,
+      correct: card.correct,
+      wrong: card.wrong,
+      lastPickedOption: card.lastPickedOption,
+      lastResult: card.lastResult,
+      lastReviewedAt: card.lastReviewedAt
+    }
+  };
 }
 
 function parseJsonImport(raw) {
@@ -2101,7 +2213,7 @@ function loadState() {
       answeredCardId: parsed.answeredCardId || null,
       vocabIndex: Number.isFinite(parsed.vocabIndex) ? parsed.vocabIndex : 0,
       vocabFlipped: Boolean(parsed.vocabFlipped),
-      vocabProgress: parsed.vocabProgress || {},
+      vocabProgress: normalizeVocabularyProgress(parsed.vocabProgress),
       essayType: parsed.essayType === "all" || parsed.essayType in ESSAY_TYPE_LABELS ? parsed.essayType : "all",
       vocabCategory:
         parsed.vocabCategory === "all" || parsed.vocabCategory in VOCABULARY_CATEGORY_LABELS
@@ -2235,6 +2347,21 @@ function getModeLabel(mode) {
   return "Тренировка";
 }
 
+function getReviewCardAriaLabel(card, showAnswer) {
+  if (!card) {
+    return "Карточка вопроса";
+  }
+
+  return showAnswer
+    ? `${asAriaSentence(card.question)} Ответ: ${asAriaSentence(card.answer)} Нажмите, чтобы снова скрыть ответ.`
+    : `${asAriaSentence(card.question)} Нажмите, чтобы показать ответ.`;
+}
+
+function asAriaSentence(value) {
+  const text = String(value || "").trim();
+  return /[.!?]$/.test(text) ? text : `${text}.`;
+}
+
 function getOptionText(card, optionKey) {
   if (!optionKey || !Array.isArray(card.options)) {
     return "";
@@ -2286,6 +2413,39 @@ function normalizeVocabularyCard(card) {
   };
 }
 
+function normalizeVocabularyProgress(progress) {
+  if (!progress || typeof progress !== "object" || Array.isArray(progress)) {
+    return {};
+  }
+
+  return Object.fromEntries(
+    Object.entries(progress)
+      .filter(([, item]) => item && typeof item === "object" && !Array.isArray(item))
+      .map(([id, item]) => [
+        id,
+        {
+          got: toNonNegativeInteger(item.got),
+          review: toNonNegativeInteger(item.review),
+          lastResult: typeof item.lastResult === "string" ? item.lastResult : null,
+          lastReviewedAt: typeof item.lastReviewedAt === "string" ? item.lastReviewedAt : null
+        }
+      ])
+  );
+}
+
+function toFiniteNumber(value, fallback) {
+  const number = Number(value);
+  return Number.isFinite(number) ? number : fallback;
+}
+
+function toNonNegativeInteger(value) {
+  return Math.max(0, Math.trunc(toFiniteNumber(value, 0)));
+}
+
+function clampNumber(value, minimum, maximum) {
+  return Math.min(Math.max(value, minimum), maximum);
+}
+
 function escapeHtml(value) {
   return String(value)
     .replaceAll("&", "&amp;")
@@ -2301,12 +2461,17 @@ function trimText(value, length) {
 }
 
 function formatDateTime(timestamp) {
+  const date = new Date(timestamp);
+  if (!Number.isFinite(date.getTime())) {
+    return "дата не назначена";
+  }
+
   return new Intl.DateTimeFormat("ru", {
     day: "2-digit",
     month: "2-digit",
     hour: "2-digit",
     minute: "2-digit"
-  }).format(new Date(timestamp));
+  }).format(date);
 }
 
 function pluralize(count, forms) {
