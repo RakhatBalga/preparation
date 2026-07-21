@@ -856,6 +856,22 @@ const VOCABULARY_FLASHCARDS = [
       ],
       "category": "general-academic",
       "translationRu": "свободный, запасной, лишний; выделять или уделять"
+  },
+  {
+      "id": "vocab-059",
+      "englishWord": "vast",
+      "pronunciation": "/vɑːst/",
+      "pronunciationKk": "васт",
+      "definition": "Extremely large in size, amount, area, or extent.",
+      "partOfSpeech": "adjective",
+      "exampleSentence": "The internet gives students access to a vast amount of information.",
+      "essayTypes": [
+          "opinion",
+          "discussion",
+          "advantages-disadvantages"
+      ],
+      "category": "general-academic",
+      "translationRu": "огромный, обширный, необъятный"
   }
 ];
 
