@@ -958,8 +958,12 @@ select:focus {
   animation: recall-shake 260ms ease both;
 }
 
-.vocab-recall-reveal {
-  justify-self: start;
+.vocab-recall-secondary-actions {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 10px;
+  min-height: 42px;
 }
 
 @keyframes recall-success {

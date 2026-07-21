@@ -206,7 +206,11 @@
             </div>
           </label>
           <div class="vocab-recall-feedback" id="vocabRecallFeedback" role="status" aria-live="polite"></div>
-          <button class="text-button vocab-recall-reveal" id="vocabRecallReveal" type="button">Не помню, показать ответ</button>
+          <div class="vocab-recall-secondary-actions">
+            <button class="text-button vocab-recall-reveal" id="vocabRecallReveal" type="button">Не помню, показать ответ</button>
+            <button class="button button-secondary hidden" id="vocabRecallRetry" type="button">Попробовать ещё раз</button>
+            <button class="button button-primary hidden" id="vocabRecallContinue" type="button">Следующее слово</button>
+          </div>
         </form>
 
         <div class="vocab-actions">

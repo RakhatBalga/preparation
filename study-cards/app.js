@@ -1108,6 +1108,8 @@ const elements = {
   vocabRecallSubmit: document.querySelector("#vocabRecallSubmit"),
   vocabRecallFeedback: document.querySelector("#vocabRecallFeedback"),
   vocabRecallReveal: document.querySelector("#vocabRecallReveal"),
+  vocabRecallRetry: document.querySelector("#vocabRecallRetry"),
+  vocabRecallContinue: document.querySelector("#vocabRecallContinue"),
   vocabPrevious: document.querySelector("#vocabPrevious"),
   vocabNext: document.querySelector("#vocabNext"),
   vocabNeedReview: document.querySelector("#vocabNeedReview"),
@@ -1460,6 +1462,14 @@ elements.vocabRecallForm.addEventListener("submit", (event) => {
 
 elements.vocabRecallReveal.addEventListener("click", () => {
   revealVocabularyRecallAnswer();
+});
+
+elements.vocabRecallRetry.addEventListener("click", () => {
+  retryVocabularyRecall();
+});
+
+elements.vocabRecallContinue.addEventListener("click", () => {
+  rateVocabularyCard("got", { alreadyRecorded: true });
 });
 
 elements.vocabPrevious.addEventListener("click", () => {
@@ -1830,6 +1840,7 @@ function renderVocabulary({ animate = false } = {}) {
   elements.vocabRecallForm.classList.toggle("hidden", !state.vocabRecallMode || !cards.length);
   elements.vocabRatingActions.classList.toggle("hidden", state.vocabRecallMode);
   elements.vocabCard.classList.toggle("is-recall-mode", state.vocabRecallMode);
+  syncVocabularyRecallActions();
 
   elements.vocabPosition.textContent = `${cards.length ? state.vocabIndex + 1 : 0} / ${cards.length}`;
   elements.vocabAccuracy.textContent = `${progress.accuracy}%`;
@@ -1881,6 +1892,7 @@ function renderVocabulary({ animate = false } = {}) {
     elements.vocabRecallInput.disabled = false;
     elements.vocabRecallSubmit.disabled = false;
     setVocabularyRecallFeedback("");
+    syncVocabularyRecallActions();
   }
 
   if (animate) {
@@ -2145,6 +2157,7 @@ async function rateVocabularyCard(result, { alreadyRecorded = false } = {}) {
       : (currentIndex + 1) % cards.length
     : 0;
   state.vocabFlipped = false;
+  elements.vocabRecallForm.dataset.cardId = "";
   saveState();
   renderVocabulary({ animate: true });
   if (state.vocabRecallMode && cards.length) {
@@ -2181,8 +2194,9 @@ async function checkVocabularyRecall() {
   elements.vocabRecallInput.disabled = true;
   elements.vocabRecallSubmit.disabled = true;
   setVocabularyRecallFeedback(`Правильно · ${card.translationRu || card.definition}`, "correct");
-  await wait(650);
-  await rateVocabularyCard("got", { alreadyRecorded: true });
+  elements.vocabRecallReveal.classList.add("hidden");
+  elements.vocabRecallRetry.classList.add("hidden");
+  elements.vocabRecallContinue.classList.remove("hidden");
 }
 
 function revealVocabularyRecallAnswer() {
@@ -2202,6 +2216,33 @@ function revealVocabularyRecallAnswer() {
   elements.vocabCard.classList.add("is-answer-visible");
   syncVocabularyAccessibility(card);
   setVocabularyRecallFeedback(`Ответ: ${card.translationRu || card.definition}`, "wrong");
+  syncVocabularyRecallActions();
+}
+
+function retryVocabularyRecall() {
+  const card = getCurrentVocabularyCard();
+  if (!card) {
+    return;
+  }
+
+  state.vocabFlipped = false;
+  saveState();
+  elements.vocabCardInner.classList.remove("is-flipped");
+  elements.vocabCard.classList.remove("is-answer-visible");
+  elements.vocabRecallInput.value = "";
+  elements.vocabRecallInput.disabled = false;
+  elements.vocabRecallSubmit.disabled = false;
+  setVocabularyRecallFeedback("");
+  syncVocabularyAccessibility(card);
+  syncVocabularyRecallActions();
+  elements.vocabRecallInput.focus();
+}
+
+function syncVocabularyRecallActions() {
+  const answerIsVisible = Boolean(state.vocabRecallMode && state.vocabFlipped);
+  elements.vocabRecallReveal.classList.toggle("hidden", answerIsVisible);
+  elements.vocabRecallRetry.classList.toggle("hidden", !answerIsVisible);
+  elements.vocabRecallContinue.classList.add("hidden");
 }
 
 function recordVocabularyResult(card, result) {
@@ -2305,10 +2346,6 @@ function playCardExit(cardElement, directionClass) {
 
 function prefersReducedMotion() {
   return window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-}
-
-function wait(duration) {
-  return new Promise((resolve) => window.setTimeout(resolve, duration));
 }
 
 function getCurrentVocabularyCard() {
