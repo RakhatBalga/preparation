@@ -1609,6 +1609,8 @@ function renderReview() {
     </div>
     ${renderReviewControls(card, showAnswer)}
   `;
+
+  requestAnimationFrame(keepActiveQuestionVisible);
 }
 
 function renderEmptyMode(allCards) {
@@ -1718,21 +1720,40 @@ function renderQuestionJumper(cards) {
   }
 
   return `
-    <div class="question-jumper" aria-label="Переход к вопросу">
-      ${cards
-        .map((card, index) => {
-          const activeClass = index === state.currentIndex ? "is-active" : "";
-          const answeredClass = card.reviews ? "is-reviewed" : "";
+    <section class="question-navigator" aria-labelledby="questionNavigatorTitle">
+      <div class="question-navigator-header">
+        <h3 id="questionNavigatorTitle">Список вопросов</h3>
+        <span>${cards.length}</span>
+      </div>
+      <div class="question-jumper" aria-label="Переход к вопросу">
+        ${cards
+          .map((card, index) => {
+            const isActive = index === state.currentIndex;
+            const activeClass = isActive ? "is-active" : "";
+            const answeredClass = card.reviews ? "is-reviewed" : "";
 
-          return `
-            <button class="question-jump-button ${activeClass} ${answeredClass}" data-action="jump" data-index="${index}" type="button" aria-label="Открыть вопрос ${index + 1}">
-              ${index + 1}
-            </button>
-          `;
-        })
-        .join("")}
-    </div>
+            return `
+              <button class="question-jump-button ${activeClass} ${answeredClass}" data-action="jump" data-index="${index}" type="button" aria-label="Открыть вопрос ${index + 1}: ${escapeHtml(card.question)}" aria-current="${isActive ? "true" : "false"}">
+                <span class="question-jump-number">${index + 1}</span>
+                <span class="question-jump-title">${escapeHtml(card.question)}</span>
+              </button>
+            `;
+          })
+          .join("")}
+      </div>
+    </section>
   `;
+}
+
+function keepActiveQuestionVisible() {
+  const list = elements.reviewArea.querySelector(".question-jumper");
+  const activeButton = list?.querySelector(".question-jump-button.is-active");
+  if (!list || !activeButton) {
+    return;
+  }
+
+  const targetTop = activeButton.offsetTop - list.offsetTop - (list.clientHeight - activeButton.offsetHeight) / 2;
+  list.scrollTop = Math.max(0, targetTop);
 }
 
 function renderLibrary() {
