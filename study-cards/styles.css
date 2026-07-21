@@ -327,6 +327,43 @@ select:focus {
   flex-wrap: wrap;
 }
 
+.review-footer {
+  display: grid;
+  gap: 16px;
+}
+
+.question-jumper {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(42px, 1fr));
+  gap: 8px;
+}
+
+.question-jump-button {
+  min-height: 38px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--surface);
+  color: var(--muted);
+  cursor: pointer;
+  font: inherit;
+  font-weight: 700;
+  transition:
+    border-color 0.15s ease,
+    background 0.15s ease,
+    color 0.15s ease;
+}
+
+.question-jump-button:hover,
+.question-jump-button.is-active {
+  border-color: var(--accent);
+  background: var(--accent-soft);
+  color: var(--accent-strong);
+}
+
+.question-jump-button.is-reviewed:not(.is-active) {
+  color: var(--text);
+}
+
 .option-list {
   display: grid;
   gap: 10px;

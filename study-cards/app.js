@@ -982,10 +982,22 @@ elements.reviewArea.addEventListener("click", (event) => {
     return;
   }
 
+  if (action === "jump") {
+    jumpToReviewCard(Number(button.dataset.index));
+    return;
+  }
+
   if (action === "reveal") {
     const card = getCurrentCard();
     state.answeredCardId = card ? card.id : null;
     state.answerVisible = true;
+    saveState();
+    render();
+    return;
+  }
+
+  if (action === "hide-answer") {
+    resetAnswerView();
     saveState();
     render();
     return;
@@ -1402,47 +1414,58 @@ function renderAnswer(card) {
 }
 
 function renderReviewControls(card, showAnswer) {
+  const cards = getReviewCards();
   const previousDisabled = state.currentIndex <= 0 ? "disabled" : "";
-  const nextDisabled = state.currentIndex >= getReviewCards().length - 1 ? "disabled" : "";
+  const nextDisabled = state.currentIndex >= cards.length - 1 ? "disabled" : "";
   const practiceActions =
     state.mode === "practice"
       ? renderPracticeActions(card, showAnswer)
       : "";
 
   return `
-    <div class="review-controls">
-      <div class="nav-actions">
-        <button class="button button-secondary" data-action="prev" type="button" ${previousDisabled}>Назад</button>
-        <button class="button button-secondary" data-action="next" type="button" ${nextDisabled}>Вперед</button>
+    <div class="review-footer">
+      <div class="review-controls">
+        <div class="nav-actions">
+          <button class="button button-secondary" data-action="prev" type="button" ${previousDisabled}>Назад</button>
+          ${state.mode === "practice" ? "" : `<button class="button button-secondary" data-action="next" type="button" ${nextDisabled}>Вперед</button>`}
+        </div>
+        ${practiceActions}
       </div>
-      ${practiceActions}
+      ${renderQuestionJumper(cards)}
     </div>
   `;
 }
 
 function renderPracticeActions(card, showAnswer) {
-  if (!showAnswer) {
-    return `
-      <div class="rating-actions">
-        <button class="button button-primary" data-action="reveal" type="button">Показать ответ</button>
-        <button class="button button-secondary" data-action="skip" type="button">Пропустить</button>
-      </div>
-    `;
-  }
+  return `
+    <div class="rating-actions">
+      <button class="button ${showAnswer ? "button-secondary" : "button-primary"}" data-action="${showAnswer ? "hide-answer" : "reveal"}" type="button">
+        ${showAnswer ? "Скрыть ответ" : "Показать ответ"}
+      </button>
+      <button class="button button-secondary" data-action="next" type="button" ${state.currentIndex >= getReviewCards().length - 1 ? "disabled" : ""}>Вперед</button>
+    </div>
+  `;
+}
 
-  if (card.options.length && state.selectedOption) {
-    return `
-      <div class="rating-actions">
-        <button class="button button-primary" data-action="next" type="button">Дальше</button>
-      </div>
-    `;
+function renderQuestionJumper(cards) {
+  if (cards.length <= 1) {
+    return "";
   }
 
   return `
-    <div class="rating-actions" aria-label="Оценка ответа">
-      <button class="button button-secondary" data-action="again" type="button">Не знаю</button>
-      <button class="button button-secondary" data-action="hard" type="button">Сложно</button>
-      <button class="button button-primary" data-action="good" type="button">Знаю</button>
+    <div class="question-jumper" aria-label="Переход к вопросу">
+      ${cards
+        .map((card, index) => {
+          const activeClass = index === state.currentIndex ? "is-active" : "";
+          const answeredClass = card.reviews ? "is-reviewed" : "";
+
+          return `
+            <button class="question-jump-button ${activeClass} ${answeredClass}" data-action="jump" data-index="${index}" type="button" aria-label="Открыть вопрос ${index + 1}">
+              ${index + 1}
+            </button>
+          `;
+        })
+        .join("")}
     </div>
   `;
 }
@@ -1636,6 +1659,19 @@ function navigateReview(delta, options = {}) {
     saveState();
   }
 
+  render();
+}
+
+function jumpToReviewCard(index) {
+  const cards = getReviewCards();
+  if (!cards.length) {
+    return;
+  }
+
+  state.currentIndex = clampIndex(index, cards.length);
+  state.currentId = cards[state.currentIndex] ? cards[state.currentIndex].id : null;
+  resetAnswerView();
+  saveState();
   render();
 }
 
