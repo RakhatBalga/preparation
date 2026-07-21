@@ -811,6 +811,21 @@ const VOCABULARY_FLASHCARDS = [
       ],
       "category": "work",
       "translationRu": "подотчетность, ответственность за результат"
+  },
+  {
+      "id": "vocab-054",
+      "englishWord": "inferior makes",
+      "pronunciation": "/ɪnˈfɪəriər meɪks/",
+      "pronunciationKk": "инфириэр мэйкс",
+      "definition": "Brands or models that are lower in quality than competing alternatives.",
+      "partOfSpeech": "noun phrase",
+      "exampleSentence": "Consumers may initially save money by choosing inferior makes, but repair costs can be higher in the long term.",
+      "essayTypes": [
+          "opinion",
+          "advantages-disadvantages"
+      ],
+      "category": "general-academic",
+      "translationRu": "марки или модели более низкого качества"
   }
 ];
 
