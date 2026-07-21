@@ -1069,6 +1069,7 @@ const elements = {
   sessionHint: document.querySelector("#sessionHint"),
   topicFilter: document.querySelector("#topicFilter"),
   modeButtons: document.querySelectorAll(".mode-button"),
+  questionRecallMode: document.querySelector("#questionRecallMode"),
   reviewArea: document.querySelector("#reviewArea"),
   cardForm: document.querySelector("#cardForm"),
   topicInput: document.querySelector("#topicInput"),
@@ -1130,8 +1131,10 @@ const elements = {
 
 let editingId = null;
 let reviewTransitionLocked = false;
+let questionCheckLocked = false;
 let vocabularyTransitionLocked = false;
 let vocabularyCheckLocked = false;
+const questionRecallMistakes = new Set();
 const vocabularyRecallMistakes = new Set();
 
 render();
@@ -1196,6 +1199,14 @@ elements.topicFilter.addEventListener("change", () => {
   render();
 });
 
+elements.questionRecallMode.addEventListener("change", () => {
+  state.questionRecallMode = elements.questionRecallMode.checked;
+  resetAnswerView();
+  saveState();
+  render();
+  elements.reviewArea.querySelector("#questionRecallInput")?.focus();
+});
+
 elements.essayTypeFilter.addEventListener("change", () => {
   state.essayType = elements.essayTypeFilter.value;
   resetVocabularyDeck();
@@ -1251,6 +1262,10 @@ elements.reviewArea.addEventListener("click", (event) => {
   if (!button) {
     const reviewCard = event.target.closest("[data-action='toggle-answer']");
     if (reviewCard) {
+      if (state.questionRecallMode) {
+        elements.reviewArea.querySelector("#questionRecallInput")?.focus();
+        return;
+      }
       toggleAnswerVisibility();
     }
     return;
@@ -1270,6 +1285,21 @@ elements.reviewArea.addEventListener("click", (event) => {
 
   if (action === "jump") {
     jumpToReviewCard(Number(button.dataset.index));
+    return;
+  }
+
+  if (action === "question-reveal") {
+    revealQuestionRecallAnswer();
+    return;
+  }
+
+  if (action === "question-retry") {
+    retryQuestionRecall();
+    return;
+  }
+
+  if (action === "question-continue") {
+    navigateReview(1, { alreadySaved: true });
     return;
   }
 
@@ -1301,6 +1331,22 @@ elements.reviewArea.addEventListener("click", (event) => {
     rateCurrentCard(action);
     navigateReview(1, { alreadySaved: true });
   }
+});
+
+elements.reviewArea.addEventListener("input", (event) => {
+  if (!event.target.matches("#questionRecallInput")) {
+    return;
+  }
+  state.questionRecallDraft = event.target.value;
+  saveState();
+});
+
+elements.reviewArea.addEventListener("submit", (event) => {
+  if (!event.target.matches("[data-question-recall]")) {
+    return;
+  }
+  event.preventDefault();
+  checkQuestionRecall();
 });
 
 elements.cardList.addEventListener("click", (event) => {
@@ -1534,7 +1580,7 @@ elements.vocabForm.addEventListener("submit", (event) => {
 });
 
 document.addEventListener("keydown", (event) => {
-  if (state.activeView === "questions" && !isTypingTarget(event.target)) {
+  if (state.activeView === "questions" && !state.questionRecallMode && !isTypingTarget(event.target)) {
     const reviewCard = event.target.closest("[data-action='toggle-answer']");
     if (reviewCard && (event.key === "Enter" || event.code === "Space")) {
       event.preventDefault();
@@ -1616,6 +1662,8 @@ function renderModeButtons() {
   elements.modeButtons.forEach((button) => {
     button.classList.toggle("is-active", button.dataset.mode === state.mode);
   });
+  elements.questionRecallMode.checked = Boolean(state.questionRecallMode);
+  elements.questionRecallMode.disabled = state.mode !== "practice";
 }
 
 function renderReview() {
@@ -1664,6 +1712,7 @@ function renderReview() {
         </div>
       </div>
     </div>
+    ${renderQuestionRecall(card)}
     ${renderReviewControls(card, showAnswer)}
   `;
 
@@ -1690,7 +1739,7 @@ function renderEmptyMode(allCards) {
 }
 
 function renderOptions(card, showAnswer) {
-  if (!card.options.length) {
+  if (!card.options.length || state.questionRecallMode) {
     return "";
   }
 
@@ -1722,6 +1771,32 @@ function renderOptions(card, showAnswer) {
   `;
 }
 
+function renderQuestionRecall(card) {
+  if (!state.questionRecallMode || state.mode !== "practice") {
+    return "";
+  }
+
+  const status = state.questionRecallStatus || "";
+  const isLocked = status === "checking" || status === "correct" || status === "revealed";
+  const formClass = status === "correct" ? "is-correct" : status === "wrong" || status === "revealed" ? "is-wrong" : "";
+
+  return `
+    <form class="vocab-recall question-recall ${formClass}" data-question-recall novalidate>
+      <label for="questionRecallInput">
+        <span>Напиши ответ своими словами</span>
+        <textarea id="questionRecallInput" rows="4" ${isLocked ? "disabled" : ""} placeholder="Можно отвечать на русском или английском">${escapeHtml(state.questionRecallDraft || "")}</textarea>
+      </label>
+      <button class="button button-primary" data-question-recall-submit type="submit" ${isLocked ? "disabled" : ""}>Проверить</button>
+      <div class="vocab-recall-feedback ${status === "correct" ? "is-correct" : status === "wrong" || status === "revealed" ? "is-wrong" : ""}" data-question-recall-feedback role="status" aria-live="polite">${escapeHtml(state.questionRecallFeedback || "")}</div>
+      <div class="vocab-recall-secondary-actions">
+        <button class="text-button ${status === "correct" || status === "revealed" ? "hidden" : ""}" data-action="question-reveal" type="button">Не знаю, показать ответ</button>
+        <button class="button button-secondary ${status === "revealed" ? "" : "hidden"}" data-action="question-retry" type="button">Попробовать ещё раз</button>
+        <button class="button button-primary ${status === "correct" ? "" : "hidden"}" data-action="question-continue" type="button">Следующий вопрос</button>
+      </div>
+    </form>
+  `;
+}
+
 function renderAnswer(card) {
   const pickedOption = getOptionText(card, state.selectedOption);
   const lastPickedOption = getOptionText(card, card.lastPickedOption);
@@ -1748,7 +1823,7 @@ function renderReviewControls(card, showAnswer) {
   const cards = getReviewCards();
   const previousDisabled = state.currentIndex <= 0 ? "disabled" : "";
   const nextDisabled = state.currentIndex >= cards.length - 1 ? "disabled" : "";
-  const canSelfCheck = state.mode === "practice" && !card.options.length;
+  const canSelfCheck = state.mode === "practice" && !card.options.length && !state.questionRecallMode;
   const selfCheckHidden = canSelfCheck && showAnswer ? "" : "hidden";
 
   return `
@@ -1901,6 +1976,134 @@ function renderVocabulary({ animate = false } = {}) {
   }
 }
 
+async function checkQuestionRecall() {
+  if (questionCheckLocked || reviewTransitionLocked) {
+    return;
+  }
+
+  const card = getCurrentCard();
+  const input = elements.reviewArea.querySelector("#questionRecallInput");
+  const learnerAnswer = input?.value.trim() || "";
+  if (!card || !learnerAnswer) {
+    state.questionRecallStatus = "wrong";
+    state.questionRecallFeedback = "Сначала напиши ответ.";
+    saveState();
+    syncQuestionRecallUi();
+    return;
+  }
+
+  questionCheckLocked = true;
+  state.questionRecallStatus = "checking";
+  state.questionRecallFeedback = "Gemini проверяет ответ...";
+  saveState();
+  syncQuestionRecallUi();
+
+  try {
+    const result = await checkQuestionWithGemini(card, learnerAnswer);
+    questionCheckLocked = false;
+
+    if (!result.accepted) {
+      state.answeredCardId = card.id;
+      if (!questionRecallMistakes.has(card.id)) {
+        questionRecallMistakes.add(card.id);
+        rateCurrentCard("again");
+      }
+      state.questionRecallStatus = "wrong";
+      state.questionRecallFeedback = result.feedback || "В ответе не хватает основной идеи.";
+      saveState();
+      syncQuestionRecallUi();
+      return;
+    }
+
+    questionRecallMistakes.delete(card.id);
+    rateCurrentCard("good");
+    state.answerVisible = true;
+    state.answeredCardId = card.id;
+    state.questionRecallStatus = "correct";
+    state.questionRecallFeedback = result.feedback || "Ответ передаёт основную идею.";
+    saveState();
+    syncReviewFlipState();
+    syncQuestionRecallUi();
+  } catch {
+    questionCheckLocked = false;
+    state.questionRecallStatus = "wrong";
+    state.questionRecallFeedback = "Gemini сейчас недоступен. Попробуй проверить ответ ещё раз.";
+    saveState();
+    syncQuestionRecallUi();
+  }
+}
+
+async function checkQuestionWithGemini(card, learnerAnswer) {
+  const response = await fetch("/api/check-question", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      topic: card.topic,
+      question: card.question,
+      referenceAnswer: card.answer || getOptionText(card, card.correctOption),
+      learnerAnswer
+    })
+  });
+  const result = await response.json();
+  if (!response.ok || typeof result.accepted !== "boolean") {
+    throw new Error(result.error || "Gemini check failed.");
+  }
+  return result;
+}
+
+function revealQuestionRecallAnswer() {
+  const card = getCurrentCard();
+  if (!card) {
+    return;
+  }
+
+  if (!questionRecallMistakes.has(card.id)) {
+    questionRecallMistakes.add(card.id);
+    rateCurrentCard("again");
+  }
+  state.answerVisible = true;
+  state.answeredCardId = card.id;
+  state.questionRecallStatus = "revealed";
+  state.questionRecallFeedback = "Ответ открыт. Изучи его и попробуй ещё раз.";
+  saveState();
+  syncReviewFlipState();
+  syncQuestionRecallUi();
+}
+
+function retryQuestionRecall() {
+  state.answerVisible = false;
+  state.questionRecallStatus = "retry";
+  state.questionRecallFeedback = "";
+  state.questionRecallDraft = "";
+  saveState();
+  syncReviewFlipState();
+  syncQuestionRecallUi();
+  elements.reviewArea.querySelector("#questionRecallInput")?.focus();
+}
+
+function syncQuestionRecallUi() {
+  const form = elements.reviewArea.querySelector("[data-question-recall]");
+  if (!form) {
+    return;
+  }
+
+  const status = state.questionRecallStatus || "";
+  const isLocked = status === "checking" || status === "correct" || status === "revealed";
+  const input = form.querySelector("#questionRecallInput");
+  const submit = form.querySelector("[data-question-recall-submit]");
+  const feedback = form.querySelector("[data-question-recall-feedback]");
+  input.disabled = isLocked;
+  submit.disabled = isLocked;
+  feedback.textContent = state.questionRecallFeedback || "";
+  feedback.classList.toggle("is-correct", status === "correct");
+  feedback.classList.toggle("is-wrong", status === "wrong" || status === "revealed");
+  form.classList.toggle("is-correct", status === "correct");
+  form.classList.toggle("is-wrong", status === "wrong" || status === "revealed");
+  form.querySelector("[data-action='question-reveal']")?.classList.toggle("hidden", status === "correct" || status === "revealed");
+  form.querySelector("[data-action='question-retry']")?.classList.toggle("hidden", status !== "revealed");
+  form.querySelector("[data-action='question-continue']")?.classList.toggle("hidden", status !== "correct");
+}
+
 function answerCurrentCard(optionKey) {
   const card = getCurrentCard();
   if (!card || state.answerVisible || state.mode !== "practice") {
@@ -2006,11 +2209,17 @@ async function navigateReview(delta, options = {}) {
   );
 
   const previousIndex = state.currentIndex;
+  const wasHandlingRecallAnswer = Boolean(
+    state.mode === "practice" &&
+    state.questionRecallMode &&
+    state.answeredCardId &&
+    state.questionRecallStatus
+  );
   const previousCard =
-    state.answeredCardId && state.answerVisible
+    state.answeredCardId && (state.answerVisible || wasHandlingRecallAnswer)
       ? cardsBefore.find((card) => card.id === state.answeredCardId)
       : cardsBefore[previousIndex];
-  const wasShowingPracticeAnswer = state.mode === "practice" && state.answerVisible;
+  const wasShowingPracticeAnswer = state.mode === "practice" && (state.answerVisible || wasHandlingRecallAnswer);
   resetAnswerView();
   const cardsAfter = getReviewCards();
   const previousCardStillVisible = cardsAfter.some((card) => card.id === previousCard?.id);
@@ -2071,6 +2280,9 @@ function resetAnswerView() {
   state.answerVisible = false;
   state.selectedOption = null;
   state.answeredCardId = null;
+  state.questionRecallStatus = null;
+  state.questionRecallFeedback = "";
+  state.questionRecallDraft = "";
 }
 
 function showAnswer() {
@@ -2088,7 +2300,7 @@ function hideAnswer() {
 }
 
 function toggleAnswerVisibility() {
-  if (state.mode !== "practice") {
+  if (state.mode !== "practice" || state.questionRecallMode) {
     return;
   }
 
@@ -2569,7 +2781,14 @@ function getReviewCards(mode = state.mode) {
 
   const dueCards = cards.filter(isDue);
 
-  if (mode === "practice" && state.answerVisible && state.answeredCardId) {
+  const shouldKeepRecallCard = Boolean(
+    mode === "practice" &&
+    state.questionRecallMode &&
+    state.questionRecallStatus &&
+    state.answeredCardId
+  );
+
+  if (mode === "practice" && state.answeredCardId && (state.answerVisible || shouldKeepRecallCard)) {
     const currentCard = cards.find((card) => card.id === state.answeredCardId);
     const alreadyVisible = dueCards.some((card) => card.id === state.answeredCardId);
     if (currentCard && !alreadyVisible) {
@@ -2784,6 +3003,12 @@ function loadState() {
       activeView: parsed.activeView === "vocabulary" ? "vocabulary" : "questions",
       mode: isValidMode(parsed.mode) ? parsed.mode : "practice",
       currentIndex: Number.isFinite(parsed.currentIndex) ? parsed.currentIndex : 0,
+      questionRecallMode: Boolean(parsed.questionRecallMode),
+      questionRecallStatus: ["correct", "wrong", "revealed", "retry"].includes(parsed.questionRecallStatus)
+        ? parsed.questionRecallStatus
+        : null,
+      questionRecallFeedback: typeof parsed.questionRecallFeedback === "string" ? parsed.questionRecallFeedback : "",
+      questionRecallDraft: typeof parsed.questionRecallDraft === "string" ? parsed.questionRecallDraft : "",
       selectedOption: parsed.selectedOption || null,
       answeredCardId: parsed.answeredCardId || null,
       vocabIndex: Number.isFinite(parsed.vocabIndex) ? parsed.vocabIndex : 0,
@@ -2817,6 +3042,10 @@ function defaultState(cards = []) {
     mode: "practice",
     currentIndex: 0,
     currentId: null,
+    questionRecallMode: false,
+    questionRecallStatus: null,
+    questionRecallFeedback: "",
+    questionRecallDraft: "",
     answerVisible: false,
     selectedOption: null,
     answeredCardId: null,
