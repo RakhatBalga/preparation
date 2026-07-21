@@ -841,6 +841,21 @@ const VOCABULARY_FLASHCARDS = [
       ],
       "category": "education",
       "translationRu": "сверстники; равные по положению или уровню"
+  },
+  {
+      "id": "vocab-058",
+      "englishWord": "spare",
+      "pronunciation": "/speə/",
+      "pronunciationKk": "спэа",
+      "definition": "Extra and available for use; not currently needed for another purpose.",
+      "partOfSpeech": "adjective / verb",
+      "exampleSentence": "People with little spare time may prefer flexible online courses.",
+      "essayTypes": [
+          "opinion",
+          "advantages-disadvantages"
+      ],
+      "category": "general-academic",
+      "translationRu": "свободный, запасной, лишний; выделять или уделять"
   }
 ];
 
