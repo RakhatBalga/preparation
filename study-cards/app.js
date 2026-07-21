@@ -1610,7 +1610,6 @@ function renderReview() {
     ${renderReviewControls(card, showAnswer)}
   `;
 
-  requestAnimationFrame(keepActiveQuestionVisible);
 }
 
 function renderEmptyMode(allCards) {
@@ -1721,10 +1720,7 @@ function renderQuestionJumper(cards) {
 
   return `
     <section class="question-navigator" aria-labelledby="questionNavigatorTitle">
-      <div class="question-navigator-header">
-        <h3 id="questionNavigatorTitle">Список вопросов</h3>
-        <span>${cards.length}</span>
-      </div>
+      <h3 id="questionNavigatorTitle">Список вопросов</h3>
       <div class="question-jumper" aria-label="Переход к вопросу">
         ${cards
           .map((card, index) => {
@@ -1734,8 +1730,7 @@ function renderQuestionJumper(cards) {
 
             return `
               <button class="question-jump-button ${activeClass} ${answeredClass}" data-action="jump" data-index="${index}" type="button" aria-label="Открыть вопрос ${index + 1}: ${escapeHtml(card.question)}" aria-current="${isActive ? "true" : "false"}">
-                <span class="question-jump-number">${index + 1}</span>
-                <span class="question-jump-title">${escapeHtml(card.question)}</span>
+                ${index + 1}
               </button>
             `;
           })
@@ -1743,17 +1738,6 @@ function renderQuestionJumper(cards) {
       </div>
     </section>
   `;
-}
-
-function keepActiveQuestionVisible() {
-  const list = elements.reviewArea.querySelector(".question-jumper");
-  const activeButton = list?.querySelector(".question-jump-button.is-active");
-  if (!list || !activeButton) {
-    return;
-  }
-
-  const targetTop = activeButton.offsetTop - list.offsetTop - (list.clientHeight - activeButton.offsetHeight) / 2;
-  list.scrollTop = Math.max(0, targetTop);
 }
 
 function renderLibrary() {
