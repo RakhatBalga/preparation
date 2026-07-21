@@ -1336,12 +1336,18 @@ function renderReview() {
       <strong>${position}</strong>
     </div>
     <div class="review-card ${showAnswer ? "is-answer-visible" : ""}" data-action="toggle-answer" role="button" tabindex="0" aria-expanded="${showAnswer ? "true" : "false"}">
-      <div>
-        <p class="question-label">${escapeHtml(card.topic)} · ${escapeHtml(cardStatus)}</p>
-        <p class="question-text">${escapeHtml(card.question)}</p>
+      <div class="review-card-inner">
+        <div class="review-card-face review-card-front">
+          <p class="question-label">${escapeHtml(card.topic)} · ${escapeHtml(cardStatus)}</p>
+          <p class="question-text">${escapeHtml(card.question)}</p>
+          ${renderOptions(card, showAnswer)}
+        </div>
+        <div class="review-card-face review-card-back">
+          <p class="question-label">${escapeHtml(card.topic)} · ответ</p>
+          <p class="question-text question-text-small">${escapeHtml(card.question)}</p>
+          ${renderAnswer(card)}
+        </div>
       </div>
-      ${renderOptions(card, showAnswer)}
-      ${renderAnswer(card)}
     </div>
     ${renderReviewControls(card, showAnswer)}
   `;
