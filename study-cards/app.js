@@ -967,6 +967,10 @@ elements.modeButtons.forEach((button) => {
 elements.reviewArea.addEventListener("click", (event) => {
   const button = event.target.closest("button[data-action]");
   if (!button) {
+    const reviewCard = event.target.closest("[data-action='toggle-answer']");
+    if (reviewCard) {
+      toggleAnswerVisibility();
+    }
     return;
   }
 
@@ -988,18 +992,12 @@ elements.reviewArea.addEventListener("click", (event) => {
   }
 
   if (action === "reveal") {
-    const card = getCurrentCard();
-    state.answeredCardId = card ? card.id : null;
-    state.answerVisible = true;
-    saveState();
-    render();
+    showAnswer();
     return;
   }
 
   if (action === "hide-answer") {
-    resetAnswerView();
-    saveState();
-    render();
+    hideAnswer();
     return;
   }
 
@@ -1221,6 +1219,15 @@ elements.vocabForm.addEventListener("submit", (event) => {
 });
 
 document.addEventListener("keydown", (event) => {
+  if (state.activeView === "questions" && !isTypingTarget(event.target)) {
+    const reviewCard = event.target.closest("[data-action='toggle-answer']");
+    if (reviewCard && (event.key === "Enter" || event.code === "Space")) {
+      event.preventDefault();
+      toggleAnswerVisibility();
+      return;
+    }
+  }
+
   if (state.activeView !== "vocabulary" || isTypingTarget(event.target)) {
     return;
   }
@@ -1328,12 +1335,14 @@ function renderReview() {
       <span>${escapeHtml(getModeLabel(state.mode))}</span>
       <strong>${position}</strong>
     </div>
-    <div>
-      <p class="question-label">${escapeHtml(card.topic)} · ${escapeHtml(cardStatus)}</p>
-      <p class="question-text">${escapeHtml(card.question)}</p>
+    <div class="review-card ${showAnswer ? "is-answer-visible" : ""}" data-action="toggle-answer" role="button" tabindex="0" aria-expanded="${showAnswer ? "true" : "false"}">
+      <div>
+        <p class="question-label">${escapeHtml(card.topic)} · ${escapeHtml(cardStatus)}</p>
+        <p class="question-text">${escapeHtml(card.question)}</p>
+      </div>
+      ${renderOptions(card, showAnswer)}
+      ${renderAnswer(card)}
     </div>
-    ${renderOptions(card, showAnswer)}
-    ${showAnswer ? renderAnswer(card) : ""}
     ${renderReviewControls(card, showAnswer)}
   `;
 }
@@ -1417,32 +1426,16 @@ function renderReviewControls(card, showAnswer) {
   const cards = getReviewCards();
   const previousDisabled = state.currentIndex <= 0 ? "disabled" : "";
   const nextDisabled = state.currentIndex >= cards.length - 1 ? "disabled" : "";
-  const practiceActions =
-    state.mode === "practice"
-      ? renderPracticeActions(card, showAnswer)
-      : "";
 
   return `
     <div class="review-footer">
       <div class="review-controls">
         <div class="nav-actions">
           <button class="button button-secondary" data-action="prev" type="button" ${previousDisabled}>Назад</button>
-          ${state.mode === "practice" ? "" : `<button class="button button-secondary" data-action="next" type="button" ${nextDisabled}>Вперед</button>`}
+          <button class="button button-secondary" data-action="next" type="button" ${nextDisabled}>Вперед</button>
         </div>
-        ${practiceActions}
       </div>
       ${renderQuestionJumper(cards)}
-    </div>
-  `;
-}
-
-function renderPracticeActions(card, showAnswer) {
-  return `
-    <div class="rating-actions">
-      <button class="button ${showAnswer ? "button-secondary" : "button-primary"}" data-action="${showAnswer ? "hide-answer" : "reveal"}" type="button">
-        ${showAnswer ? "Скрыть ответ" : "Показать ответ"}
-      </button>
-      <button class="button button-secondary" data-action="next" type="button" ${state.currentIndex >= getReviewCards().length - 1 ? "disabled" : ""}>Вперед</button>
     </div>
   `;
 }
@@ -1690,6 +1683,33 @@ function resetAnswerView() {
   state.answerVisible = false;
   state.selectedOption = null;
   state.answeredCardId = null;
+}
+
+function showAnswer() {
+  const card = getCurrentCard();
+  state.answeredCardId = card ? card.id : null;
+  state.answerVisible = true;
+  saveState();
+  render();
+}
+
+function hideAnswer() {
+  resetAnswerView();
+  saveState();
+  render();
+}
+
+function toggleAnswerVisibility() {
+  if (state.mode !== "practice") {
+    return;
+  }
+
+  if (state.answerVisible) {
+    hideAnswer();
+    return;
+  }
+
+  showAnswer();
 }
 
 function toggleVocabularyCard() {
