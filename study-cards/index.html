@@ -155,6 +155,30 @@
           </label>
         </div>
 
+        <div class="vocab-study-modes" aria-label="Режимы тренировки слов">
+          <label class="study-mode-toggle">
+            <input id="vocabRecallMode" type="checkbox">
+            <span>
+              <strong>Проверка значения</strong>
+              <small>Написать перевод самостоятельно</small>
+            </span>
+          </label>
+          <label class="study-mode-toggle">
+            <input id="vocabShuffleMode" type="checkbox">
+            <span>
+              <strong>Перемешать</strong>
+              <small>Случайный порядок карточек</small>
+            </span>
+          </label>
+          <label class="study-mode-toggle">
+            <input id="vocabMistakesMode" type="checkbox">
+            <span>
+              <strong>Только ошибки</strong>
+              <small>Слова, которые нужно повторить</small>
+            </span>
+          </label>
+        </div>
+
         <button class="flashcard" id="vocabCard" type="button" aria-label="resilient. Click to reveal the definition." aria-expanded="false">
           <span class="flashcard-inner" id="vocabCardInner">
             <span class="flashcard-face flashcard-front" aria-hidden="false">
@@ -172,6 +196,18 @@
             </span>
           </span>
         </button>
+
+        <form class="vocab-recall hidden" id="vocabRecallForm" novalidate>
+          <label for="vocabRecallInput">
+            <span>Что означает это слово?</span>
+            <div class="vocab-recall-row">
+              <input id="vocabRecallInput" autocomplete="off" placeholder="Напиши значение по-русски">
+              <button class="button button-primary" id="vocabRecallSubmit" type="submit">Проверить</button>
+            </div>
+          </label>
+          <div class="vocab-recall-feedback" id="vocabRecallFeedback" role="status" aria-live="polite"></div>
+          <button class="text-button vocab-recall-reveal" id="vocabRecallReveal" type="button">Не помню, показать ответ</button>
+        </form>
 
         <div class="vocab-actions">
           <div class="nav-actions">

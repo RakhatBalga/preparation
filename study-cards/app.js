@@ -1083,6 +1083,7 @@ const elements = {
   cardList: document.querySelector("#cardList"),
   exportButton: document.querySelector("#exportButton"),
   makeAllDueButton: document.querySelector("#makeAllDueButton"),
+  vocabHint: document.querySelector("#vocabHint"),
   vocabPosition: document.querySelector("#vocabPosition"),
   vocabAccuracy: document.querySelector("#vocabAccuracy"),
   vocabCard: document.querySelector("#vocabCard"),
@@ -1099,10 +1100,19 @@ const elements = {
   vocabTags: document.querySelector("#vocabTags"),
   vocabCategoryFilter: document.querySelector("#vocabCategoryFilter"),
   essayTypeFilter: document.querySelector("#essayTypeFilter"),
+  vocabRecallMode: document.querySelector("#vocabRecallMode"),
+  vocabShuffleMode: document.querySelector("#vocabShuffleMode"),
+  vocabMistakesMode: document.querySelector("#vocabMistakesMode"),
+  vocabRecallForm: document.querySelector("#vocabRecallForm"),
+  vocabRecallInput: document.querySelector("#vocabRecallInput"),
+  vocabRecallSubmit: document.querySelector("#vocabRecallSubmit"),
+  vocabRecallFeedback: document.querySelector("#vocabRecallFeedback"),
+  vocabRecallReveal: document.querySelector("#vocabRecallReveal"),
   vocabPrevious: document.querySelector("#vocabPrevious"),
   vocabNext: document.querySelector("#vocabNext"),
   vocabNeedReview: document.querySelector("#vocabNeedReview"),
   vocabGotIt: document.querySelector("#vocabGotIt"),
+  vocabRatingActions: document.querySelector(".vocab-actions .rating-actions"),
   vocabStatus: document.querySelector("#vocabStatus"),
   vocabForm: document.querySelector("#vocabForm"),
   newVocabWord: document.querySelector("#newVocabWord"),
@@ -1119,6 +1129,7 @@ const elements = {
 let editingId = null;
 let reviewTransitionLocked = false;
 let vocabularyTransitionLocked = false;
+const vocabularyRecallMistakes = new Set();
 
 render();
 saveState();
@@ -1184,16 +1195,38 @@ elements.topicFilter.addEventListener("change", () => {
 
 elements.essayTypeFilter.addEventListener("change", () => {
   state.essayType = elements.essayTypeFilter.value;
-  state.vocabIndex = 0;
-  state.vocabFlipped = false;
+  resetVocabularyDeck();
   saveState();
   renderVocabulary({ animate: true });
 });
 
 elements.vocabCategoryFilter.addEventListener("change", () => {
   state.vocabCategory = elements.vocabCategoryFilter.value;
-  state.vocabIndex = 0;
+  resetVocabularyDeck();
+  saveState();
+  renderVocabulary({ animate: true });
+});
+
+elements.vocabRecallMode.addEventListener("change", () => {
+  state.vocabRecallMode = elements.vocabRecallMode.checked;
   state.vocabFlipped = false;
+  saveState();
+  renderVocabulary();
+  if (state.vocabRecallMode) {
+    elements.vocabRecallInput.focus();
+  }
+});
+
+elements.vocabShuffleMode.addEventListener("change", () => {
+  state.vocabShuffle = elements.vocabShuffleMode.checked;
+  resetVocabularyDeck();
+  saveState();
+  renderVocabulary({ animate: true });
+});
+
+elements.vocabMistakesMode.addEventListener("change", () => {
+  state.vocabMistakesOnly = elements.vocabMistakesMode.checked;
+  resetVocabularyDeck();
   saveState();
   renderVocabulary({ animate: true });
 });
@@ -1413,7 +1446,20 @@ elements.makeAllDueButton.addEventListener("click", () => {
 });
 
 elements.vocabCard.addEventListener("click", () => {
+  if (state.vocabRecallMode) {
+    elements.vocabRecallInput.focus();
+    return;
+  }
   toggleVocabularyCard();
+});
+
+elements.vocabRecallForm.addEventListener("submit", (event) => {
+  event.preventDefault();
+  checkVocabularyRecall();
+});
+
+elements.vocabRecallReveal.addEventListener("click", () => {
+  revealVocabularyRecallAnswer();
 });
 
 elements.vocabPrevious.addEventListener("click", () => {
@@ -1772,9 +1818,18 @@ function renderLibrary() {
 function renderVocabulary({ animate = false } = {}) {
   elements.vocabCategoryFilter.value = state.vocabCategory || "all";
   elements.essayTypeFilter.value = state.essayType || "all";
+  elements.vocabRecallMode.checked = Boolean(state.vocabRecallMode);
+  elements.vocabShuffleMode.checked = Boolean(state.vocabShuffle);
+  elements.vocabMistakesMode.checked = Boolean(state.vocabMistakesOnly);
+  elements.vocabHint.textContent = state.vocabRecallMode
+    ? "Напиши значение слова. Enter проверяет ответ."
+    : "Space flips the card. Arrow keys move through words.";
 
   const cards = getVocabularyCards();
   const progress = getVocabularyProgress();
+  elements.vocabRecallForm.classList.toggle("hidden", !state.vocabRecallMode || !cards.length);
+  elements.vocabRatingActions.classList.toggle("hidden", state.vocabRecallMode);
+  elements.vocabCard.classList.toggle("is-recall-mode", state.vocabRecallMode);
 
   elements.vocabPosition.textContent = `${cards.length ? state.vocabIndex + 1 : 0} / ${cards.length}`;
   elements.vocabAccuracy.textContent = `${progress.accuracy}%`;
@@ -1790,7 +1845,9 @@ function renderVocabulary({ animate = false } = {}) {
     elements.vocabTags.innerHTML = "";
     elements.vocabPrevious.disabled = true;
     elements.vocabNext.disabled = true;
-    elements.vocabStatus.textContent = "Try a different category or essay type filter.";
+    elements.vocabStatus.textContent = state.vocabMistakesOnly
+      ? "Ошибок в выбранной категории пока нет."
+      : "Try a different category or essay type filter.";
     return;
   }
 
@@ -1817,6 +1874,14 @@ function renderVocabulary({ animate = false } = {}) {
   elements.vocabPrevious.disabled = state.vocabIndex === 0;
   elements.vocabNext.disabled = state.vocabIndex === cards.length - 1;
   elements.vocabStatus.textContent = getVocabularyStatusText(card);
+
+  if (elements.vocabRecallForm.dataset.cardId !== card.id) {
+    elements.vocabRecallForm.dataset.cardId = card.id;
+    elements.vocabRecallInput.value = "";
+    elements.vocabRecallInput.disabled = false;
+    elements.vocabRecallSubmit.disabled = false;
+    setVocabularyRecallFeedback("");
+  }
 
   if (animate) {
     playCardEntrance(elements.vocabCard);
@@ -2046,10 +2111,13 @@ async function navigateVocabulary(delta) {
   state.vocabFlipped = false;
   saveState();
   renderVocabulary({ animate: true });
+  if (state.vocabRecallMode) {
+    elements.vocabRecallInput.focus();
+  }
   vocabularyTransitionLocked = false;
 }
 
-async function rateVocabularyCard(result) {
+async function rateVocabularyCard(result, { alreadyRecorded = false } = {}) {
   if (vocabularyTransitionLocked) {
     return;
   }
@@ -2059,19 +2127,10 @@ async function rateVocabularyCard(result) {
     return;
   }
 
-  const progress = state.vocabProgress[card.id] || { got: 0, review: 0, lastResult: null };
-
-  if (result === "got") {
-    progress.got += 1;
-    progress.lastResult = "Got it";
-  } else {
-    progress.review += 1;
-    progress.lastResult = "Need Review";
+  if (!alreadyRecorded) {
+    recordVocabularyResult(card, result);
+    saveState();
   }
-
-  progress.lastReviewedAt = new Date().toISOString();
-  state.vocabProgress[card.id] = progress;
-  saveState();
 
   vocabularyTransitionLocked = true;
   await playCardExit(
@@ -2079,11 +2138,83 @@ async function rateVocabularyCard(result) {
     result === "got" ? "is-dismissing-right" : "is-dismissing-left"
   );
   const cards = getVocabularyCards();
-  state.vocabIndex = Math.min(state.vocabIndex + 1, Math.max(0, cards.length - 1));
+  const currentIndex = cards.findIndex((item) => item.id === card.id);
+  state.vocabIndex = cards.length
+    ? currentIndex === -1
+      ? Math.min(state.vocabIndex, cards.length - 1)
+      : (currentIndex + 1) % cards.length
+    : 0;
   state.vocabFlipped = false;
   saveState();
   renderVocabulary({ animate: true });
+  if (state.vocabRecallMode && cards.length) {
+    elements.vocabRecallInput.focus();
+  }
   vocabularyTransitionLocked = false;
+}
+
+async function checkVocabularyRecall() {
+  if (vocabularyTransitionLocked) {
+    return;
+  }
+
+  const card = getCurrentVocabularyCard();
+  const answer = elements.vocabRecallInput.value.trim();
+  if (!card || !answer) {
+    setVocabularyRecallFeedback("Сначала напиши значение.", "wrong");
+    return;
+  }
+
+  if (!isVocabularyRecallCorrect(answer, card)) {
+    if (!vocabularyRecallMistakes.has(card.id)) {
+      vocabularyRecallMistakes.add(card.id);
+      recordVocabularyResult(card, "review");
+      saveState();
+    }
+    setVocabularyRecallFeedback("Пока не совпало. Попробуй еще раз.", "wrong");
+    return;
+  }
+
+  vocabularyRecallMistakes.delete(card.id);
+  recordVocabularyResult(card, "got");
+  saveState();
+  elements.vocabRecallInput.disabled = true;
+  elements.vocabRecallSubmit.disabled = true;
+  setVocabularyRecallFeedback(`Правильно · ${card.translationRu || card.definition}`, "correct");
+  await wait(650);
+  await rateVocabularyCard("got", { alreadyRecorded: true });
+}
+
+function revealVocabularyRecallAnswer() {
+  const card = getCurrentVocabularyCard();
+  if (!card) {
+    return;
+  }
+
+  if (!vocabularyRecallMistakes.has(card.id)) {
+    vocabularyRecallMistakes.add(card.id);
+    recordVocabularyResult(card, "review");
+    saveState();
+  }
+  state.vocabFlipped = true;
+  saveState();
+  elements.vocabCardInner.classList.add("is-flipped");
+  elements.vocabCard.classList.add("is-answer-visible");
+  syncVocabularyAccessibility(card);
+  setVocabularyRecallFeedback(`Ответ: ${card.translationRu || card.definition}`, "wrong");
+}
+
+function recordVocabularyResult(card, result) {
+  const progress = state.vocabProgress[card.id] || { got: 0, review: 0, lastResult: null };
+  if (result === "got") {
+    progress.got += 1;
+    progress.lastResult = "Got it";
+  } else {
+    progress.review += 1;
+    progress.lastResult = "Need Review";
+  }
+  progress.lastReviewedAt = new Date().toISOString();
+  state.vocabProgress[card.id] = progress;
 }
 
 function syncReviewFlipState() {
@@ -2176,6 +2307,10 @@ function prefersReducedMotion() {
   return window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 }
 
+function wait(duration) {
+  return new Promise((resolve) => window.setTimeout(resolve, duration));
+}
+
 function getCurrentVocabularyCard() {
   const cards = getVocabularyCards();
   state.vocabIndex = clampIndex(state.vocabIndex, cards.length);
@@ -2183,17 +2318,52 @@ function getCurrentVocabularyCard() {
 }
 
 function getVocabularyCards() {
+  const cards = getFilteredVocabularyCards();
+  if (!state.vocabShuffle) {
+    return cards;
+  }
+
+  const order = new Map((state.vocabOrder || []).map((id, index) => [id, index]));
+  return [...cards].sort((left, right) => {
+    const leftIndex = order.has(left.id) ? order.get(left.id) : Number.MAX_SAFE_INTEGER;
+    const rightIndex = order.has(right.id) ? order.get(right.id) : Number.MAX_SAFE_INTEGER;
+    return leftIndex - rightIndex;
+  });
+}
+
+function getFilteredVocabularyCards() {
   const cards = [...VOCABULARY_FLASHCARDS, ...state.customVocabulary];
   const categoryFilteredCards =
     !state.vocabCategory || state.vocabCategory === "all"
       ? cards
       : cards.filter((card) => card.category === state.vocabCategory);
+  const essayFilteredCards =
+    !state.essayType || state.essayType === "all"
+      ? categoryFilteredCards
+      : categoryFilteredCards.filter((card) => (card.essayTypes || []).includes(state.essayType));
 
-  if (!state.essayType || state.essayType === "all") {
-    return categoryFilteredCards;
+  if (!state.vocabMistakesOnly) {
+    return essayFilteredCards;
   }
 
-  return categoryFilteredCards.filter((card) => (card.essayTypes || []).includes(state.essayType));
+  return essayFilteredCards.filter((card) => state.vocabProgress[card.id]?.lastResult === "Need Review");
+}
+
+function resetVocabularyDeck() {
+  state.vocabIndex = 0;
+  state.vocabFlipped = false;
+  state.vocabOrder = state.vocabShuffle
+    ? shuffleValues(getFilteredVocabularyCards().map((card) => card.id))
+    : [];
+}
+
+function shuffleValues(values) {
+  const shuffled = [...values];
+  for (let index = shuffled.length - 1; index > 0; index -= 1) {
+    const randomIndex = Math.floor(Math.random() * (index + 1));
+    [shuffled[index], shuffled[randomIndex]] = [shuffled[randomIndex], shuffled[index]];
+  }
+  return shuffled;
 }
 
 function getVocabularyProgress() {
@@ -2219,6 +2389,79 @@ function getVocabularyStatusText(card) {
   }
 
   return `${progress.lastResult} · got ${progress.got || 0} · review ${progress.review || 0}`;
+}
+
+function setVocabularyRecallFeedback(message, type = "") {
+  elements.vocabRecallFeedback.textContent = message;
+  elements.vocabRecallFeedback.classList.toggle("is-correct", type === "correct");
+  elements.vocabRecallFeedback.classList.toggle("is-wrong", type === "wrong");
+  elements.vocabRecallForm.classList.remove("is-correct", "is-wrong");
+  if (type) {
+    void elements.vocabRecallForm.offsetWidth;
+    elements.vocabRecallForm.classList.add(`is-${type}`);
+  }
+}
+
+function isVocabularyRecallCorrect(answer, card) {
+  const answerTokens = getRecallTokens(answer);
+  const referenceTokens = getRecallTokens(`${card.translationRu || ""} ${card.definition || ""}`);
+  if (!answerTokens.length || !referenceTokens.length) {
+    return false;
+  }
+
+  return answerTokens.some((answerToken) =>
+    referenceTokens.some((referenceToken) => areRecallTokensSimilar(answerToken, referenceToken))
+  );
+}
+
+function getRecallTokens(value) {
+  const ignored = new Set([
+    "and", "the", "that", "this", "with", "from", "into", "more", "very", "used", "using", "something", "someone",
+    "для", "или", "это", "как", "при", "что", "быть", "очень", "более", "такой", "когда", "чтобы", "который"
+  ]);
+  return String(value || "")
+    .toLowerCase()
+    .replaceAll("ё", "е")
+    .replace(/[^a-zа-я0-9]+/gi, " ")
+    .trim()
+    .split(/\s+/)
+    .filter((token) => token.length >= 3 && !ignored.has(token));
+}
+
+function areRecallTokensSimilar(left, right) {
+  if (left === right) {
+    return true;
+  }
+  const shortestLength = Math.min(left.length, right.length);
+  if (shortestLength >= 5 && commonPrefixLength(left, right) >= 5) {
+    return true;
+  }
+  return shortestLength >= 5 && Math.abs(left.length - right.length) <= 1 && levenshteinDistance(left, right) <= 1;
+}
+
+function commonPrefixLength(left, right) {
+  let index = 0;
+  while (index < left.length && index < right.length && left[index] === right[index]) {
+    index += 1;
+  }
+  return index;
+}
+
+function levenshteinDistance(left, right) {
+  const previous = Array.from({ length: right.length + 1 }, (_, index) => index);
+  for (let leftIndex = 1; leftIndex <= left.length; leftIndex += 1) {
+    const current = [leftIndex];
+    for (let rightIndex = 1; rightIndex <= right.length; rightIndex += 1) {
+      const substitutionCost = left[leftIndex - 1] === right[rightIndex - 1] ? 0 : 1;
+      current[rightIndex] = Math.min(
+        current[rightIndex - 1] + 1,
+        previous[rightIndex] + 1,
+        previous[rightIndex - 1] + substitutionCost
+      );
+    }
+    previous.splice(0, previous.length, ...current);
+  }
+  return previous[right.length];
 }
 
 function getCurrentCard() {
@@ -2459,6 +2702,10 @@ function loadState() {
       answeredCardId: parsed.answeredCardId || null,
       vocabIndex: Number.isFinite(parsed.vocabIndex) ? parsed.vocabIndex : 0,
       vocabFlipped: Boolean(parsed.vocabFlipped),
+      vocabRecallMode: Boolean(parsed.vocabRecallMode),
+      vocabShuffle: Boolean(parsed.vocabShuffle),
+      vocabMistakesOnly: Boolean(parsed.vocabMistakesOnly),
+      vocabOrder: Array.isArray(parsed.vocabOrder) ? parsed.vocabOrder.filter((id) => typeof id === "string") : [],
       vocabProgress: normalizeVocabularyProgress(parsed.vocabProgress),
       essayType: parsed.essayType === "all" || parsed.essayType in ESSAY_TYPE_LABELS ? parsed.essayType : "all",
       vocabCategory:
@@ -2489,6 +2736,10 @@ function defaultState(cards = []) {
     answeredCardId: null,
     vocabIndex: 0,
     vocabFlipped: false,
+    vocabRecallMode: false,
+    vocabShuffle: false,
+    vocabMistakesOnly: false,
+    vocabOrder: [],
     vocabProgress: {},
     customVocabulary: [],
     essayType: "all",
