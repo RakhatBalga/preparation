@@ -873,6 +873,8 @@ const elements = {
 };
 
 let editingId = null;
+let reviewTransitionLocked = false;
+let vocabularyTransitionLocked = false;
 
 render();
 saveState();
@@ -941,7 +943,7 @@ elements.essayTypeFilter.addEventListener("change", () => {
   state.vocabIndex = 0;
   state.vocabFlipped = false;
   saveState();
-  renderVocabulary();
+  renderVocabulary({ animate: true });
 });
 
 elements.vocabCategoryFilter.addEventListener("change", () => {
@@ -949,7 +951,7 @@ elements.vocabCategoryFilter.addEventListener("change", () => {
   state.vocabIndex = 0;
   state.vocabFlipped = false;
   saveState();
-  renderVocabulary();
+  renderVocabulary({ animate: true });
 });
 
 elements.modeButtons.forEach((button) => {
@@ -1215,7 +1217,7 @@ elements.vocabForm.addEventListener("submit", (event) => {
   state.vocabFlipped = false;
   elements.vocabForm.reset();
   saveState();
-  renderVocabulary();
+  renderVocabulary({ animate: true });
 });
 
 document.addEventListener("keydown", (event) => {
@@ -1498,7 +1500,7 @@ function renderLibrary() {
     .join("");
 }
 
-function renderVocabulary() {
+function renderVocabulary({ animate = false } = {}) {
   elements.vocabCategoryFilter.value = state.vocabCategory || "all";
   elements.essayTypeFilter.value = state.essayType || "all";
 
@@ -1541,9 +1543,14 @@ function renderVocabulary() {
     .filter(Boolean)
     .join("");
   elements.vocabCardInner.classList.toggle("is-flipped", state.vocabFlipped);
+  elements.vocabCard.classList.toggle("is-answer-visible", state.vocabFlipped);
   elements.vocabPrevious.disabled = state.vocabIndex === 0;
   elements.vocabNext.disabled = state.vocabIndex === cards.length - 1;
   elements.vocabStatus.textContent = getVocabularyStatusText(card);
+
+  if (animate) {
+    playCardEntrance(elements.vocabCard);
+  }
 }
 
 function answerCurrentCard(optionKey) {
@@ -1629,11 +1636,26 @@ function resetProgress(card) {
   card.lastReviewedAt = null;
 }
 
-function navigateReview(delta, options = {}) {
+async function navigateReview(delta, options = {}) {
+  if (reviewTransitionLocked) {
+    return;
+  }
+
   const cardsBefore = getReviewCards();
   if (!cardsBefore.length) {
     return;
   }
+
+  const targetIndexBeforeReview = clampIndex(state.currentIndex + delta, cardsBefore.length);
+  if (targetIndexBeforeReview === state.currentIndex && !state.answerVisible) {
+    return;
+  }
+
+  reviewTransitionLocked = true;
+  await playCardExit(
+    elements.reviewArea.querySelector(".review-card"),
+    delta > 0 ? "is-dismissing-left" : "is-dismissing-right"
+  );
 
   const previousIndex = state.currentIndex;
   const previousCard =
@@ -1659,19 +1681,31 @@ function navigateReview(delta, options = {}) {
   }
 
   render();
+  reviewTransitionLocked = false;
 }
 
-function jumpToReviewCard(index) {
+async function jumpToReviewCard(index) {
+  if (reviewTransitionLocked || index === state.currentIndex) {
+    return;
+  }
+
   const cards = getReviewCards();
   if (!cards.length) {
     return;
   }
+
+  reviewTransitionLocked = true;
+  await playCardExit(
+    elements.reviewArea.querySelector(".review-card"),
+    index > state.currentIndex ? "is-dismissing-left" : "is-dismissing-right"
+  );
 
   state.currentIndex = clampIndex(index, cards.length);
   state.currentId = cards[state.currentIndex] ? cards[state.currentIndex].id : null;
   resetAnswerView();
   saveState();
   render();
+  reviewTransitionLocked = false;
 }
 
 function openCardInAnswers(cardId) {
@@ -1696,13 +1730,13 @@ function showAnswer() {
   state.answeredCardId = card ? card.id : null;
   state.answerVisible = true;
   saveState();
-  render();
+  syncReviewFlipState();
 }
 
 function hideAnswer() {
   resetAnswerView();
   saveState();
-  render();
+  syncReviewFlipState();
 }
 
 function toggleAnswerVisibility() {
@@ -1721,18 +1755,39 @@ function toggleAnswerVisibility() {
 function toggleVocabularyCard() {
   state.vocabFlipped = !state.vocabFlipped;
   saveState();
-  renderVocabulary();
+  elements.vocabCardInner.classList.toggle("is-flipped", state.vocabFlipped);
+  elements.vocabCard.classList.toggle("is-answer-visible", state.vocabFlipped);
 }
 
-function navigateVocabulary(delta) {
-  state.vocabIndex = clampIndex(state.vocabIndex + delta, getVocabularyCards().length);
+async function navigateVocabulary(delta) {
+  const cards = getVocabularyCards();
+  const targetIndex = clampIndex(state.vocabIndex + delta, cards.length);
+  if (vocabularyTransitionLocked || targetIndex === state.vocabIndex) {
+    return;
+  }
+
+  vocabularyTransitionLocked = true;
+  await playCardExit(
+    elements.vocabCard,
+    delta > 0 ? "is-dismissing-left" : "is-dismissing-right"
+  );
+  state.vocabIndex = targetIndex;
   state.vocabFlipped = false;
   saveState();
-  renderVocabulary();
+  renderVocabulary({ animate: true });
+  vocabularyTransitionLocked = false;
 }
 
-function rateVocabularyCard(result) {
+async function rateVocabularyCard(result) {
+  if (vocabularyTransitionLocked) {
+    return;
+  }
+
   const card = getCurrentVocabularyCard();
+  if (!card) {
+    return;
+  }
+
   const progress = state.vocabProgress[card.id] || { got: 0, review: 0, lastResult: null };
 
   if (result === "got") {
@@ -1746,7 +1801,85 @@ function rateVocabularyCard(result) {
   progress.lastReviewedAt = new Date().toISOString();
   state.vocabProgress[card.id] = progress;
   saveState();
-  renderVocabulary();
+
+  vocabularyTransitionLocked = true;
+  await playCardExit(
+    elements.vocabCard,
+    result === "got" ? "is-dismissing-right" : "is-dismissing-left"
+  );
+  const cards = getVocabularyCards();
+  state.vocabIndex = Math.min(state.vocabIndex + 1, Math.max(0, cards.length - 1));
+  state.vocabFlipped = false;
+  saveState();
+  renderVocabulary({ animate: true });
+  vocabularyTransitionLocked = false;
+}
+
+function syncReviewFlipState() {
+  const reviewCard = elements.reviewArea.querySelector(".review-card");
+  if (!reviewCard) {
+    return;
+  }
+
+  const showAnswer = state.mode !== "practice" || state.answerVisible;
+  reviewCard.classList.toggle("is-answer-visible", showAnswer);
+  reviewCard.setAttribute("aria-expanded", String(showAnswer));
+}
+
+function playCardEntrance(cardElement) {
+  if (!cardElement) {
+    return;
+  }
+
+  cardElement.classList.remove("is-entering", "is-dismissing-left", "is-dismissing-right");
+  if (prefersReducedMotion()) {
+    return;
+  }
+
+  requestAnimationFrame(() => {
+    requestAnimationFrame(() => {
+      cardElement.classList.add("is-entering");
+      const finishEntrance = (event) => {
+        if (event.target !== cardElement) {
+          return;
+        }
+        cardElement.classList.remove("is-entering");
+        cardElement.removeEventListener("animationend", finishEntrance);
+      };
+      cardElement.addEventListener("animationend", finishEntrance);
+    });
+  });
+}
+
+function playCardExit(cardElement, directionClass) {
+  if (!cardElement || prefersReducedMotion()) {
+    return Promise.resolve();
+  }
+
+  cardElement.classList.remove("is-entering", "is-dismissing-left", "is-dismissing-right");
+
+  return new Promise((resolve) => {
+    let completed = false;
+    const finish = (event) => {
+      if (event && event.target !== cardElement) {
+        return;
+      }
+      if (completed) {
+        return;
+      }
+      completed = true;
+      cardElement.removeEventListener("animationend", finish);
+      resolve();
+    };
+
+    cardElement.addEventListener("animationend", finish);
+    requestAnimationFrame(() => cardElement.classList.add(directionClass));
+    window.setTimeout(finish, 420);
+  });
+}
+
+function prefersReducedMotion() {
+  return window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 }
 
 function getCurrentVocabularyCard() {
