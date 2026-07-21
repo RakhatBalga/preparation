@@ -72,7 +72,7 @@ const VOCABULARY_FLASHCARDS = [
     "englishWord": "of paramount importance",
     "pronunciation": "/əv ˈpærəmaʊnt ɪmˈpɔːrtəns/",
     "pronunciationKk": "ов пэрэмаунт импортанс",
-    "definition": "Исключительно важный, первостепенной важности.",
+    "definition": "Extremely important or more important than anything else.",
     "partOfSpeech": "phrase",
     "exampleSentence": "Road safety is of paramount importance to governments worldwide.",
     "essayTypes": [
@@ -87,7 +87,7 @@ const VOCABULARY_FLASHCARDS = [
     "englishWord": "prevailing view",
     "pronunciation": "/prɪˈveɪlɪŋ vjuː/",
     "pronunciationKk": "привэйлиң вью",
-    "definition": "Преобладающее мнение, общепринятая точка зрения.",
+    "definition": "An opinion or belief that is most common or widely accepted.",
     "partOfSpeech": "noun phrase",
     "exampleSentence": "The prevailing view holds that technology improves education, though not everyone agrees.",
     "essayTypes": [
@@ -102,7 +102,7 @@ const VOCABULARY_FLASHCARDS = [
     "englishWord": "on the grounds that",
     "pronunciation": "/ɒn ðə ˈɡraʊndz ðæt/",
     "pronunciationKk": "он зэ граундз зэт",
-    "definition": "На том основании, что / по причине того, что.",
+    "definition": "Because of a particular reason or justification.",
     "partOfSpeech": "conjunction phrase",
     "exampleSentence": "She rejected the proposal on the grounds that it was too expensive.",
     "essayTypes": [
@@ -116,7 +116,7 @@ const VOCABULARY_FLASHCARDS = [
     "englishWord": "owing to",
     "pronunciation": "/ˈoʊɪŋ tuː/",
     "pronunciationKk": "оуиң ту",
-    "definition": "Благодаря, вследствие, из-за.",
+    "definition": "Because of, or as a result of, a particular cause.",
     "partOfSpeech": "preposition",
     "exampleSentence": "Owing to limited funding, the project was delayed by a year.",
     "essayTypes": [
@@ -131,7 +131,7 @@ const VOCABULARY_FLASHCARDS = [
     "englishWord": "exemplified by",
     "pronunciation": "/ɪɡˈzemplɪfaɪd baɪ/",
     "pronunciationKk": "игзэмплифайд бай",
-    "definition": "Иллюстрируется, примером чего служит.",
+    "definition": "Clearly illustrated or demonstrated by a specific example.",
     "partOfSpeech": "verb phrase",
     "exampleSentence": "The trend is exemplified by the rapid growth of remote work since 2020.",
     "essayTypes": [
@@ -146,7 +146,7 @@ const VOCABULARY_FLASHCARDS = [
     "englishWord": "a pressing issue",
     "pronunciation": "/ə ˈpresɪŋ ˈɪʃuː/",
     "pronunciationKk": "э прэсиң ишу",
-    "definition": "Острая/неотложная проблема.",
+    "definition": "An urgent and important problem that requires immediate attention.",
     "partOfSpeech": "noun phrase",
     "exampleSentence": "Climate change remains a pressing issue for policymakers.",
     "essayTypes": [
@@ -161,7 +161,7 @@ const VOCABULARY_FLASHCARDS = [
     "englishWord": "play a pivotal role in",
     "pronunciation": "/pleɪ ə ˈpɪvətəl roʊl ɪn/",
     "pronunciationKk": "плэй э пивотал роул ин",
-    "definition": "Играть ключевую/решающую роль в.",
+    "definition": "To be extremely important in determining an outcome.",
     "partOfSpeech": "verb phrase",
     "exampleSentence": "Education plays a pivotal role in reducing poverty.",
     "essayTypes": [
@@ -176,7 +176,7 @@ const VOCABULARY_FLASHCARDS = [
     "englishWord": "give rise to",
     "pronunciation": "/ɡɪv raɪz tuː/",
     "pronunciationKk": "гив райз ту",
-    "definition": "Приводить к, порождать, вызывать.",
+    "definition": "To cause something to happen or develop.",
     "partOfSpeech": "verb phrase",
     "exampleSentence": "Rapid urbanization has given rise to serious traffic congestion.",
     "essayTypes": [
@@ -191,7 +191,7 @@ const VOCABULARY_FLASHCARDS = [
     "englishWord": "have a detrimental impact on",
     "pronunciation": "/hæv ə ˌdetrɪˈmentəl ˈɪmpækt ɒn/",
     "pronunciationKk": "хэв э дэтримэнтал импэкт он",
-    "definition": "Оказывать пагубное/негативное влияние на.",
+    "definition": "To cause serious harm or negative effects to something.",
     "partOfSpeech": "verb phrase",
     "exampleSentence": "Excessive screen time can have a detrimental impact on children's sleep.",
     "essayTypes": [
@@ -206,7 +206,7 @@ const VOCABULARY_FLASHCARDS = [
     "englishWord": "strike a balance between",
     "pronunciation": "/straɪk ə ˈbæləns bɪˈtwiːn/",
     "pronunciationKk": "страйк э бэлэнс битвин",
-    "definition": "Найти баланс/равновесие между.",
+    "definition": "To achieve a reasonable compromise between two competing needs or interests.",
     "partOfSpeech": "verb phrase",
     "exampleSentence": "Governments must strike a balance between economic growth and environmental protection.",
     "essayTypes": [
@@ -221,7 +221,7 @@ const VOCABULARY_FLASHCARDS = [
     "englishWord": "place a strain on",
     "pronunciation": "/pleɪs ə streɪn ɒn/",
     "pronunciationKk": "плэйс э стрэйн он",
-    "definition": "Создавать нагрузку на, обременять.",
+    "definition": "To put excessive pressure or demands on a person, system, or resource.",
     "partOfSpeech": "verb phrase",
     "exampleSentence": "A growing population places a strain on public healthcare systems.",
     "essayTypes": [
@@ -236,7 +236,7 @@ const VOCABULARY_FLASHCARDS = [
     "englishWord": "mitigate the effects of",
     "pronunciation": "/ˈmɪtɪɡeɪt ði ɪˈfekts əv/",
     "pronunciationKk": "митигэйт зи ифэктс ов",
-    "definition": "Смягчать/снижать последствия.",
+    "definition": "To make harmful consequences less severe or easier to manage.",
     "partOfSpeech": "verb phrase",
     "exampleSentence": "Renewable energy can help mitigate the effects of climate change.",
     "essayTypes": [
@@ -250,7 +250,7 @@ const VOCABULARY_FLASHCARDS = [
     "englishWord": "foster a sense of",
     "pronunciation": "/ˈfɒstər ə sens əv/",
     "pronunciationKk": "фостэр э сэнс ов",
-    "definition": "Способствовать формированию, воспитывать (чувство/атмосферу).",
+    "definition": "To encourage the development of a particular feeling, quality, or atmosphere.",
     "partOfSpeech": "verb phrase",
     "exampleSentence": "Team projects foster a sense of collaboration among students.",
     "essayTypes": [
@@ -280,7 +280,7 @@ const VOCABULARY_FLASHCARDS = [
     "englishWord": "cognitive development",
     "pronunciation": "",
     "pronunciationKk": "",
-    "definition": "Умственное развитие; a more academic replacement for 'brain is developing'.",
+    "definition": "The growth of a person's ability to think, understand, learn, and solve problems.",
     "partOfSpeech": "noun phrase",
     "exampleSentence": "Learning a foreign language at school can support children's cognitive development.",
     "essayTypes": [
@@ -295,7 +295,7 @@ const VOCABULARY_FLASHCARDS = [
     "englishWord": "formative years",
     "pronunciation": "",
     "pronunciationKk": "",
-    "definition": "Годы становления, ранний формирующий период; useful when discussing long-term impact at a young age.",
+    "definition": "The early period of life when a person's character, abilities, and attitudes develop.",
     "partOfSpeech": "noun phrase",
     "exampleSentence": "Habits developed during the formative years often influence a person's future academic performance.",
     "essayTypes": [
@@ -310,7 +310,7 @@ const VOCABULARY_FLASHCARDS = [
     "englishWord": "absorb information",
     "pronunciation": "",
     "pronunciationKk": "",
-    "definition": "Усваивать информацию; more natural than saying 'learn easier'.",
+    "definition": "To understand and remember new knowledge or ideas.",
     "partOfSpeech": "verb phrase",
     "exampleSentence": "Young learners often absorb information more effectively when lessons are interactive.",
     "essayTypes": [
@@ -325,7 +325,7 @@ const VOCABULARY_FLASHCARDS = [
     "englishWord": "academic workload",
     "pronunciation": "",
     "pronunciationKk": "",
-    "definition": "Учебная нагрузка; a precise phrase for the amount of schoolwork students have.",
+    "definition": "The amount of study, assignments, and other academic work required of a student.",
     "partOfSpeech": "noun phrase",
     "exampleSentence": "An excessive academic workload can reduce students' motivation and mental well-being.",
     "essayTypes": [
@@ -340,7 +340,7 @@ const VOCABULARY_FLASHCARDS = [
     "englishWord": "age-appropriate methods",
     "pronunciation": "",
     "pronunciationKk": "",
-    "definition": "Методы, соответствующие возрасту; a general academic way to describe suitable teaching methods.",
+    "definition": "Teaching techniques or activities designed to suit learners at a particular age.",
     "partOfSpeech": "noun phrase",
     "exampleSentence": "Foreign languages should be taught through age-appropriate methods rather than pressure and memorization.",
     "essayTypes": [
@@ -355,7 +355,7 @@ const VOCABULARY_FLASHCARDS = [
     "englishWord": "linguistic confusion / interference",
     "pronunciation": "",
     "pronunciationKk": "",
-    "definition": "Путаница между языками; an academic term for mixing up words or structures from different languages.",
+    "definition": "Difficulty caused when one language affects the understanding or use of another.",
     "partOfSpeech": "noun phrase",
     "exampleSentence": "Some parents worry that early bilingual education may cause linguistic interference.",
     "essayTypes": [
@@ -370,7 +370,7 @@ const VOCABULARY_FLASHCARDS = [
     "englishWord": "long-term retention",
     "pronunciation": "",
     "pronunciationKk": "",
-    "definition": "Долгосрочное запоминание; stronger than simple memorization when discussing lasting benefit.",
+    "definition": "The ability to remember information for an extended period.",
     "partOfSpeech": "noun phrase",
     "exampleSentence": "Regular practice is essential for long-term retention of new vocabulary.",
     "essayTypes": [
@@ -385,7 +385,7 @@ const VOCABULARY_FLASHCARDS = [
     "englishWord": "outweigh the drawbacks / outweigh the benefits",
     "pronunciation": "",
     "pronunciationKk": "",
-    "definition": "Перевешивать недостатки/преимущества; useful for stating a clear final position.",
+    "definition": "To be more significant or influential than the disadvantages or advantages being compared.",
     "partOfSpeech": "verb phrase",
     "exampleSentence": "In my view, the benefits of early language learning outweigh the drawbacks.",
     "essayTypes": [
@@ -400,7 +400,7 @@ const VOCABULARY_FLASHCARDS = [
     "englishWord": "provided that",
     "pronunciation": "",
     "pronunciationKk": "",
-    "definition": "При условии, что; a precise conditional connector stronger than 'if'.",
+    "definition": "Only if a particular condition is satisfied.",
     "partOfSpeech": "conjunction",
     "exampleSentence": "Children can benefit from learning another language provided that the lessons are age-appropriate.",
     "essayTypes": [
@@ -415,7 +415,7 @@ const VOCABULARY_FLASHCARDS = [
     "englishWord": "a case can be made that",
     "pronunciation": "",
     "pronunciationKk": "",
-    "definition": "Можно утверждать, что; good for introducing a nuanced opinion.",
+    "definition": "A phrase used to introduce a reasonable argument or supportable point of view.",
     "partOfSpeech": "introductory phrase",
     "exampleSentence": "A case can be made that early language education improves both communication skills and confidence.",
     "essayTypes": [
@@ -430,7 +430,7 @@ const VOCABULARY_FLASHCARDS = [
     "englishWord": "not without merit",
     "pronunciation": "",
     "pronunciationKk": "",
-    "definition": "Не лишено смысла; useful for acknowledging an opposing view without fully agreeing.",
+    "definition": "Having some value or validity despite possible weaknesses.",
     "partOfSpeech": "phrase",
     "exampleSentence": "The argument against homework is not without merit, especially when children already face a heavy workload.",
     "essayTypes": [
@@ -445,7 +445,7 @@ const VOCABULARY_FLASHCARDS = [
     "englishWord": "to a certain extent",
     "pronunciation": "",
     "pronunciationKk": "",
-    "definition": "В определённой степени; a natural hedge for nuanced academic positions.",
+    "definition": "Partly, but not completely.",
     "partOfSpeech": "adverbial phrase",
     "exampleSentence": "To a certain extent, technology can replace traditional classroom activities.",
     "essayTypes": [
@@ -460,7 +460,7 @@ const VOCABULARY_FLASHCARDS = [
     "englishWord": "far outweighs any potential drawback",
     "pronunciation": "",
     "pronunciationKk": "",
-    "definition": "Значительно перевешивает любые возможные недостатки.",
+    "definition": "To be substantially more important than any possible disadvantage.",
     "partOfSpeech": "verb phrase",
     "exampleSentence": "The long-term value of bilingual education far outweighs any potential drawback.",
     "essayTypes": [
