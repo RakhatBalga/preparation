@@ -1131,6 +1131,7 @@ const elements = {
 let editingId = null;
 let reviewTransitionLocked = false;
 let vocabularyTransitionLocked = false;
+let vocabularyCheckLocked = false;
 const vocabularyRecallMistakes = new Set();
 
 render();
@@ -2167,7 +2168,7 @@ async function rateVocabularyCard(result, { alreadyRecorded = false } = {}) {
 }
 
 async function checkVocabularyRecall() {
-  if (vocabularyTransitionLocked) {
+  if (vocabularyTransitionLocked || vocabularyCheckLocked) {
     return;
   }
 
@@ -2178,13 +2179,36 @@ async function checkVocabularyRecall() {
     return;
   }
 
-  if (!isVocabularyRecallCorrect(answer, card)) {
+  let accepted = isVocabularyRecallCorrect(answer, card);
+  let feedback = "";
+
+  if (!accepted) {
+    vocabularyCheckLocked = true;
+    elements.vocabRecallSubmit.disabled = true;
+    setVocabularyRecallFeedback("Gemini проверяет значение...");
+
+    try {
+      const result = await checkVocabularyWithGemini(card, answer);
+      accepted = result.accepted;
+      feedback = result.feedback;
+    } catch {
+      setVocabularyRecallFeedback("Gemini сейчас недоступен. Попробуй проверить ответ ещё раз.", "wrong");
+      elements.vocabRecallSubmit.disabled = false;
+      vocabularyCheckLocked = false;
+      return;
+    }
+
+    vocabularyCheckLocked = false;
+    elements.vocabRecallSubmit.disabled = false;
+  }
+
+  if (!accepted) {
     if (!vocabularyRecallMistakes.has(card.id)) {
       vocabularyRecallMistakes.add(card.id);
       recordVocabularyResult(card, "review");
       saveState();
     }
-    setVocabularyRecallFeedback("Пока не совпало. Попробуй еще раз.", "wrong");
+    setVocabularyRecallFeedback(feedback || "Пока не совпало. Попробуй ещё раз.", "wrong");
     return;
   }
 
@@ -2193,10 +2217,31 @@ async function checkVocabularyRecall() {
   saveState();
   elements.vocabRecallInput.disabled = true;
   elements.vocabRecallSubmit.disabled = true;
-  setVocabularyRecallFeedback(`Правильно · ${card.translationRu || card.definition}`, "correct");
+  setVocabularyRecallFeedback(
+    `${feedback || "Правильно"} · ${card.translationRu || card.definition}`,
+    "correct"
+  );
   elements.vocabRecallReveal.classList.add("hidden");
   elements.vocabRecallRetry.classList.add("hidden");
   elements.vocabRecallContinue.classList.remove("hidden");
+}
+
+async function checkVocabularyWithGemini(card, answer) {
+  const response = await fetch("/api/check-vocabulary", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      word: card.englishWord,
+      definition: card.definition,
+      translation: card.translationRu,
+      answer
+    })
+  });
+  const result = await response.json();
+  if (!response.ok || typeof result.accepted !== "boolean") {
+    throw new Error(result.error || "Gemini check failed.");
+  }
+  return result;
 }
 
 function revealVocabularyRecallAnswer() {
