@@ -2214,9 +2214,13 @@ async function checkVocabularyRecall() {
 
   vocabularyRecallMistakes.delete(card.id);
   recordVocabularyResult(card, "got");
+  state.vocabFlipped = true;
   saveState();
   elements.vocabRecallInput.disabled = true;
   elements.vocabRecallSubmit.disabled = true;
+  elements.vocabCardInner.classList.add("is-flipped");
+  elements.vocabCard.classList.add("is-answer-visible");
+  syncVocabularyAccessibility(card);
   setVocabularyRecallFeedback(
     `${feedback || "Правильно"} · ${card.translationRu || card.definition}`,
     "correct"
