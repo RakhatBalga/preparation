@@ -826,6 +826,21 @@ const VOCABULARY_FLASHCARDS = [
       ],
       "category": "general-academic",
       "translationRu": "марки или модели более низкого качества"
+  },
+  {
+      "id": "vocab-057",
+      "englishWord": "peers",
+      "pronunciation": "/pɪəz/",
+      "pronunciationKk": "пиэрз",
+      "definition": "People of the same age, social position, ability, or professional level.",
+      "partOfSpeech": "plural noun",
+      "exampleSentence": "Students often learn more confidently when they can discuss difficult ideas with their peers.",
+      "essayTypes": [
+          "opinion",
+          "discussion"
+      ],
+      "category": "education",
+      "translationRu": "сверстники; равные по положению или уровню"
   }
 ];
 
