@@ -1038,6 +1038,10 @@ select:focus {
   width: 100%;
 }
 
+.vocab-session-restart {
+  margin-top: 12px;
+}
+
 .vocab-actions .rating-actions {
   justify-content: center;
 }

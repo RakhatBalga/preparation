@@ -1216,6 +1216,7 @@ const elements = {
   vocabGotIt: document.querySelector("#vocabGotIt"),
   vocabRatingActions: document.querySelector(".vocab-actions .rating-actions"),
   vocabStatus: document.querySelector("#vocabStatus"),
+  vocabRestartSession: document.querySelector("#vocabRestartSession"),
   vocabForm: document.querySelector("#vocabForm"),
   newVocabWord: document.querySelector("#newVocabWord"),
   newVocabPronunciation: document.querySelector("#newVocabPronunciation"),
@@ -1323,8 +1324,13 @@ elements.vocabCategoryFilter.addEventListener("change", () => {
 
 elements.vocabRecallMode.addEventListener("change", () => {
   state.vocabRecallMode = elements.vocabRecallMode.checked;
-  state.vocabFlipped = false;
-  vocabularyExampleCardId = null;
+  if (state.vocabRecallMode && state.vocabShuffle) {
+    resetVocabularyDeck();
+  } else {
+    state.vocabFlipped = false;
+    state.vocabSessionComplete = false;
+    vocabularyExampleCardId = null;
+  }
   saveState();
   renderVocabulary();
   if (state.vocabRecallMode) {
@@ -1630,6 +1636,13 @@ elements.vocabPrevious.addEventListener("click", () => {
 
 elements.vocabNext.addEventListener("click", () => {
   navigateVocabulary(1);
+});
+
+elements.vocabRestartSession.addEventListener("click", () => {
+  resetVocabularyDeck();
+  saveState();
+  renderVocabulary({ animate: true });
+  elements.vocabRecallInput.focus();
 });
 
 elements.vocabGotIt.addEventListener("click", () => {
@@ -2018,12 +2031,16 @@ function renderVocabulary({ animate = false } = {}) {
 
   const cards = getVocabularyCards();
   const progress = getVocabularyProgress();
-  elements.vocabRecallForm.classList.toggle("hidden", !state.vocabRecallMode || !cards.length);
+  const sessionComplete = isVocabularySessionComplete(cards);
+  elements.vocabRecallForm.classList.toggle("hidden", !state.vocabRecallMode || !cards.length || sessionComplete);
   elements.vocabRatingActions.classList.toggle("hidden", state.vocabRecallMode);
   elements.vocabCard.classList.toggle("is-recall-mode", state.vocabRecallMode);
+  elements.vocabRestartSession.classList.toggle("hidden", !sessionComplete);
   syncVocabularyRecallActions();
 
-  elements.vocabPosition.textContent = `${cards.length ? state.vocabIndex + 1 : 0} / ${cards.length}`;
+  elements.vocabPosition.textContent = sessionComplete
+    ? `${cards.length} / ${cards.length}`
+    : `${cards.length ? state.vocabIndex + 1 : 0} / ${cards.length}`;
   elements.vocabAccuracy.textContent = `${progress.accuracy}%`;
 
   if (!cards.length) {
@@ -2044,7 +2061,31 @@ function renderVocabulary({ animate = false } = {}) {
     return;
   }
 
+  if (sessionComplete) {
+    elements.vocabWord.textContent = "Сессия завершена";
+    elements.vocabPronunciation.textContent = `${cards.length} ${pluralize(cards.length, ["слово пройдено", "слова пройдены", "слов пройдено"])} без повторов.`;
+    elements.vocabPronunciationKk.textContent = "";
+    elements.vocabPartOfSpeech.textContent = "";
+    elements.vocabDefinition.textContent = "";
+    elements.vocabTranslation.textContent = "";
+    elements.vocabExample.textContent = "";
+    elements.vocabTags.innerHTML = "";
+    elements.vocabCardInner.classList.remove("is-flipped");
+    elements.vocabCard.classList.remove("is-answer-visible");
+    elements.vocabCard.disabled = true;
+    elements.vocabCard.setAttribute("aria-label", "Сессия завершена. Начните новую сессию.");
+    elements.vocabCard.setAttribute("aria-expanded", "false");
+    elements.vocabCardFront.setAttribute("aria-hidden", "false");
+    elements.vocabCardBack.setAttribute("aria-hidden", "true");
+    elements.vocabPrevious.disabled = true;
+    elements.vocabNext.disabled = true;
+    elements.vocabStatus.textContent = "Начни новую сессию, чтобы получить новый случайный порядок.";
+    syncVocabularyRecallExample(null);
+    return;
+  }
+
   const card = getCurrentVocabularyCard();
+  elements.vocabCard.disabled = false;
 
   elements.vocabWord.textContent = card.englishWord;
   elements.vocabPronunciation.textContent = card.pronunciation || "";
@@ -2473,17 +2514,21 @@ async function rateVocabularyCard(result, { alreadyRecorded = false } = {}) {
   );
   const cards = getVocabularyCards();
   const currentIndex = cards.findIndex((item) => item.id === card.id);
-  state.vocabIndex = cards.length
-    ? currentIndex === -1
-      ? Math.min(state.vocabIndex, cards.length - 1)
-      : (currentIndex + 1) % cards.length
-    : 0;
+  const completesSession = state.vocabRecallMode && state.vocabShuffle && currentIndex === cards.length - 1;
+  state.vocabSessionComplete = completesSession;
+  state.vocabIndex = completesSession
+    ? Math.max(0, cards.length - 1)
+    : cards.length
+      ? currentIndex === -1
+        ? Math.min(state.vocabIndex, cards.length - 1)
+        : (currentIndex + 1) % cards.length
+      : 0;
   state.vocabFlipped = false;
   vocabularyExampleCardId = null;
   elements.vocabRecallForm.dataset.cardId = "";
   saveState();
   renderVocabulary({ animate: true });
-  if (state.vocabRecallMode && cards.length) {
+  if (state.vocabRecallMode && cards.length && !state.vocabSessionComplete) {
     elements.vocabRecallInput.focus();
   }
   vocabularyTransitionLocked = false;
@@ -2787,10 +2832,15 @@ function getFilteredVocabularyCards() {
 function resetVocabularyDeck() {
   state.vocabIndex = 0;
   state.vocabFlipped = false;
+  state.vocabSessionComplete = false;
   vocabularyExampleCardId = null;
   state.vocabOrder = state.vocabShuffle
     ? shuffleValues(getFilteredVocabularyCards().map((card) => card.id))
     : [];
+}
+
+function isVocabularySessionComplete(cards = getVocabularyCards()) {
+  return Boolean(state.vocabRecallMode && state.vocabShuffle && state.vocabSessionComplete && cards.length);
 }
 
 function shuffleValues(values) {
@@ -3154,6 +3204,7 @@ function loadState() {
       vocabRecallMode: Boolean(parsed.vocabRecallMode),
       vocabShuffle: Boolean(parsed.vocabShuffle),
       vocabMistakesOnly: Boolean(parsed.vocabMistakesOnly),
+      vocabSessionComplete: Boolean(parsed.vocabSessionComplete),
       vocabOrder: Array.isArray(parsed.vocabOrder) ? parsed.vocabOrder.filter((id) => typeof id === "string") : [],
       vocabProgress: normalizeVocabularyProgress(parsed.vocabProgress),
       essayType: parsed.essayType === "all" || parsed.essayType in ESSAY_TYPE_LABELS ? parsed.essayType : "all",
@@ -3192,6 +3243,7 @@ function defaultState(cards = []) {
     vocabRecallMode: false,
     vocabShuffle: false,
     vocabMistakesOnly: false,
+    vocabSessionComplete: false,
     vocabOrder: [],
     vocabProgress: {},
     customVocabulary: [],
