@@ -1889,7 +1889,7 @@ function renderQuestionRecall(card) {
     <form class="vocab-recall question-recall ${formClass}" data-question-recall novalidate>
       <label for="questionRecallInput">
         <span>Напиши ответ своими словами</span>
-        <textarea id="questionRecallInput" rows="4" ${isLocked ? "disabled" : ""} placeholder="Можно отвечать на русском или английском">${escapeHtml(state.questionRecallDraft || "")}</textarea>
+        <textarea id="questionRecallInput" rows="4" ${isLocked ? "disabled" : ""} placeholder="Напиши ответ своими словами">${escapeHtml(state.questionRecallDraft || "")}</textarea>
       </label>
       <button class="button button-primary" data-question-recall-submit type="submit" ${isLocked ? "disabled" : ""}>Проверить</button>
       <div class="vocab-recall-feedback ${status === "correct" ? "is-correct" : status === "wrong" || status === "revealed" ? "is-wrong" : ""}" data-question-recall-feedback role="status" aria-live="polite">${escapeHtml(state.questionRecallFeedback || "")}</div>
@@ -2531,6 +2531,8 @@ async function checkVocabularyRecall() {
       saveState();
     }
     setVocabularyRecallFeedback(feedback || "Пока не совпало. Попробуй ещё раз.", "wrong");
+    elements.vocabRecallRetry.classList.remove("hidden");
+    elements.vocabRecallContinue.classList.add("hidden");
     return;
   }
 
