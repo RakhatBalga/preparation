@@ -1148,6 +1148,18 @@ const VOCABULARY_FLASHCARDS = [
       "essayTypes": ["opinion", "problem-solution"],
       "category": "education",
       "translationRu": "оснащённый, оборудованный, подготовленный"
+  },
+  {
+      "id": "vocab-083",
+      "englishWord": "scandalous",
+      "pronunciation": "/ˈskændələs/",
+      "pronunciationKk": "скэндэлэс",
+      "definition": "Shockingly wrong, unfair, or unacceptable and likely to cause public outrage.",
+      "partOfSpeech": "adjective",
+      "exampleSentence": "The investigation exposed a scandalous misuse of public funds by senior officials.",
+      "essayTypes": ["opinion", "discussion", "problem-solution"],
+      "category": "society",
+      "translationRu": "скандальный, возмутительный, недопустимый"
   }
 ];
 
