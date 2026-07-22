@@ -1088,6 +1088,18 @@ const VOCABULARY_FLASHCARDS = [
       "essayTypes": ["opinion", "discussion", "advantages-disadvantages"],
       "category": "general-academic",
       "translationRu": "хотя, несмотря на то что"
+  },
+  {
+      "id": "vocab-078",
+      "englishWord": "nevertheless",
+      "pronunciation": "/ˌnevəðəˈles/",
+      "pronunciationKk": "нэвэзэлэс",
+      "definition": "Despite what has just been mentioned; used to introduce a contrasting point.",
+      "partOfSpeech": "linking adverb",
+      "exampleSentence": "Public transport requires substantial investment; nevertheless, its long-term benefits outweigh the initial costs.",
+      "essayTypes": ["opinion", "discussion", "advantages-disadvantages"],
+      "category": "general-academic",
+      "translationRu": "тем не менее, всё же, несмотря на это"
   }
 ];
 
