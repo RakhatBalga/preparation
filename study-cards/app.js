@@ -1203,6 +1203,9 @@ const elements = {
   vocabRecallForm: document.querySelector("#vocabRecallForm"),
   vocabRecallInput: document.querySelector("#vocabRecallInput"),
   vocabRecallSubmit: document.querySelector("#vocabRecallSubmit"),
+  vocabRecallExampleToggle: document.querySelector("#vocabRecallExampleToggle"),
+  vocabRecallExample: document.querySelector("#vocabRecallExample"),
+  vocabRecallExampleText: document.querySelector("#vocabRecallExampleText"),
   vocabRecallFeedback: document.querySelector("#vocabRecallFeedback"),
   vocabRecallReveal: document.querySelector("#vocabRecallReveal"),
   vocabRecallRetry: document.querySelector("#vocabRecallRetry"),
@@ -1230,6 +1233,7 @@ let reviewTransitionLocked = false;
 let questionCheckLocked = false;
 let vocabularyTransitionLocked = false;
 let vocabularyCheckLocked = false;
+let vocabularyExampleCardId = null;
 const questionRecallMistakes = new Set();
 const vocabularyRecallMistakes = new Set();
 
@@ -1320,6 +1324,7 @@ elements.vocabCategoryFilter.addEventListener("change", () => {
 elements.vocabRecallMode.addEventListener("change", () => {
   state.vocabRecallMode = elements.vocabRecallMode.checked;
   state.vocabFlipped = false;
+  vocabularyExampleCardId = null;
   saveState();
   renderVocabulary();
   if (state.vocabRecallMode) {
@@ -1601,6 +1606,10 @@ elements.vocabCard.addEventListener("click", () => {
 elements.vocabRecallForm.addEventListener("submit", (event) => {
   event.preventDefault();
   checkVocabularyRecall();
+});
+
+elements.vocabRecallExampleToggle.addEventListener("click", () => {
+  toggleVocabularyRecallExample();
 });
 
 elements.vocabRecallReveal.addEventListener("click", () => {
@@ -2031,6 +2040,7 @@ function renderVocabulary({ animate = false } = {}) {
     elements.vocabStatus.textContent = state.vocabMistakesOnly
       ? "Ошибок в выбранной категории пока нет."
       : "Try a different category or essay type filter.";
+    syncVocabularyRecallExample(null);
     return;
   }
 
@@ -2060,12 +2070,14 @@ function renderVocabulary({ animate = false } = {}) {
 
   if (elements.vocabRecallForm.dataset.cardId !== card.id) {
     elements.vocabRecallForm.dataset.cardId = card.id;
+    vocabularyExampleCardId = null;
     elements.vocabRecallInput.value = "";
     elements.vocabRecallInput.disabled = false;
     elements.vocabRecallSubmit.disabled = false;
     setVocabularyRecallFeedback("");
     syncVocabularyRecallActions();
   }
+  syncVocabularyRecallExample(card);
 
   if (animate) {
     playCardEntrance(elements.vocabCard);
@@ -2430,6 +2442,7 @@ async function navigateVocabulary(delta) {
   );
   state.vocabIndex = targetIndex;
   state.vocabFlipped = false;
+  vocabularyExampleCardId = null;
   saveState();
   renderVocabulary({ animate: true });
   if (state.vocabRecallMode) {
@@ -2466,6 +2479,7 @@ async function rateVocabularyCard(result, { alreadyRecorded = false } = {}) {
       : (currentIndex + 1) % cards.length
     : 0;
   state.vocabFlipped = false;
+  vocabularyExampleCardId = null;
   elements.vocabRecallForm.dataset.cardId = "";
   saveState();
   renderVocabulary({ animate: true });
@@ -2523,6 +2537,7 @@ async function checkVocabularyRecall() {
   vocabularyRecallMistakes.delete(card.id);
   recordVocabularyResult(card, "got");
   state.vocabFlipped = true;
+  vocabularyExampleCardId = null;
   saveState();
   elements.vocabRecallInput.disabled = true;
   elements.vocabRecallSubmit.disabled = true;
@@ -2536,6 +2551,27 @@ async function checkVocabularyRecall() {
   elements.vocabRecallReveal.classList.add("hidden");
   elements.vocabRecallRetry.classList.add("hidden");
   elements.vocabRecallContinue.classList.remove("hidden");
+  syncVocabularyRecallExample(card);
+}
+
+function toggleVocabularyRecallExample() {
+  const card = getCurrentVocabularyCard();
+  if (!card || !card.exampleSentence || state.vocabFlipped) {
+    return;
+  }
+
+  vocabularyExampleCardId = vocabularyExampleCardId === card.id ? null : card.id;
+  syncVocabularyRecallExample(card);
+}
+
+function syncVocabularyRecallExample(card) {
+  const canShow = Boolean(state.vocabRecallMode && card?.exampleSentence && !state.vocabFlipped);
+  const isVisible = Boolean(canShow && vocabularyExampleCardId === card.id);
+  elements.vocabRecallExampleToggle.classList.toggle("hidden", !canShow);
+  elements.vocabRecallExampleToggle.textContent = isVisible ? "Скрыть пример" : "Показать пример";
+  elements.vocabRecallExampleToggle.setAttribute("aria-expanded", String(isVisible));
+  elements.vocabRecallExample.classList.toggle("hidden", !isVisible);
+  elements.vocabRecallExampleText.textContent = isVisible ? card.exampleSentence : "";
 }
 
 async function checkVocabularyWithGemini(card, answer) {
@@ -2568,12 +2604,14 @@ function revealVocabularyRecallAnswer() {
     saveState();
   }
   state.vocabFlipped = true;
+  vocabularyExampleCardId = null;
   saveState();
   elements.vocabCardInner.classList.add("is-flipped");
   elements.vocabCard.classList.add("is-answer-visible");
   syncVocabularyAccessibility(card);
   setVocabularyRecallFeedback(`Ответ: ${card.translationRu || card.definition}`, "wrong");
   syncVocabularyRecallActions();
+  syncVocabularyRecallExample(card);
 }
 
 function retryVocabularyRecall() {
@@ -2592,6 +2630,7 @@ function retryVocabularyRecall() {
   setVocabularyRecallFeedback("");
   syncVocabularyAccessibility(card);
   syncVocabularyRecallActions();
+  syncVocabularyRecallExample(card);
   elements.vocabRecallInput.focus();
 }
 
@@ -2746,6 +2785,7 @@ function getFilteredVocabularyCards() {
 function resetVocabularyDeck() {
   state.vocabIndex = 0;
   state.vocabFlipped = false;
+  vocabularyExampleCardId = null;
   state.vocabOrder = state.vocabShuffle
     ? shuffleValues(getFilteredVocabularyCards().map((card) => card.id))
     : [];

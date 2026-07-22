@@ -948,6 +948,30 @@ select:focus {
   margin-top: 6px;
 }
 
+.vocab-recall-example-actions {
+  display: flex;
+  justify-content: flex-start;
+}
+
+.vocab-recall-example {
+  border-left: 3px solid var(--accent);
+  background: var(--accent-soft);
+  padding: 12px 14px;
+  animation: example-reveal 260ms cubic-bezier(0.34, 1.56, 0.64, 1) both;
+}
+
+.vocab-recall-example span {
+  color: var(--accent-strong);
+  font-size: 0.85rem;
+  font-weight: 700;
+}
+
+.vocab-recall-example p {
+  margin: 5px 0 0;
+  color: var(--text);
+  line-height: 1.55;
+}
+
 .vocab-recall-feedback {
   min-height: 28px;
   color: var(--muted);
@@ -996,9 +1020,15 @@ select:focus {
   75% { transform: translateX(-3px); }
 }
 
+@keyframes example-reveal {
+  from { opacity: 0; transform: translateY(-6px) scale(0.98); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .vocab-recall,
-  .vocab-recall-feedback {
+  .vocab-recall-feedback,
+  .vocab-recall-example {
     animation: none;
   }
 }

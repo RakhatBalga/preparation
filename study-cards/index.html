@@ -215,6 +215,13 @@
               <button class="button button-primary" id="vocabRecallSubmit" type="submit">Проверить</button>
             </div>
           </label>
+          <div class="vocab-recall-example-actions">
+            <button class="button button-secondary" id="vocabRecallExampleToggle" type="button" aria-expanded="false" aria-controls="vocabRecallExample">Показать пример</button>
+          </div>
+          <div class="vocab-recall-example hidden" id="vocabRecallExample">
+            <span>Пример предложения</span>
+            <p id="vocabRecallExampleText"></p>
+          </div>
           <div class="vocab-recall-feedback" id="vocabRecallFeedback" role="status" aria-live="polite"></div>
           <div class="vocab-recall-secondary-actions">
             <button class="text-button vocab-recall-reveal" id="vocabRecallReveal" type="button">Не помню, показать ответ</button>
