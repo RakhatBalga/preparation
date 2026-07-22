@@ -1112,6 +1112,42 @@ const VOCABULARY_FLASHCARDS = [
       "essayTypes": ["opinion", "discussion"],
       "category": "work",
       "translationRu": "преданность делу, самоотдача, целеустремлённость"
+  },
+  {
+      "id": "vocab-080",
+      "englishWord": "indispensable",
+      "pronunciation": "/ˌɪndɪˈspensəbəl/",
+      "pronunciationKk": "индиспэнсэбл",
+      "definition": "Absolutely necessary and too important to be replaced or omitted.",
+      "partOfSpeech": "adjective",
+      "exampleSentence": "Reliable digital infrastructure has become indispensable to modern education.",
+      "essayTypes": ["opinion", "discussion"],
+      "category": "general-academic",
+      "translationRu": "незаменимый, крайне необходимый"
+  },
+  {
+      "id": "vocab-081",
+      "englishWord": "superior",
+      "pronunciation": "/suːˈpɪəriə/",
+      "pronunciationKk": "супиэриэ",
+      "definition": "Better in quality, effectiveness, or value than another person or thing.",
+      "partOfSpeech": "adjective",
+      "exampleSentence": "Some argue that public transport is superior to private cars in densely populated cities.",
+      "essayTypes": ["opinion", "discussion", "advantages-disadvantages"],
+      "category": "general-academic",
+      "translationRu": "превосходящий, более качественный, лучший"
+  },
+  {
+      "id": "vocab-082",
+      "englishWord": "equipped",
+      "pronunciation": "/ɪˈkwɪpt/",
+      "pronunciationKk": "иквипт",
+      "definition": "Provided with the tools, resources, skills, or knowledge needed for a purpose.",
+      "partOfSpeech": "adjective",
+      "exampleSentence": "Schools must be equipped with modern technology and teachers trained to use it effectively.",
+      "essayTypes": ["opinion", "problem-solution"],
+      "category": "education",
+      "translationRu": "оснащённый, оборудованный, подготовленный"
   }
 ];
 
