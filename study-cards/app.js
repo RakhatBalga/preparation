@@ -1100,6 +1100,18 @@ const VOCABULARY_FLASHCARDS = [
       "essayTypes": ["opinion", "discussion", "advantages-disadvantages"],
       "category": "general-academic",
       "translationRu": "тем не менее, всё же, несмотря на это"
+  },
+  {
+      "id": "vocab-079",
+      "englishWord": "dedication",
+      "pronunciation": "/ˌdedɪˈkeɪʃən/",
+      "pronunciationKk": "дэдикэйшн",
+      "definition": "Strong commitment to a task, purpose, or person over a sustained period.",
+      "partOfSpeech": "noun",
+      "exampleSentence": "Professional success often requires sustained effort, discipline, and dedication.",
+      "essayTypes": ["opinion", "discussion"],
+      "category": "work",
+      "translationRu": "преданность делу, самоотдача, целеустремлённость"
   }
 ];
 
