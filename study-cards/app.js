@@ -1052,6 +1052,42 @@ const VOCABULARY_FLASHCARDS = [
       "essayTypes": ["opinion", "discussion"],
       "category": "society",
       "translationRu": "достойный, исполненный достоинства"
+  },
+  {
+      "id": "vocab-075",
+      "englishWord": "secure",
+      "pronunciation": "/sɪˈkjʊə/",
+      "pronunciationKk": "сикьюэ",
+      "definition": "Safe, stable, and protected from danger, loss, or uncertainty.",
+      "partOfSpeech": "adjective",
+      "exampleSentence": "Governments should ensure that older people have access to secure and affordable housing.",
+      "essayTypes": ["opinion", "problem-solution"],
+      "category": "general-academic",
+      "translationRu": "безопасный, защищённый, надёжный"
+  },
+  {
+      "id": "vocab-076",
+      "englishWord": "genuinely",
+      "pronunciation": "/ˈdʒenjuɪnli/",
+      "pronunciationKk": "джэньюинли",
+      "definition": "Truly, sincerely, or in a way that is real rather than pretended.",
+      "partOfSpeech": "adverb",
+      "exampleSentence": "A policy can succeed only if it genuinely addresses the needs of disadvantaged communities.",
+      "essayTypes": ["opinion", "discussion", "problem-solution"],
+      "category": "general-academic",
+      "translationRu": "действительно, искренне, по-настоящему"
+  },
+  {
+      "id": "vocab-077",
+      "englishWord": "although",
+      "pronunciation": "/ɔːlˈðəʊ/",
+      "pronunciationKk": "олзоу",
+      "definition": "Used to introduce a fact that contrasts with the main statement.",
+      "partOfSpeech": "conjunction",
+      "exampleSentence": "Although remote work offers greater flexibility, it can also lead to professional isolation.",
+      "essayTypes": ["opinion", "discussion", "advantages-disadvantages"],
+      "category": "general-academic",
+      "translationRu": "хотя, несмотря на то что"
   }
 ];
 
