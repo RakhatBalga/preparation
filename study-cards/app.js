@@ -1172,6 +1172,18 @@ const VOCABULARY_FLASHCARDS = [
       "essayTypes": ["problem-solution", "advantages-disadvantages", "discussion"],
       "category": "environment",
       "translationRu": "перегруженность, затор; дорожные пробки"
+  },
+  {
+      "id": "vocab-085",
+      "englishWord": "vivid",
+      "pronunciation": "/ˈvɪvɪd/",
+      "pronunciationKk": "вивид",
+      "definition": "Producing clear, powerful, and detailed images or impressions in the mind.",
+      "partOfSpeech": "adjective",
+      "exampleSentence": "Documentaries can provide vivid examples of how climate change affects local communities.",
+      "essayTypes": ["opinion", "discussion", "problem-solution"],
+      "category": "general-academic",
+      "translationRu": "яркий, живой, отчётливый"
   }
 ];
 
