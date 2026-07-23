@@ -1184,6 +1184,18 @@ const VOCABULARY_FLASHCARDS = [
       "essayTypes": ["opinion", "discussion", "problem-solution"],
       "category": "general-academic",
       "translationRu": "яркий, живой, отчётливый"
+  },
+  {
+      "id": "vocab-086",
+      "englishWord": "carried out",
+      "pronunciation": "/ˌkærid ˈaʊt/",
+      "pronunciationKk": "кэрид аут",
+      "definition": "Performed, conducted, or completed as part of a planned task or investigation.",
+      "partOfSpeech": "phrasal verb",
+      "exampleSentence": "The study was carried out by independent researchers over a five-year period.",
+      "essayTypes": ["opinion", "discussion", "problem-solution"],
+      "category": "general-academic",
+      "translationRu": "проведённый, осуществлённый, выполненный"
   }
 ];
 
