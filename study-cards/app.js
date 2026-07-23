@@ -1160,6 +1160,18 @@ const VOCABULARY_FLASHCARDS = [
       "essayTypes": ["opinion", "discussion", "problem-solution"],
       "category": "society",
       "translationRu": "скандальный, возмутительный, недопустимый"
+  },
+  {
+      "id": "vocab-084",
+      "englishWord": "congestion",
+      "pronunciation": "/kənˈdʒestʃən/",
+      "pronunciationKk": "кэнджэсчэн",
+      "definition": "Excessive crowding or blockage that slows movement, especially on roads.",
+      "partOfSpeech": "noun",
+      "exampleSentence": "Expanding reliable public transport can reduce traffic congestion and urban air pollution.",
+      "essayTypes": ["problem-solution", "advantages-disadvantages", "discussion"],
+      "category": "environment",
+      "translationRu": "перегруженность, затор; дорожные пробки"
   }
 ];
 
