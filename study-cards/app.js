@@ -1220,6 +1220,18 @@ const VOCABULARY_FLASHCARDS = [
       "essayTypes": ["opinion", "discussion"],
       "category": "education",
       "translationRu": "впитывать, жадно усваивать, перенимать"
+  },
+  {
+      "id": "vocab-089",
+      "englishWord": "workload",
+      "pronunciation": "/ˈwɜːkləʊd/",
+      "pronunciationKk": "уорклоуд",
+      "definition": "The amount of work that a person or organisation is expected to complete.",
+      "partOfSpeech": "noun",
+      "exampleSentence": "An excessive workload can reduce productivity and contribute to employee burnout.",
+      "essayTypes": ["opinion", "discussion", "problem-solution"],
+      "category": "work",
+      "translationRu": "рабочая нагрузка, объём работы"
   }
 ];
 
