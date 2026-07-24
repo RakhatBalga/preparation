@@ -1196,6 +1196,30 @@ const VOCABULARY_FLASHCARDS = [
       "essayTypes": ["opinion", "discussion", "problem-solution"],
       "category": "general-academic",
       "translationRu": "проведённый, осуществлённый, выполненный"
+  },
+  {
+      "id": "vocab-087",
+      "englishWord": "absorb",
+      "pronunciation": "/əbˈzɔːb/",
+      "pronunciationKk": "эбзорб",
+      "definition": "To take in and understand information, ideas, or knowledge.",
+      "partOfSpeech": "verb",
+      "exampleSentence": "Children tend to absorb new information more readily when lessons are interactive.",
+      "essayTypes": ["opinion", "discussion", "problem-solution"],
+      "category": "education",
+      "translationRu": "усваивать, впитывать, поглощать"
+  },
+  {
+      "id": "vocab-088",
+      "englishWord": "soak up",
+      "pronunciation": "/ˌsəʊk ˈʌp/",
+      "pronunciationKk": "соук ап",
+      "definition": "To absorb information, knowledge, or an experience eagerly and in large amounts.",
+      "partOfSpeech": "phrasal verb",
+      "exampleSentence": "Young learners can soak up vocabulary through regular exposure to meaningful conversations.",
+      "essayTypes": ["opinion", "discussion"],
+      "category": "education",
+      "translationRu": "впитывать, жадно усваивать, перенимать"
   }
 ];
 
