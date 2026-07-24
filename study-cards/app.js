@@ -1232,6 +1232,18 @@ const VOCABULARY_FLASHCARDS = [
       "essayTypes": ["opinion", "discussion", "problem-solution"],
       "category": "work",
       "translationRu": "рабочая нагрузка, объём работы"
+  },
+  {
+      "id": "vocab-090",
+      "englishWord": "exposure",
+      "pronunciation": "/ɪkˈspəʊʒə/",
+      "pronunciationKk": "икспоужэ",
+      "definition": "The experience of coming into contact with something and being influenced by it.",
+      "partOfSpeech": "noun",
+      "exampleSentence": "Regular exposure to spoken English can significantly improve listening comprehension.",
+      "essayTypes": ["opinion", "discussion", "problem-solution"],
+      "category": "education",
+      "translationRu": "воздействие, знакомство, контакт с чем-либо"
   }
 ];
 
