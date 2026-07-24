@@ -1244,6 +1244,18 @@ const VOCABULARY_FLASHCARDS = [
       "essayTypes": ["opinion", "discussion", "problem-solution"],
       "category": "education",
       "translationRu": "воздействие, знакомство, контакт с чем-либо"
+  },
+  {
+      "id": "vocab-091",
+      "englishWord": "firmly",
+      "pronunciation": "/ˈfɜːmli/",
+      "pronunciationKk": "фёмли",
+      "definition": "In a strong, definite, or determined way that is unlikely to change.",
+      "partOfSpeech": "adverb",
+      "exampleSentence": "I firmly believe that preventive healthcare should receive greater public investment.",
+      "essayTypes": ["opinion", "discussion"],
+      "category": "general-academic",
+      "translationRu": "твёрдо, решительно, уверенно"
   }
 ];
 
