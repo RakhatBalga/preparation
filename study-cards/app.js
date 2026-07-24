@@ -1256,6 +1256,18 @@ const VOCABULARY_FLASHCARDS = [
       "essayTypes": ["opinion", "discussion"],
       "category": "general-academic",
       "translationRu": "твёрдо, решительно, уверенно"
+  },
+  {
+      "id": "vocab-092",
+      "englishWord": "trials",
+      "pronunciation": "/ˈtraɪəlz/",
+      "pronunciationKk": "трайэлз",
+      "definition": "Planned tests or experiments used to evaluate the safety, effectiveness, or performance of something.",
+      "partOfSpeech": "plural noun",
+      "exampleSentence": "New medicines must undergo extensive clinical trials before they are approved for public use.",
+      "essayTypes": ["opinion", "discussion", "problem-solution"],
+      "category": "general-academic",
+      "translationRu": "испытания, исследования; судебные процессы"
   }
 ];
 
